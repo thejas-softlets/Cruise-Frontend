@@ -47,7 +47,7 @@ const lifeMoments = [
   {
     title: "Starlit Deck Dining",
     subtitle: "Freshly prepared lake-to-table cuisine under the evening sky",
-    image: media("Fine dining on the cruise deck at twilight", "/images/meals/dinner-fine.webp"),
+    image: media("Fine dining terrace on the cruise deck at sunset", "/images/vessels/sc-deck-sunset.webp"),
     span: "col-span-12 lg:col-span-7",
   },
 ];
@@ -117,7 +117,7 @@ export default async function HomePage() {
       </section>
 
       {/* Life on the water — photographic moments showcase */}
-      <section className="border-t border-ink/6 bg-white py-28">
+      <section className="border-t border-ink/6 bg-white pt-28 pb-40 sm:pb-48">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <FadeIn>
             <div className="flex flex-wrap items-end justify-between gap-6">
@@ -161,7 +161,7 @@ export default async function HomePage() {
       </section>
 
       {/* Curated Expeditions — full-bleed image band */}
-      <section className="relative py-28">
+      <section className="relative overflow-hidden py-32 sm:py-36">
         <ParallaxImage
           asset={packages[1]?.heroImage ?? packages[0]?.heroImage}
           className="absolute inset-0 h-[120%]"
