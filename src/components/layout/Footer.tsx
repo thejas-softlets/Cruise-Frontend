@@ -33,15 +33,18 @@ export async function Footer() {
 
         <div className="grid gap-10 md:grid-cols-[1.2fr_2fr_1.2fr]">
           <div>
-            <Link href="/" className="inline-flex items-center gap-3">
+            <Link
+              href="/"
+              aria-label={SITE.name}
+              className="inline-block transition-opacity duration-300 hover:opacity-85"
+            >
               <Image
                 src="/images/logo/summer-cruise-logo.webp"
-                alt=""
-                width={48}
-                height={48}
-                className="size-10 shrink-0 rounded-full object-contain ring-1 ring-ink/10"
+                alt={SITE.name}
+                width={200}
+                height={52}
+                className="h-11 w-auto object-contain"
               />
-              <p className="font-display text-2xl font-semibold text-ink">{SITE.name}</p>
             </Link>
             <p className="mt-2 max-w-xs text-sm leading-relaxed text-text-muted">
               {t("footer.tagline")}

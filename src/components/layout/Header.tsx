@@ -67,24 +67,16 @@ export function Header() {
         <Link
           href="/"
           aria-label={SITE.name}
-          className={cn(
-            "group inline-flex items-center gap-2 transition-colors duration-500",
-            onDark ? "text-white" : "text-ink",
-          )}
+          className="group inline-flex items-center transition-opacity duration-300 hover:opacity-85"
         >
           <Image
-            src="/images/logo/summer-cruise-logo.webp"
-            alt=""
-            width={40}
-            height={40}
-            className={cn(
-              "size-8 shrink-0 rounded-full object-contain ring-1 ring-white/20 transition-opacity duration-500 group-hover:opacity-85",
-              onDark ? "bg-white/10" : "bg-ink/5",
-            )}
+            src={onDark ? "/images/logo/summer-cruise-logo-white.webp" : "/images/logo/summer-cruise-logo.webp"}
+            alt={SITE.name}
+            width={180}
+            height={46}
+            className="h-9 w-auto object-contain sm:h-10"
+            priority
           />
-          <span className="font-display text-lg font-semibold tracking-[0.06em] sm:text-xl">
-            Summer&nbsp;Cruise
-          </span>
         </Link>
 
         {/* Desktop nav — compact pill links */}
