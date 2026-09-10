@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+/*
+ * Summer Cruise design tokens — light, airy editorial luxury.
+ * Cream base, soft champagne accents, generous rounding. Dark obsidian is
+ * reserved for image scrims and the closing CTA band only.
+ */
+@theme {
+  --color-bg-base: #faf9f6; /* cream */
+  --color-bg-elevated: #ffffff;
+  --color-obsidian: #1a2430; /* soft charcoal-navy — scrims, CTA band, text on gold */
+  --color-charcoal: #2a3542;
+  --color-ink: #22262b; /* near-black text on light */
+  --color-text-primary: #22262b;
+  --color-text-muted: #6b7280;
+  --color-teal: #b89b74; /* legacy name kept; champagne sand */
+  --color-teal-deep: #1a2430;
+  --color-gold: #c9a86a; /* warm champagne */
+  --color-gold-bright: #a8823f; /* deeper gold — readable on cream */
+  --color-sage: #9db4a4;
+  --color-dark: #1a2430; /* legacy name kept */
+  --color-dark-text: #f6f5f1; /* soft off-white */
+
+  --font-display: var(--font-caacupe), var(--font-jakarta), system-ui, sans-serif;
+  --font-secondary: var(--font-roboto-condensed), system-ui, sans-serif;
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-body: var(--font-jakarta), system-ui, sans-serif;
+  --font-roboto: var(--font-roboto-condensed), system-ui, sans-serif;
+  --font-script: var(--font-script), cursive;
+
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.65;
+
+  --breakpoint-xs: 30rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Decorative marquee track — pauses on hover, off under reduced motion. */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee-scroll 36s linear infinite;
+}
+
+.group:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--color-bg-base);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-gold);
+  color: #fff;
+}
+
+/* Gold focus ring everywhere — the luxury micro-signal. */
+:focus-visible {
+  outline: 2px solid var(--color-gold-bright);
+  outline-offset: 2px;
+}
+
+/* Elegant thin scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: #c9c4b8;
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
+
+/* Print: strip chrome so "Download / Print Summary" stays clean. */
+@media print {
+  header,
+  footer,
+  .print\:hidden {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    font-size: 12pt;
+  }
+  main {
+    padding: 0 !important;
+  }
+}

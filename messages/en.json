@@ -1,0 +1,398 @@
+{
+  "common": {
+    "brand": "Summer Cruise",
+    "callUs": "Call us",
+    "whatsapp": "WhatsApp us",
+    "whatsappMessage": "Hi Summer Cruise! I'd like to know more about your cruises.",
+    "enquire": "Enquire",
+    "enquireNow": "Enquire now",
+    "bookNow": "Book now",
+    "viewAll": "View all",
+    "learnMore": "Learn more",
+    "viewPackage": "View package",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "sending": "Sending…",
+    "indicative": "Indicative",
+    "from": "From",
+    "perPax": "per pax",
+    "nights": "{count} night(s)",
+    "days": "{count} days",
+    "printSummary": "Download / Print Summary",
+    "printHint": "Use your browser's Print dialog and choose “Save as PDF”.",
+    "home": "Home",
+    "backHome": "Back to home",
+    "skipToContent": "Skip to main content",
+    "close": "Close",
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "photoComingSoon": "Photo coming soon",
+    "languageLabel": "Language",
+    "switchTo": "Bahasa Malaysia",
+    "errorGeneric": "Something went wrong sending your enquiry. Please try again, or reach us on WhatsApp.",
+    "required": "Required"
+  },
+  "meta": {
+    "home": { "title": "Summer Cruise — Luxury Houseboat Cruises on Kenyir Lake", "description": "Private houseboat cruises on Kenyir Lake, Terengganu. Two vessels, curated packages, and a warm crew. Enquire online or via WhatsApp." },
+    "vessels": { "title": "Our Vessels", "description": "Meet Summer Cruise and Green Horizon — our two purpose-built houseboats on Kenyir Lake." },
+    "packages": { "title": "Cruise Packages", "description": "Browse 3D2N and 4D3N Kenyir Lake cruise packages with full board, excursions and activities included." },
+    "offers": { "title": "Offers & Specials", "description": "Current offers — early bird savings, family getaways, honeymoons, group discounts and more." },
+    "experiences": { "title": "Experiences", "description": "Excursions and activities on Kenyir Lake — waterfalls, caves, fishing, kayaking and more." },
+    "theLake": { "title": "The Lake — Kenyir, Terengganu", "description": "Everything to know about Kenyir Lake: when to visit and how to get there." },
+    "privateCharter": { "title": "Private Charter", "description": "Charter an entire houseboat for your group — weddings, corporate retreats, family reunions." },
+    "gallery": { "title": "Gallery", "description": "Photos and videos of our vessels, rooms, the lake, experiences and our guests." },
+    "about": { "title": "About Us", "description": "Our story, sustainability, safety and dining on board Summer Cruise." },
+    "journal": { "title": "Journal", "description": "Stories, guides and travel tips for planning your Kenyir Lake trip." },
+    "reviews": { "title": "Guest Reviews", "description": "What our guests say about their Kenyir Lake cruise." },
+    "howItWorks": { "title": "How It Works", "description": "Booking with Summer Cruise is simple — five steps, no account needed." },
+    "brochure": { "title": "Brochure", "description": "Download our brochure or request it by WhatsApp or email." },
+    "giftVouchers": { "title": "Gift Vouchers", "description": "Give a Kenyir Lake cruise as a gift — voucher enquiries open." },
+    "contact": { "title": "Contact", "description": "Reach us by phone, WhatsApp, email or the enquiry form." },
+    "checkIn": { "title": "Check In", "description": "Online check-in for confirmed bookings — booking code and last name only." },
+    "faqs": { "title": "FAQs", "description": "Answers about booking, payment, life on board and check-in." },
+    "sitemap": { "title": "Sitemap", "description": "Every page on the Summer Cruise site, grouped and linked." },
+    "privacy": { "title": "Privacy Policy", "description": "How Summer Cruise collects and protects your personal data." },
+    "terms": { "title": "Terms & Conditions", "description": "Booking terms and conditions for Summer Cruise." }
+  },
+  "nav": {
+    "vessels": "Vessels",
+    "packages": "Packages",
+    "offers": "Offers",
+    "experiences": "Experiences",
+    "theLake": "The Lake",
+    "gallery": "Gallery",
+    "about": "About",
+    "journal": "Journal",
+    "contact": "Contact",
+    "howItWorks": "How It Works"
+  },
+  "home": {
+    "heroScript": "welcome aboard",
+    "heroTitle": "Private Houseboat Expeditions",
+    "heroDesc": "Private houseboat cruises on Kenyir Lake, Terengganu. Two vessels, one quiet lake, and a crew that knows it by heart.",
+    "finder": { "title": "Find your cruise", "destination": "Destination", "destinationValue": "Kenyir Lake, Terengganu", "vessel": "Vessel", "vesselAny": "Any vessel", "date": "Departure", "dateAny": "Flexible — ask us", "submit": "Search" },
+    "destinationsScript": "the lake",
+    "vesselsScript": "the fleet",
+    "vesselsTitle": "Our vessels",
+    "vesselsLine": "Two houseboats, one quiet lake.",
+    "capacityBadge": "Sleeps {count}",
+    "packagesScript": "voyages",
+    "packagesTitle": "Featured packages",
+    "offersTeaserTitle": "Current offer",
+    "experiencesTitle": "On the lake",
+    "reviewsScript": "guest words",
+    "reviewsTitle": "What guests say",
+    "journalTitle": "From the journal",
+    "ctaScript": "see you on the water",
+    "ctaTitle": "Ready when you are.",
+    "ctaLine": "Enquire online, or message us on WhatsApp — we reply within 24 hours.",
+    "durationBadge": "{nights}D{daysMinusOne}N"
+  },
+  "vessels": {
+    "hubTitle": "Our vessels",
+    "hubLine": "Two purpose-built houseboats, each with its own character.",
+    "capacity": "{count} guests",
+    "rooms": "{count} rooms",
+    "detailCta": "See cruises on this vessel",
+    "galleryTitle": "On board"
+  },
+  "packages": {
+    "hubTitle": "Cruise packages",
+    "hubLine": "Every package is full board with a dedicated crew.",
+    "filterVessel": "Vessel",
+    "filterDuration": "Duration",
+    "filterRoom": "Room",
+    "filterAll": "All",
+    "clearFilters": "Clear filters",
+    "noResults": "No packages match those filters yet — try clearing one.",
+    "overview": "Overview",
+    "itinerary": "Itinerary",
+    "rooms": "Rooms",
+    "inclusions": "Included",
+    "exclusions": "Not included",
+    "experiences": "Experiences on this cruise",
+    "reviews": "Guest reviews",
+    "enquireTitle": "Enquire about this package",
+    "enquireLine": "Tell us your dates — we'll WhatsApp you a personalised quote within 24 hours.",
+    "day": "Day {n}",
+    "meals": "Meals",
+    "occupancy": "Sleeps {count}",
+    "relatedNote": "Prices are indicative and confirmed only in your personalised quote."
+  },
+  "offers": {
+    "hubTitle": "Offers & specials",
+    "hubLine": "Simple savings, for the way you actually travel.",
+    "eligibility": "Who it's for",
+    "discount": "The offer",
+    "validDates": "Valid for travel",
+    "validDatesValue": "{start} – {end}",
+    "applicablePackages": "Applies to these packages",
+    "terms": "Terms & conditions",
+    "enquireTitle": "Enquire with this offer",
+    "enquireLine": "We'll check availability and WhatsApp you within 24 hours."
+  },
+  "experiences": {
+    "hubTitle": "Experiences",
+    "hubLine": "Add excursions and activities to any cruise.",
+    "tabExcursions": "Excursions",
+    "tabActivities": "Activities",
+    "includedIn": "Included in these packages",
+    "backToHub": "All experiences"
+  },
+  "lake": {
+    "title": "Kenyir Lake",
+    "subtitle": "One of the largest man-made lakes in Southeast Asia — 260,000 hectares of rainforest islands.",
+    "overviewTitle": "The lake",
+    "bestTimeTitle": "Best time to visit",
+    "gettingThereTitle": "Getting there",
+    "byRoadTitle": "1. By road",
+    "nearestAirportTitle": "2. Nearest airport",
+    "jettyTitle": "3. The jetty",
+    "exploreExperiences": "Explore experiences",
+    "explorePackages": "See cruise packages"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "A look at life on the lake.",
+    "all": "All",
+    "cat": {
+      "vessels": "Vessels",
+      "rooms": "Rooms",
+      "lake": "Lake",
+      "experiences": "Experiences",
+      "guests": "Guests"
+    }
+  },
+  "about": {
+    "hubTitle": "About us",
+    "hubLine": "Small team, big lake, long memories.",
+    "pages": {
+      "our-story": {
+        "title": "Our story",
+        "intro": "How a family outfit became one of Kenyir's most-loved cruise operators.",
+        "sections": {
+          "beginnings": { "title": "Beginnings (2016)", "body": "Summer Cruise began with one boat, one family, and a simple idea: the best way to feel Kenyir Lake is slowly, from the water." },
+          "growth": { "title": "Green Horizon joins (2021)", "body": "A second, larger vessel let us welcome bigger families and private groups without losing the quiet, personal feel." },
+          "today": { "title": "Today", "body": "Two vessels, a crew of twelve — many from villages around the lake — and thousands of guests who arrived as strangers and left as friends." }
+        }
+      },
+      "sustainability": {
+        "title": "Sustainability",
+        "intro": "The lake gives us everything. Here's how we give back.",
+        "sections": {
+          "lake": { "title": "Lake conservation", "body": "No single-use plastics on board, greywater managed at the jetty, and a monthly crew clean-up of shoreline sites we visit." },
+          "community": { "title": "Community", "body": "Most of our crew live around Kenyir. We buy fish, fruit and crafts from village cooperatives, and every charter contributes to the local school fund." },
+          "wildlife": { "title": "Wildlife first", "body": "We follow a strict wildlife-watching code: no feeding, no baiting, engine-off near nesting sites, and night sounds kept low." }
+        }
+      },
+      "safety-and-wellbeing": {
+        "title": "Safety & wellbeing",
+        "intro": "Plain-language answers to “is it safe?” — yes, and here's exactly why.",
+        "sections": {
+          "crew": { "title": "Trained crew", "body": "Every crew member is certified in first aid and water rescue, and re-certified every year. A licensed captain is on board at all times." },
+          "equipment": { "title": "On board every vessel", "body": "Life jackets for every guest (including children's sizes), fire extinguishers in every room, satellite phone, first-aid station, and life rafts rated beyond capacity." },
+          "weather": { "title": "Weather calls", "body": "We check the forecast with the meteorology department twice daily. If weather turns, we reroute to sheltered inlets — your safety beats your schedule, every time." }
+        }
+      },
+      "dining-and-cuisine": {
+        "title": "Dining & cuisine",
+        "intro": "Fresh, generous Terengganu cooking — served on the deck, lake all around.",
+        "sections": {
+          "meals": { "title": "Meals on board", "body": "All packages are full board: breakfast, lunch, tea and dinner. Expect Terengganu classics — fresh lake fish, keropok lekor, gulai terung — cooked by our on-board chefs." },
+          "dietary": { "title": "Dietary needs", "body": "Tell us when you enquire: vegetarian, halal (always), kids' portions, allergies. Everything is prepared fresh in our galley." },
+          "occasions": { "title": "Occasions", "body": "Birthdays, anniversaries, proposals — tell us and the crew will set the deck with cake, lanterns and a view that does the rest." }
+        }
+      }
+    }
+  },
+  "journal": {
+    "hubTitle": "Journal",
+    "hubLine": "Guides and stories for planning your trip.",
+    "relatedTitle": "Keep reading",
+    "ctaTitle": "Turn this story into a trip",
+    "ctaLine": "See the package this article is about."
+  },
+  "reviews": {
+    "title": "Guest reviews",
+    "subtitle": "In our guests' own words.",
+    "filterVessel": "Vessel",
+    "filterPackage": "Package",
+    "filterAll": "All"
+  },
+  "howItWorks": {
+    "title": "How it works",
+    "subtitle": "Booking with us is simple — five steps, no account needed.",
+    "steps": {
+      "browse": { "title": "1. Browse", "body": "Look through our packages and offers online — no sign-up, no pressure." },
+      "enquire": { "title": "2. Enquire", "body": "Send the form here, message us on WhatsApp, or just call. Whichever you prefer." },
+      "quote": { "title": "3. Get your quote", "body": "Within 24 hours we send your personalised quote — by WhatsApp, email or phone, your choice." },
+      "confirm": { "title": "4. Confirm & pay", "body": "Happy with it? We send simple payment instructions. Bank transfer, card or cash at our office." },
+      "board": { "title": "5. Check in & board", "body": "Arrive at the jetty, show your booking code, step on board. That's it." }
+    },
+    "faqTitle": "Quick questions",
+    "faqs": {
+      "account": { "q": "Do I need to create an account?", "a": "No. You never need an account to browse, enquire, book or check in." },
+      "whatsapp": { "q": "Can I book entirely through WhatsApp?", "a": "Yes. Many of our guests do exactly that — from first question to boarding." },
+      "language": { "q": "Can I talk to someone in Bahasa Malaysia?", "a": "Tentu boleh! Our whole team speaks Bahasa Malaysia and English." }
+    },
+    "cta": "Start browsing packages"
+  },
+  "brochure": {
+    "title": "Brochure",
+    "subtitle": "Everything about our cruises in one friendly PDF.",
+    "download": "Download PDF",
+    "placeholderNote": "The 2026 brochure is being printed — in the meantime, download our current summary or ask us directly.",
+    "requestTitle": "Or just ask",
+    "requestLine": "Prefer we send it to you? Message us and we'll reply with the PDF attached.",
+    "whatsapp": "Request via WhatsApp",
+    "email": "Request via email"
+  },
+  "giftVouchers": {
+    "title": "Gift vouchers",
+    "subtitle": "Give someone a slow morning on the lake.",
+    "howItWorks": "Choose an amount, enquire below, and we'll arrange payment and a personalised voucher — printed or digital.",
+    "amountLabel": "RM{amount}",
+    "enquireTitle": "Enquire about a voucher",
+    "enquireLine": "Tell us the amount and who it's for — we'll handle the rest within 24 hours."
+  },
+  "privateCharterPage": {
+    "body": "Take a whole houseboat for your group — weddings, corporate retreats, family reunions, or simply everyone you love in one place. Full-boat charter means your dates, your route, your pace: the crew plans the days around what your group actually wants.",
+    "enquireTitle": "Enquire about a charter",
+    "enquireLine": "Tell us your group size and rough dates — we'll reply within 24 hours with options."
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Call, WhatsApp, email or visit — we're easy to reach.",
+    "phone": "Phone",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "address": "Find us at the jetty",
+    "mapTitle": "Map — Pengkalan Gawi Jetty, Kenyir Lake",
+    "formTitle": "Send a message",
+    "formLine": "We reply within 24 hours, every day of the week."
+  },
+  "checkIn": {
+    "title": "Check in",
+    "subtitle": "Booking code and last name — that's all you need. No account required.",
+    "bookingCode": "Booking code",
+    "bookingCodeHint": "It's in your confirmation message, e.g. SC-2026-0142",
+    "lastName": "Last name",
+    "lastNameHint": "As written on your booking",
+    "submit": "Check in",
+    "stubResponse": "Online check-in opens 30 days before departure. We'll WhatsApp or email you a link when it's ready — nothing else is needed from you now.",
+    "errorNotFound": "We couldn't find that booking code. Please check it, or message us on WhatsApp and we'll find it for you."
+  },
+  "faqs": {
+    "title": "Frequently asked questions",
+    "subtitle": "Can't find it? WhatsApp us — we reply fast."
+  },
+  "sitemapPage": {
+    "title": "Sitemap",
+    "subtitle": "Every page on this site, grouped. If you're lost, you're already home.",
+    "groups": {
+      "main": "Main pages",
+      "vessels": "Vessels",
+      "packages": "Packages",
+      "offers": "Offers",
+      "experiences": "Experiences",
+      "about": "About",
+      "journal": "Stories & reviews",
+      "help": "Help & booking",
+      "legal": "Legal"
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "updated": "Last updated: 1 September 2026",
+    "body": [
+      "We collect only what we need to answer your enquiry or run your booking: your name, phone number, email, travel dates and party size. We never sell your data, and we never share it with anyone except the partners directly involved in your trip (for example, our jetty transfer provider).",
+      "Your enquiry details are kept for up to 24 months so we can help you quickly if you come back. You can ask us to delete them at any time — WhatsApp or email us and it's done within 7 days.",
+      "Our website uses a small cookie to remember your language choice (English or Bahasa Malaysia). Nothing else is tracked, and no advertising cookies are used.",
+      "Questions about your data? Email hello@summercruise.example or message us on WhatsApp — a person, not a bot, will answer."
+    ]
+  },
+  "terms": {
+    "title": "Terms & Conditions",
+    "updated": "Last updated: 1 September 2026",
+    "body": [
+      "A booking is confirmed once we receive a 30% deposit. The balance is due 14 days before departure. Prices shown on this website are indicative until you receive a written quote from our team.",
+      "Cancellations made more than 30 days before departure receive a full refund of the deposit. Between 14–30 days, 50% of the deposit is refundable. Within 14 days of departure, the deposit is non-refundable, but we will gladly move your booking to another date once, free of charge.",
+      "Cruises may be rerouted or paused for weather or safety reasons at the captain's discretion. In the rare event we must cancel entirely, you receive a full refund or a free reschedule — your choice.",
+      "Every guest joins at their own risk appropriate to a lake and rainforest environment. Life jackets must be worn during water activities. Children must be supervised by an adult at all times.",
+      "These terms are governed by the laws of Malaysia. Disputes are settled amicably first — we've never needed anything else."
+    ]
+  },
+  "enquiry": {
+    "steps": {
+      "name": "Your name",
+      "contact": "How to reach you",
+      "dates": "Dates & guests",
+      "review": "Review & send"
+    },
+    "name": "Your name",
+    "namePlaceholder": "e.g. Siti Aminah",
+    "phone": "Phone / WhatsApp number",
+    "phonePlaceholder": "e.g. 012-345 6789",
+    "phoneError": "Please add a phone number so we can reach you.",
+    "nameError": "Please tell us your name so we know who to reply to.",
+    "email": "Email (optional)",
+    "emailHint": "Only if you prefer email to WhatsApp.",
+    "emailError": "That email doesn't look right — or just leave it empty.",
+    "preferredDate": "Preferred travel date (optional)",
+    "adults": "Adults",
+    "children": "Children",
+    "message": "Anything else? (optional)",
+    "messagePlaceholder": "Allergies, occasions, questions…",
+    "reviewNote": "One more look — then we'll send it to our team.",
+    "successTitle": "Thank you — we've got it!",
+    "successLine": "Our team will WhatsApp you within 24 hours with your personalised quote.",
+    "successHint": "Screenshot or save this page if you like — it won't disappear.",
+    "enquiryRef": "Enquiry reference",
+    "sendAnother": "Send another enquiry"
+  },
+  "checkInForm": {
+    "steps": {
+      "code": "Your booking",
+      "review": "Confirm"
+    },
+    "submit": "Check in",
+    "reviewNote": "Check the details above, then press check in."
+  },
+  "newsletter": {
+    "title": "Quiet updates, a few times a year",
+    "line": "New packages, offers and lake stories. No spam, ever.",
+    "placeholder": "Your email",
+    "submit": "Subscribe",
+    "success": "Done — you're on the list."
+  },
+  "footer": {
+    "tagline": "Private houseboat cruises on Kenyir Lake, Terengganu.",
+    "explore": "Explore",
+    "help": "Help & booking",
+    "legal": "Legal",
+    "rights": "© {year} Summer Cruise. All rights reserved.",
+    "firstTime": "First time here? See how booking works →"
+  },
+  "whatsappFloat": {
+    "label": "WhatsApp",
+    "ariaLabel": "Chat with us on WhatsApp"
+  },
+  "notFound": {
+    "title": "This page drifted away.",
+    "line": "The page you're looking for doesn't exist — but the lake is still where it was.",
+    "cta": "Go to the homepage",
+    "ctaSitemap": "See every page"
+  },
+  "error": {
+    "title": "Something went wrong.",
+    "line": "An unexpected error occurred. Please try again, or reach us on WhatsApp.",
+    "retry": "Try again"
+  },
+  "print": {
+    "title": "Package summary — Summer Cruise",
+    "generatedOn": "Generated {date} · Prices are indicative",
+    "contactLine": "Bookings & enquiries: {phone} · {email} · summercruise.example"
+  }
+}

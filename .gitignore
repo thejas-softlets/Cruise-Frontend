@@ -1,0 +1,52 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+/.yarn/
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# source media & tooling (kept out of version control)
+/media/
+/.agents/
+/scripts/
+/summer-cruise-master-build-plan.md
+
+# misc
+.DS_Store
+*.pem
+Thumbs.db
+*.swp
+
+# debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log*
+
+# env files (all except the template)
+.env*
+!.env.example
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# editor / IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# turbo
+.turbo/
+/media/

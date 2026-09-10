@@ -1,0 +1,66 @@
+import type { RoomCategory } from "@/types";
+
+import { media } from "./media";
+
+export const MOCK_ROOMS: RoomCategory[] = [
+  {
+    id: "sc-master",
+    vesselId: "summer-cruise",
+    name: "Master Suite",
+    description: "Forward-facing suite with a king bed, wraparound windows and a private reading nook.",
+    amenities: ["King bed", "En-suite bathroom", "Air-conditioning", "Private reading nook", "Lake view"],
+    occupancy: 2,
+    indicativePriceMYR: 900,
+    image: media("Summer Cruise master suite with king bed", "/images/rooms/sc-master.webp"),
+  },
+  {
+    id: "sc-deluxe-double",
+    vesselId: "summer-cruise",
+    name: "Deluxe Double",
+    description: "Bright double room midship, steps from the lounge and the aft swimming platform.",
+    amenities: ["Queen bed", "En-suite bathroom", "Air-conditioning", "Storage", "Lake view"],
+    occupancy: 2,
+    indicativePriceMYR: 750,
+    image: media("Summer Cruise deluxe double room", "/images/rooms/sc-deluxe.webp"),
+  },
+  {
+    id: "sc-family",
+    vesselId: "summer-cruise",
+    name: "Family Room",
+    description: "One queen and two single bunks — the room our family guests ask for by name.",
+    amenities: ["Queen + 2 bunks", "En-suite bathroom", "Air-conditioning", "Child-safe rails"],
+    occupancy: 4,
+    indicativePriceMYR: 850,
+    image: media("Summer Cruise family room with bunk beds", "/images/rooms/sc-family.webp"),
+  },
+  {
+    id: "gh-panorama",
+    vesselId: "green-horizon",
+    name: "Panorama Suite",
+    description: "Top-deck suite with floor-to-ceiling glass and its own balcony over the water.",
+    amenities: ["King bed", "En-suite bathroom", "Private balcony", "Air-conditioning", "Panoramic view"],
+    occupancy: 2,
+    indicativePriceMYR: 1100,
+    image: media("Green Horizon panorama suite balcony", "/images/rooms/gh-panorama.webp"),
+  },
+  {
+    id: "gh-twin",
+    vesselId: "green-horizon",
+    name: "Garden Twin",
+    description: "Two comfortable singles — perfect for friends travelling together or older kids.",
+    amenities: ["2 single beds", "En-suite bathroom", "Air-conditioning"],
+    occupancy: 2,
+    indicativePriceMYR: 650,
+    image: media("Green Horizon twin room", "/images/rooms/gh-twin.webp"),
+  },
+  {
+    id: "gh-family",
+    vesselId: "green-horizon",
+    name: "Horizon Family Room",
+    description: "Sleeps five with a double bed and three bunks, right beside the upper deck stairs.",
+    amenities: ["Double + 3 bunks", "En-suite bathroom", "Air-conditioning", "Child-safe rails"],
+    occupancy: 5,
+    indicativePriceMYR: 950,
+    image: media("Green Horizon family room", "/images/rooms/gh-family.webp"),
+  },
+];
