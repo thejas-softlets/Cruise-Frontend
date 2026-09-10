@@ -20,6 +20,6 @@ export const MOCK_GALLERY: GalleryItem[] = [
   { id: "g-11", category: "experiences", media: media("Cave walk with helmets and lights", "/images/gallery/gallery-11-hawa-cave.webp"), caption: "Hawa cave walk" },
   { id: "g-12", category: "experiences", media: media("Kampung market morning", "/images/gallery/gallery-12-kampung-morning.webp"), caption: "Kampung morning" },
   { id: "g-13", category: "guests", media: media("Guests swimming off the deck", "/images/gallery/gallery-13-deck-swim.webp"), caption: "Deck swim" },
-  { id: "g-14", category: "guests", media: media("Family at dinner on the deck", "/images/gallery/gallery-14-deck-dinner.webp"), caption: "Deck dinner" },
-  { id: "g-15", category: "guests", media: media("Floating lantern dinner setup", "/images/gallery/gallery-15-lantern-dinner.webp"), caption: "Lantern dinner" },
+  { id: "g-14", category: "guests", media: media("Terrace dining overlooking the lake at sunset", "/images/vessels/sc-deck-sunset.webp"), caption: "Sunset deck dining" },
+  { id: "g-15", category: "guests", media: media("Stargazing under the dark Kenyir night sky", "/images/gallery/gallery-15-lantern-dinner.webp"), caption: "Stargazing by night" },
 ];

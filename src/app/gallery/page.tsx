@@ -50,23 +50,35 @@ export default async function GalleryPage({
           ))}
         </div>
 
-        <div className="mt-14 columns-2 gap-4 sm:columns-3 lg:columns-4 [&>*]:mb-4">
+        <div className="mt-14 columns-1 gap-6 sm:columns-2 lg:columns-3 xl:columns-4 [&>*]:mb-6">
           {items.map((item, i) => (
-            <FadeIn key={item.id} delay={(i % 8) * 0.05}>
-              <figure className="break-inside-avoid">
+            <FadeIn key={item.id} delay={(i % 8) * 0.04}>
+              <figure className="group relative block overflow-hidden rounded-3xl bg-obsidian shadow-sm transition-all duration-700 ease-out hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-ink/20 break-inside-avoid">
                 <PlaceholderMedia
                   asset={item.media}
                   className={cn(
-                    "w-full rounded-3xl",
-                    i % 5 === 0 ? "aspect-[4/5]" : "aspect-square",
+                    "w-full",
+                    i % 5 === 0 ? "aspect-[4/5]" : i % 3 === 0 ? "aspect-[3/4]" : "aspect-[4/3]",
                   )}
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  imgClassName="transition-transform duration-700 ease-out group-hover:scale-105 motion-reduce:transform-none"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
-                {item.caption ? (
-                  <figcaption className="mt-1.5 px-1 text-xs text-text-muted">
-                    {item.caption}
-                  </figcaption>
-                ) : null}
+                {/* Gradient mask: subtle baseline readability, deepening seamlessly on hover */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-obsidian/95 via-obsidian/40 to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-95"
+                />
+                {/* Card overlay content */}
+                <figcaption className="absolute inset-x-0 bottom-0 p-5 sm:p-6 transition-transform duration-500 ease-out">
+                  <p className="font-secondary text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-gold-bright transition-colors duration-300">
+                    {t(`cat.${item.category}`)}
+                  </p>
+                  {item.caption ? (
+                    <p className="font-display mt-1 text-xl font-medium leading-snug text-[#F6F5F1] drop-shadow-sm transition-all duration-500 group-hover:text-white sm:text-2xl">
+                      {item.caption}
+                    </p>
+                  ) : null}
+                </figcaption>
               </figure>
             </FadeIn>
           ))}

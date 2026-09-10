@@ -62,11 +62,14 @@ export default async function TheLakePage() {
         <section className="grid gap-4 pt-20 sm:grid-cols-3">
           {lake.heroGallery.map((asset, i) => (
             <FadeIn key={i} delay={i * 0.06}>
-              <PlaceholderMedia
-                asset={asset}
-                className="aspect-[4/3] rounded-3xl"
-                sizes="(max-width: 640px) 100vw, 33vw"
-              />
+              <div className="group relative overflow-hidden rounded-3xl bg-obsidian shadow-sm transition-all duration-700 ease-out hover:-translate-y-1 hover:shadow-xl">
+                <PlaceholderMedia
+                  asset={asset}
+                  className="aspect-[4/3]"
+                  imgClassName="transition-transform duration-700 ease-out group-hover:scale-105 motion-reduce:transform-none"
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
             </FadeIn>
           ))}
         </section>

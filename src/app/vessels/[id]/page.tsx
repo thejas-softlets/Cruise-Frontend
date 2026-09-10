@@ -59,11 +59,14 @@ export default async function VesselDetailPage({
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {vessel.gallery.map((asset, i) => (
               <FadeIn key={i} delay={i * 0.05}>
-                <PlaceholderMedia
-                  asset={asset}
-                  className="aspect-[4/3] rounded-3xl"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                />
+                <div className="group relative overflow-hidden rounded-3xl bg-obsidian shadow-sm transition-all duration-700 ease-out hover:-translate-y-1 hover:shadow-xl">
+                  <PlaceholderMedia
+                    asset={asset}
+                    className="aspect-[4/3]"
+                    imgClassName="transition-transform duration-700 ease-out group-hover:scale-105 motion-reduce:transform-none"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  />
+                </div>
               </FadeIn>
             ))}
           </div>

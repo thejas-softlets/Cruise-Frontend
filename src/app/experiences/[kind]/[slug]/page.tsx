@@ -57,11 +57,14 @@ export default async function ExperienceDetailPage({
           <div className="mt-12 grid gap-4 sm:grid-cols-2">
             {experience.images.slice(1).map((asset, i) => (
               <FadeIn key={i}>
-                <PlaceholderMedia
-                  asset={asset}
-                  className="aspect-[16/10] rounded-3xl"
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                />
+                <div className="group relative overflow-hidden rounded-3xl bg-obsidian shadow-sm transition-all duration-700 ease-out hover:-translate-y-1 hover:shadow-xl">
+                  <PlaceholderMedia
+                    asset={asset}
+                    className="aspect-[16/10]"
+                    imgClassName="transition-transform duration-700 ease-out group-hover:scale-105 motion-reduce:transform-none"
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                  />
+                </div>
               </FadeIn>
             ))}
           </div>
