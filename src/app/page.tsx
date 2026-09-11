@@ -246,19 +246,30 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Closing CTA — the one dark resolve */}
-      <section className="relative overflow-hidden bg-obsidian py-32 text-center">
+      {/* Closing CTA — background image vanishing seamlessly into the footer */}
+      <section className="relative overflow-hidden bg-obsidian py-36 text-center sm:py-44">
+        <PlaceholderMedia
+          asset={media(
+            "Moody atmospheric wide panoramic photography of Lake Kenyir mist rolling over water surrounded by ancient rainforest mountain silhouettes at dusk",
+            "/images/lake/kenyir-dusk.webp"
+          )}
+          className="absolute inset-0 h-full w-full"
+          imgClassName="object-cover object-center scale-105"
+        />
+        {/* The seamless gradient mask: melts from page cream background at top, through dusk scenic center, vanishing solidly into obsidian at bottom */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,168,106,0.14),transparent_60%)]"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#faf9f6]/80 via-obsidian/75 to-obsidian"
         />
-        <FadeIn className="relative">
-          <p className="font-script text-3xl text-gold">{t("ctaScript")}</p>
-          <h2 className="font-display mx-auto mt-3 max-w-2xl text-5xl font-medium leading-[1.05] text-[#F6F5F1] text-balance sm:text-6xl">
+        <FadeIn className="relative mx-auto max-w-4xl px-5 sm:px-8">
+          <p className="font-script text-3xl text-gold sm:text-4xl">{t("ctaScript")}</p>
+          <h2 className="font-display mx-auto mt-4 max-w-3xl text-5xl font-medium leading-[1.06] text-[#F6F5F1] text-balance sm:text-6xl lg:text-7xl">
             {t("ctaTitle")}
           </h2>
-          <p className="mx-auto mt-5 max-w-md text-white/70">{t("ctaLine")}</p>
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/85">
+            {t("ctaLine")}
+          </p>
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button href="/contact" size="lg">
               {tc("enquireNow")}
             </Button>
