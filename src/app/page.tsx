@@ -19,8 +19,8 @@ import { Link } from "@/lib/i18n/navigation";
 import { media } from "@/lib/api/mock/media";
 
 const heroAsset = media(
-  "Aerial view of Kenyir Lake rainforest islands at golden hour",
-  "/images/page-heroes/hero-home.webp",
+  "Summer Cruise luxury houseboat sailing across Lake Kenyir",
+  "/images/page-heroes/hero-cruise.webp",
   2560,
   1440
 );
@@ -247,7 +247,7 @@ export default async function HomePage() {
       </section>
 
       {/* Closing CTA — background image vanishing seamlessly into the footer */}
-      <section className="relative overflow-hidden bg-obsidian py-36 text-center sm:py-44">
+      <section className="relative overflow-hidden bg-obsidian py-36 text-center sm:py-48">
         <PlaceholderMedia
           asset={media(
             "Moody atmospheric wide panoramic photography of Lake Kenyir mist rolling over water surrounded by ancient rainforest mountain silhouettes at dusk",
@@ -256,12 +256,20 @@ export default async function HomePage() {
           className="absolute inset-0 h-full w-full"
           imgClassName="object-cover object-center scale-105"
         />
-        {/* The seamless gradient mask: melts from page cream background at top, through dusk scenic center, vanishing solidly into obsidian at bottom */}
+
+        {/* Ambient atmospheric dark gradient — keeps top crisp without white haze and smoothly dissolves into obsidian footer */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#faf9f6]/80 via-obsidian/75 to-obsidian"
+          className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-obsidian/50 via-obsidian/75 to-obsidian"
         />
-        <FadeIn className="relative mx-auto max-w-4xl px-5 sm:px-8">
+
+        {/* Bottom deep obsidian dissolve into the footer */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-1/2 bg-gradient-to-t from-obsidian via-obsidian/95 to-transparent"
+        />
+
+        <FadeIn className="relative z-20 mx-auto max-w-4xl px-5 sm:px-8">
           <p className="font-script text-3xl text-gold sm:text-4xl">{t("ctaScript")}</p>
           <h2 className="font-display mx-auto mt-4 max-w-3xl text-5xl font-medium leading-[1.06] text-[#F6F5F1] text-balance sm:text-6xl lg:text-7xl">
             {t("ctaTitle")}

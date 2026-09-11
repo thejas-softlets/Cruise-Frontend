@@ -21,7 +21,7 @@ export async function Footer() {
   const legalGroup = ROUTE_GROUPS.find((g) => g.id === "legal");
 
   return (
-    <footer className="border-t border-white/10 bg-obsidian text-white/80">
+    <footer className="bg-obsidian text-white/80">
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
         {/* §7.6: first-time visitors get pointed at the plain-language guide. */}
         <Link
@@ -157,7 +157,7 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-white/45">
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 pt-6 text-xs text-white/45">
           <p>{t("footer.rights", { year })}</p>
           <div className="flex gap-6 text-xs">
             <Link href="/sitemap" className="transition-colors hover:text-white">
