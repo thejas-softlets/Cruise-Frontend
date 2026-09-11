@@ -257,10 +257,16 @@ export default async function HomePage() {
           imgClassName="object-cover object-center scale-105"
         />
 
-        {/* Ambient atmospheric dark gradient — keeps top crisp without white haze and smoothly dissolves into obsidian footer */}
+        {/* Top white mask: smoothly dissolves the white page background into the lake photo */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-obsidian/50 via-obsidian/75 to-obsidian"
+          className="pointer-events-none absolute inset-x-0 top-0 z-10 h-36 bg-gradient-to-b from-[#faf9f6] via-[#faf9f6]/75 to-transparent sm:h-48"
+        />
+
+        {/* Ambient dark contrast layer to ensure pristine text readability */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-transparent via-obsidian/60 to-obsidian/90"
         />
 
         {/* Bottom deep obsidian dissolve into the footer */}
