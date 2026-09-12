@@ -26,7 +26,7 @@ const CRUISE_DATA: Record<"summer-cruise" | "green-horizon", CruisePackageInfo> 
     subtitle: "Explore Kenyir Lake with Summercruise",
     description:
       "Admire the breathtaking views of kenyir lake and take advantage of a range of water activities during your visit.",
-    image: "/images/real/DJI_0911-min-scaled.webp",
+    image: "/images/page-heroes/hero-packages.webp",
     alt: "Summer Cruise navigating through emerald bays of Tasik Kenyir",
     packageSlug: "/packages/3d2n-kenyir-explorer",
     meetingPoint:
@@ -42,7 +42,7 @@ const CRUISE_DATA: Record<"summer-cruise" | "green-horizon", CruisePackageInfo> 
     subtitle: "Explore Kenyir Lake with Green Horizon",
     description:
       "Admire the breathtaking views of kenyir lake and take advantage of a range of water activities during your visit.",
-    image: "/images/vessels/gh-hero.webp",
+    image: "/images/real/about-1-Green-Horizon_summer-cruise.webp",
     alt: "Green Horizon luxury houseboat on Kenyir Lake",
     packageSlug: "/packages/4d3n-kenyir-grand-voyage",
     meetingPoint:
