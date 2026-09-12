@@ -194,20 +194,32 @@ export function CurtainReveal({
       gsap.timeline({
         scrollTrigger: {
           trigger: wrap.current,
-          start: "top 85%",
+          start: "top 88%",
           toggleActions: "play none none reverse",
           invalidateOnRefresh: true,
         },
       })
         .fromTo(
           wrap.current,
-          { clipPath: "inset(8% 4% 8% 4% round 24px)", opacity: 0.8 },
-          { clipPath: "inset(0% 0% 0% 0% round 24px)", opacity: 1, duration: 1.4, ease: "power3.out" }
+          {
+            clipPath: "inset(18% 6% 18% 6% round 32px)",
+            opacity: 0.35,
+            y: 40,
+            scale: 0.94,
+          },
+          {
+            clipPath: "inset(0% 0% 0% 0% round 24px)",
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1.3,
+            ease: "power3.out",
+          }
         )
         .fromTo(
           inner.current,
-          { scale: 1.12 },
-          { scale: 1, duration: 1.6, ease: "power2.out" },
+          { scale: 1.2, filter: "brightness(0.8)" },
+          { scale: 1, filter: "brightness(1)", duration: 1.5, ease: "power2.out" },
           0
         );
     }, wrap);
@@ -217,10 +229,10 @@ export function CurtainReveal({
   return (
     <div
       ref={wrap}
-      className={cn("overflow-hidden will-change-[clip-path,transform]", className)}
+      className={cn("overflow-hidden will-change-[clip-path,transform,opacity]", className)}
       style={{ clipPath: "inset(0% 0% 0% 0% round 24px)" }}
     >
-      <div ref={inner} className="size-full will-change-transform">
+      <div ref={inner} className="size-full will-change-[transform,filter]">
         {children}
       </div>
     </div>
@@ -566,10 +578,14 @@ export function SplitDoors({
     return () => ctx.revert();
   }, [reduce]);
 
-  const doorBase = "absolute -top-1 -bottom-1 w-[calc(50%+2px)] overflow-hidden bg-obsidian will-change-transform";
+  const doorBase = "absolute -top-2 -bottom-2 w-[calc(50%+4px)] overflow-hidden bg-obsidian will-change-transform border-0 outline-0 shadow-none";
 
   return (
-    <div ref={ref} className={cn("relative h-screen-safe overflow-hidden bg-obsidian", className)}>
+    <div
+      ref={ref}
+      data-nav-transparent
+      className={cn("relative h-screen-safe overflow-hidden bg-obsidian border-0 outline-0", className)}
+    >
       <div data-reveal-content className="absolute inset-0 will-change-transform">
         {children}
       </div>

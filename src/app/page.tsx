@@ -40,10 +40,51 @@ export default async function HomePage() {
   return (
     <>
       {/* 1 ── CINEMATIC VIDEO HERO (Summer Cruise's own film) */}
-      <VideoHero />
+      <div data-nav-transparent>
+        <VideoHero />
+      </div>
 
-      {/* 2 ── CENTER-SPLIT DOORS — the screen parts from the middle (Aqua's cinematic lake chapter) */}
-      <div data-nav-transparent-until>
+      {/* 2 ── THE FLEET — two vessel panels with prominent curtain zoom-reveal */}
+      <FleetSection />
+
+      {/* 3 ── GUEST VOICES — Aqua-style testimonial chapter (low text density) */}
+      <section className="bg-[#f7fafb] py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">Guest Words</p>
+              <SplitHeadline
+                text="What guests say"
+                className="font-display mt-4 text-4xl font-medium tracking-tight text-ink sm:text-6xl"
+              />
+            </div>
+            <Rise delay={0.2}>
+              <span className="inline-flex items-center gap-2.5 rounded-full bg-white px-5 py-2.5 text-xs font-semibold tracking-wide text-teal-deep shadow-sm">
+                <StarRow className="text-teal" /> 5.0 · Google &amp; TripAdvisor
+              </span>
+            </Rise>
+          </div>
+          <StaggerGrid className="mt-10 grid gap-6 lg:grid-cols-3">
+            {reviews.slice(0, 3).map((r) => (
+              <figure
+                key={r.id}
+                className="flex h-full flex-col rounded-3xl bg-white p-8 shadow-[0_12px_44px_rgba(12,43,51,0.06)]"
+              >
+                <StarRow className="text-teal" />
+                <blockquote className="mt-5 flex-1 text-[0.95rem] leading-relaxed text-text-muted">
+                  &ldquo;{r.quote}&rdquo;
+                </blockquote>
+                <figcaption className="mt-7 border-t border-ink/8 pt-5">
+                  <p className="font-display text-lg font-medium text-ink">{r.guestName}</p>
+                  <p className="mt-0.5 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-text-muted">{r.guestLocation}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </StaggerGrid>
+        </div>
+      </section>
+
+      {/* 4 ── CENTER-SPLIT DOORS — the screen parts from the middle (Aqua's cinematic lake chapter) */}
       <SplitDoors leftWord="Kenyir" rightWord="Lake">
         <div className="relative size-full">
           <img
@@ -75,47 +116,6 @@ export default async function HomePage() {
           </div>
         </div>
       </SplitDoors>
-      </div>
-
-      {/* 4 ── THE FLEET — two vessel panels, pinned scale-fade (Aqua ships grammar) */}
-      <FleetSection />
-
-      {/* 4.5 ── GUEST VOICES — Aqua-style testimonial chapter (low text density) */}
-      <section className="bg-[#f7fafb] py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">Guest Words</p>
-              <SplitHeadline
-                text="What guests say"
-                className="font-display mt-4 text-4xl font-medium tracking-tight text-ink sm:text-6xl"
-              />
-            </div>
-            <Rise delay={0.2}>
-              <span className="inline-flex items-center gap-2.5 rounded-full border border-teal/25 bg-white px-5 py-2.5 text-xs font-semibold tracking-wide text-teal-deep shadow-sm">
-                <StarRow className="text-teal" /> 5.0 · Google &amp; TripAdvisor
-              </span>
-            </Rise>
-          </div>
-          <StaggerGrid className="mt-10 grid gap-6 lg:grid-cols-3">
-            {reviews.slice(0, 3).map((r) => (
-              <figure
-                key={r.id}
-                className="flex h-full flex-col rounded-3xl border border-ink/8 bg-white p-8 shadow-[0_10px_40px_rgba(12,43,51,0.06)]"
-              >
-                <StarRow className="text-teal" />
-                <blockquote className="mt-5 flex-1 text-[0.95rem] leading-relaxed text-text-muted">
-                  &ldquo;{r.quote}&rdquo;
-                </blockquote>
-                <figcaption className="mt-7 border-t border-ink/8 pt-5">
-                  <p className="font-display text-lg font-medium text-ink">{r.guestName}</p>
-                  <p className="mt-0.5 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-text-muted">{r.guestLocation}</p>
-                </figcaption>
-              </figure>
-            ))}
-          </StaggerGrid>
-        </div>
-      </section>
 
       {/* 5 ── VOYAGE STATS BAND — dual vessel specs, dark chapter */}
       <section className="relative overflow-hidden bg-obsidian py-16 text-white sm:py-24">

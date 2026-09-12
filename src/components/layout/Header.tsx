@@ -34,19 +34,32 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Stay transparent while a `[data-nav-transparent-until]` region is under the
-  // nav (hero + doors chapter on the landing page); frost once it passes.
+  // Dynamic transparency: transparent when overlapping hero, Kenyir Lake split doors, or any [data-nav-transparent] section
   useEffect(() => {
     let raf = 0;
     const measure = () => {
       raf = 0;
-      const zone = document.querySelector("[data-nav-transparent-until]");
-      if (zone) {
-        const bottom = zone.getBoundingClientRect().bottom;
-        setScrolled(bottom < 90); // 90 ≈ nav height + margin
-      } else {
-        setScrolled(window.scrollY > 24);
+      const navH = 90;
+      const zones = document.querySelectorAll(
+        "[data-nav-transparent], [data-nav-transparent-until]"
+      );
+
+      let isTransparent = false;
+
+      // Always transparent at the very top of the page
+      if (window.scrollY <= 24) {
+        isTransparent = true;
       }
+
+      zones.forEach((zone) => {
+        const rect = zone.getBoundingClientRect();
+        // Nav overlaps this zone if the zone top is above nav bottom, and zone bottom is below nav top
+        if (rect.top <= navH && rect.bottom >= 0) {
+          isTransparent = true;
+        }
+      });
+
+      setScrolled(!isTransparent);
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(measure);
@@ -67,7 +80,7 @@ export function Header() {
         window.visualViewport.removeEventListener("scroll", onScroll);
       }
     };
-  }, []);
+  }, [pathname]);
 
   // Close the menu whenever the path changes — via the click handler, not a
   // synchronous setState-in-effect (React 19 lint rule).
@@ -91,11 +104,11 @@ export function Header() {
           : "bg-gradient-to-b from-obsidian/60 to-transparent",
       )}
     >
-      <div className="mx-auto flex h-20 max-w-[88rem] items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-20 max-w-[88rem] items-center justify-between gap-3 px-6 sm:px-8 md:px-10 lg:px-12 pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))]">
         <Link
           href="/"
           aria-label={SITE.name}
-          className="group inline-flex shrink-0 items-center transition-opacity duration-300 hover:opacity-85"
+          className="group inline-flex shrink-0 items-center transition-opacity duration-300 hover:opacity-85 ml-1 sm:ml-2"
         >
           <Image
             src="/images/logo/summer-cruise-logo-white.webp"
