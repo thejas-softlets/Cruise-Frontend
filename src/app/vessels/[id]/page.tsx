@@ -143,10 +143,15 @@ export default async function VesselDetailPage({
           </section>
         ) : null}
 
-        <div className="pt-16">
+        <div className="flex flex-wrap gap-4 pt-16">
           <Button href={`/packages?vessel=${vessel.id}`} size="lg">
             {t("detailCta")}
           </Button>
+          {vessel.id === "green-horizon" && (
+            <Button href="/book/green-horizon" size="lg" variant="ghost">
+              Visual Cabin Selection
+            </Button>
+          )}
         </div>
       </div>
     </div>

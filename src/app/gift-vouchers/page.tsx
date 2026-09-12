@@ -29,7 +29,7 @@ export default async function GiftVouchersPage({
   return (
     <>
       <PageHero
-        asset={media("Wrapped gift on the houseboat deck", "/images/page-heroes/hero-gift-vouchers.webp")}
+        asset={media("Aerial view of Summer Cruise across emerald lake waters", "/images/page-heroes/hero-gift-vouchers.webp")}
         title={t("title")}
         line={t("subtitle")}
         crumbs={crumbs}

@@ -57,7 +57,7 @@ export const MOCK_PACKAGES: Package[] = [
       "Crew gratuities (discretionary)",
     ],
     roomCategoryIds: ["sc-master", "sc-deluxe-double", "sc-family"],
-    experienceSlugs: ["lasir-waterfall", "night-sounds-cruise", "kampung-visit"],
+    experienceSlugs: ["lasir-waterfall", "kelah-sanctuary", "kayaking-rafting"],
     isPlaceholder: true,
   },
   {
@@ -72,7 +72,7 @@ export const MOCK_PACKAGES: Package[] = [
       "An immersive four-day expedition into Kenyir's most remote, untamed reaches. Traverse soaring river canyons, discover prehistoric limestone caverns, encounter traditional lakeside heritage, and sleep beneath uninterrupted starlit skies in deep wilderness.",
     highlights: [
       "Tembat river canyon drift & private gorge swim",
-      "Secret Hawa cavern exploration & ancient limestone trails",
+      "Prehistoric Bewah cavern exploration & ancient limestone trails",
       "Lakeside botanical herb walk & local morning market",
       "Kampung Sekayu traditional fishing settlement encounter",
     ],
@@ -88,7 +88,7 @@ export const MOCK_PACKAGES: Package[] = [
         day: 2,
         title: "Limestone Caverns & The Botanical Trail",
         description:
-          "Guided morning excursion into the prehistoric Hawa limestone cave system, followed by an aromatic rainforest herb garden walk. Afternoon at leisure with paddleboarding and quiet angling off the stern.",
+          "Guided morning excursion into the prehistoric Bewah limestone cave system, followed by an aromatic rainforest herb garden walk. Afternoon at leisure with paddleboarding and quiet angling off the stern.",
         meals: ["Breakfast", "Lunch", "Tea", "Dinner"],
       },
       {
@@ -109,7 +109,7 @@ export const MOCK_PACKAGES: Package[] = [
     inclusions: [
       "3 nights on board (full board dining)",
       "All artisanal meals + afternoon tea service",
-      "Hawa cave & botanical reserve guided excursions",
+      "Bewah cave & rainforest trail guided excursions",
       "Kampung Sekayu cultural village expedition",
       "Snorkelling gear, kayaks & stand-up paddleboards",
       "Dedicated vessel crew of 5 & local nature guide",
@@ -121,7 +121,7 @@ export const MOCK_PACKAGES: Package[] = [
       "Crew gratuities (discretionary)",
     ],
     roomCategoryIds: ["gh-panorama", "gh-twin", "gh-family"],
-    experienceSlugs: ["hawa-cave", "tembat-river-drift", "kampung-visit", "sunrise-paddle"],
+    experienceSlugs: ["bewah-cave", "melunak-trail", "kayaking-rafting"],
     isPlaceholder: true,
   },
 ];

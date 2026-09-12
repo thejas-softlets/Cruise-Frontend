@@ -17,7 +17,7 @@ export default async function BrochurePage() {
   return (
     <>
       <PageHero
-        asset={media("Printed travel brochure on a wooden table", "/images/page-heroes/hero-brochure.webp")}
+        asset={media("Summer Cruise houseboat cruising Lake Kenyir", "/images/page-heroes/hero-brochure.webp")}
         title={t("title")}
         line={t("subtitle")}
         crumbs={crumbs}

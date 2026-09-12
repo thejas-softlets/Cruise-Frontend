@@ -5,11 +5,18 @@ import { buildCrumbs } from "@/components/layout/Breadcrumbs";
 import { FadeIn } from "@/components/motion";
 import { Button } from "@/components/ui/Button";
 import { PlaceholderMedia } from "@/components/ui/PlaceholderMedia";
+import { DynamicCruiseMap } from "@/components/booking/DynamicCruiseMap";
 import { getLakeInfo } from "@/lib/api/lake";
+import { getAllWaypoints } from "@/lib/api/booking";
 
 export default async function TheLakePage() {
   const t = await getTranslations("lake");
-  const [lake, crumbs] = await Promise.all([getLakeInfo(), buildCrumbs(["the-lake"])]);
+  const [lake, crumbs, waypoints] = await Promise.all([
+    getLakeInfo(),
+    buildCrumbs(["the-lake"]),
+    getAllWaypoints(),
+  ]);
+
 
   return (
     <>
@@ -33,8 +40,34 @@ export default async function TheLakePage() {
           </FadeIn>
         </section>
 
+        {/* Dynamic Interactive Lake Navigation Chart */}
+        <section className="pt-20">
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <span className="font-secondary text-xs font-semibold uppercase tracking-widest text-gold-deep">
+                Lake Topography & Landmarks
+              </span>
+              <h2 className="font-display mt-1 text-3xl font-medium text-ink">
+                Kenyir Lake Interactive Chart
+              </h2>
+            </div>
+            <p className="max-w-md text-xs leading-relaxed text-text-muted">
+              Select navigation waypoints across Tasik Kenyir to preview key landmarks, waterfalls, and conservation sanctuaries.
+            </p>
+          </div>
+
+          <FadeIn>
+            <DynamicCruiseMap
+              waypoints={waypoints}
+              packageTitle="Tasik Kenyir Master Chart"
+              durationLabel="All Landmarks"
+            />
+          </FadeIn>
+        </section>
+
         <section className="pt-20">
           <h2 className="font-display text-3xl font-medium">{t("gettingThereTitle")}</h2>
+
           <ol className="mt-8 space-y-4">
             {[
               { title: t("byRoadTitle"), body: lake.gettingThere.byRoad },

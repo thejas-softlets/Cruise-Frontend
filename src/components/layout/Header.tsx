@@ -70,11 +70,11 @@ export function Header() {
           className="group inline-flex items-center transition-opacity duration-300 hover:opacity-85"
         >
           <Image
-            src={onDark ? "/images/logo/summer-cruise-logo-white.webp" : "/images/logo/summer-cruise-logo.webp"}
+            src="/images/logo/summer-cruise-logo-white.webp"
             alt={SITE.name}
             width={180}
             height={46}
-            className="h-9 w-auto object-contain sm:h-10"
+            className="h-9 w-auto translate-y-[2px] object-contain sm:h-10"
             priority
           />
         </Link>
@@ -118,6 +118,17 @@ export function Header() {
             <Phone aria-hidden className="size-4" />
           </a>
           <Link
+            href="/book"
+            className={cn(
+              "font-secondary hidden min-h-9 items-center rounded-full px-4 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] transition-all duration-400 sm:inline-flex",
+              onDark
+                ? "bg-gold-bright text-obsidian hover:bg-white"
+                : "bg-teal-deep text-white hover:bg-gold-bright",
+            )}
+          >
+            {tc("bookNow")}
+          </Link>
+          <Link
             href="/contact"
             className={cn(
               "font-secondary hidden min-h-9 items-center rounded-full px-4 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] transition-all duration-400 md:inline-flex",
@@ -128,6 +139,7 @@ export function Header() {
           >
             {tc("enquire")}
           </Link>
+
           <button
             type="button"
             onClick={() => setMenuOpen((v) => !v)}

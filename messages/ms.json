@@ -87,7 +87,7 @@
     "journalTitle": "Dari jurnal",
     "ctaScript": "jumpa di air",
     "ctaTitle": "Kami sedia bila anda sedia.",
-    "ctaLine": "Buat pertanyaan dalam talian, atau mesej kami di WhatsApp — kami balas dalam 24 jam.",
+    "ctaLine": "Buat pertanyaan dalam talian, atau mesej kami di WhatsApp.",
     "durationBadge": "{nights}H{daysMinusOne}M"
   },
   "vessels": {
@@ -115,7 +115,7 @@
     "experiences": "Pengalaman dalam pelayaran ini",
     "reviews": "Ulasan tetamu",
     "enquireTitle": "Pertanyaan tentang pakej ini",
-    "enquireLine": "Beritahu tarikh anda — kami akan WhatsApp sebut harga peribadi dalam 24 jam.",
+    "enquireLine": "Beritahu tarikh anda — kami akan WhatsApp sebut harga peribadi.",
     "day": "Hari {n}",
     "meals": "Makanan",
     "occupancy": "Kapasiti {count}",
@@ -131,7 +131,7 @@
     "applicablePackages": "Terpakai untuk pakej ini",
     "terms": "Terma & syarat",
     "enquireTitle": "Pertanyaan dengan tawaran ini",
-    "enquireLine": "Kami akan semak ketersediaan dan WhatsApp anda dalam 24 jam."
+    "enquireLine": "Kami akan semak ketersediaan dan WhatsApp anda dengan pilihan."
   },
   "experiences": {
     "hubTitle": "Pengalaman",
@@ -227,7 +227,7 @@
     "steps": {
       "browse": { "title": "1. Lihat", "body": "Layari pakej dan tawaran kami dalam talian — tanpa pendaftaran, tanpa tekanan." },
       "enquire": { "title": "2. Tanya", "body": "Hantar borang di sini, mesej kami di WhatsApp, atau terus telefon. Ikut cara yang anda suka." },
-      "quote": { "title": "3. Dapatkan sebut harga", "body": "Dalam 24 jam kami hantar sebut harga peribadi anda — melalui WhatsApp, e-mel atau telefon, pilihan anda." },
+      "quote": { "title": "3. Dapatkan sebut harga", "body": "Kami hantar sebut harga peribadi anda — melalui WhatsApp, e-mel atau telefon, pilihan anda." },
       "confirm": { "title": "4. Sahkan & bayar", "body": "Berpuas hati? Kami hantar arahan pembayaran yang mudah. Pindahan bank, kad atau tunai di pejabat kami." },
       "board": { "title": "5. Daftar masuk & naik kapal", "body": "Sampai di jeti, tunjukkan kod tempahan anda, naik ke atas kapal. Itu sahaja." }
     },
@@ -255,12 +255,12 @@
     "howItWorks": "Pilih jumlah, buat pertanyaan di bawah, dan kami akan aturkan pembayaran serta baucar diperibadikan — bercetak atau digital.",
     "amountLabel": "RM{amount}",
     "enquireTitle": "Pertanyaan baucar",
-    "enquireLine": "Beritahu jumlah dan untuk siapa — kami uruskan selebihnya dalam 24 jam."
+    "enquireLine": "Beritahu jumlah dan untuk siapa — kami uruskan selebihnya."
   },
   "privateCharterPage": {
     "body": "Sewa seluruh houseboat untuk kumpulan anda — perkahwinan, retreat korporat, perjumpaan keluarga, atau sekadar semua orang yang anda kasihi di satu tempat. Sewa penuh bermakna tarikh anda, laluan anda, rentak anda: kru merancang hari berdasarkan apa yang kumpulan anda mahukan.",
     "enquireTitle": "Pertanyaan sewaan",
-    "enquireLine": "Beritahu saiz kumpulan dan anggaran tarikh — kami balas dalam 24 jam dengan pilihan."
+    "enquireLine": "Beritahu saiz kumpulan dan anggaran tarikh — kami balas dengan pilihan."
   },
   "contact": {
     "title": "Hubungi",
@@ -271,7 +271,7 @@
     "address": "Temui kami di jeti",
     "mapTitle": "Peta — Jeti Pengkalan Gawi, Tasik Kenyir",
     "formTitle": "Hantar mesej",
-    "formLine": "Kami balas dalam 24 jam, setiap hari dalam seminggu."
+    "formLine": "Kami sedia membantu setiap hari dalam seminggu."
   },
   "checkIn": {
     "title": "Daftar masuk",
@@ -347,7 +347,7 @@
     "messagePlaceholder": "Alahan, hari istimewa, soalan…",
     "reviewNote": "Satu semakan lagi — kemudian kami hantar kepada pasukan kami.",
     "successTitle": "Terima kasih — kami terima!",
-    "successLine": "Pasukan kami akan WhatsApp anda dalam 24 jam dengan sebut harga peribadi.",
+    "successLine": "Pasukan kami akan WhatsApp anda dengan sebut harga peribadi.",
     "successHint": "Tangkap layar atau simpan halaman ini jika mahu — ia tidak akan hilang.",
     "enquiryRef": "Rujukan pertanyaan",
     "sendAnother": "Hantar pertanyaan lain"

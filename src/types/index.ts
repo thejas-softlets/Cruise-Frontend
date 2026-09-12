@@ -20,8 +20,10 @@ export interface Vessel {
   heroImage: MediaAsset;
   gallery: MediaAsset[];
   capacity: number;
+  crewCount?: number;
   roomCount: number;
   statLine: string; // the one Tier 3 summary line (§5.6)
+  highlights?: string[];
   packageSlugs: string[];
 }
 
@@ -173,3 +175,66 @@ export interface FaqCategory {
   title: string;
   items: { question: string; answer: string }[];
 }
+
+export interface MapWaypoint {
+  id: string;
+  name: string;
+  dayNumber: number;
+  lat: number;
+  lng: number;
+  x?: number; // Percentage coordinate on map 0-100 fallback
+  y?: number; // Percentage coordinate on map 0-100 fallback
+  type: "embarkation" | "waterfall" | "cave" | "sanctuary" | "anchorage" | "trail" | "disembarkation";
+  title: string;
+  shortDesc: string;
+  activities: string[];
+  imageUrl?: string;
+}
+
+export interface CabinDeckSlot {
+  id: string;
+  roomCategoryId: string;
+  cabinNumber: string;
+  deck: "upper" | "main" | "lower";
+  deckLabel: string;
+  name: string;
+  areaSqm: number;
+  areaSqft: number;
+  bedType: string;
+  maxOccupancy: number;
+  hasEnsuite: boolean;
+  viewType: string;
+  basePriceMYR: number;
+  status: "available" | "selected" | "unavailable";
+  image: MediaAsset;
+  slotPosition?: {
+    row: number;
+    col: "port" | "starboard" | "center";
+    label?: string;
+  };
+}
+
+export interface CabinGuestAllocation {
+  cabinSlotId: string;
+  adults: number;
+  children: number;
+  primaryGuest: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    country: string;
+    dob?: string;
+  };
+}
+
+export interface CruiseBookingPayload {
+  packageSlug: string;
+  vesselId: string;
+  departureDate: string;
+  durationLabel: string;
+  allocations: CabinGuestAllocation[];
+  totalPriceMYR: number;
+  specialRequests?: string;
+}
+

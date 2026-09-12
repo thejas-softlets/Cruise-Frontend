@@ -12,7 +12,7 @@ export default async function CheckInPage() {
   return (
     <>
       <PageHero
-        asset={media("Boarding the houseboat at the jetty", "/images/page-heroes/hero-checkin.webp")}
+        asset={media("Summer Cruise casting off at Lake Kenyir", "/images/page-heroes/hero-checkin.webp")}
         title={t("title")}
         line={t("subtitle")}
         crumbs={crumbs}

@@ -4,84 +4,119 @@ import { media } from "./media";
 
 export const MOCK_EXPERIENCES: Experience[] = [
   {
-    slug: "lasir-waterfall",
+    slug: "elephant-conservation-village",
     kind: "excursions",
-    title: "Lasir Waterfall",
+    title: "Kenyir Elephant Conservation Village",
     images: [
-      media("Lasir waterfall cascading into a clear pool", "/images/experiences/lasir-waterfall.webp"),
-      media("Guests swimming at the base of Lasir waterfall", "/images/experiences/lasir-swim.webp"),
+      media("Kenyir Elephant Conservation Village interaction at Tasik Kenyir", "/images/real/Kenyir-Elephant-Conservation-Village.webp", 1200, 800),
     ],
     lines: [
-      "A ten-minute boat ride to one of Kenyir's most loved waterfalls — a multi-tier cascade falling into a swimmable pool.",
-      "Life jackets provided; the crew carries dry bags and sets up fruit and cold drinks on the rocks.",
+      "Get up close with Asian elephants in their protected forest sanctuary — learn about conservation and ethical wildlife care.",
+      "A guided eco-experience suitable for families and nature lovers of all ages.",
     ],
-    tags: ["Swim", "Half-day", "Family friendly"],
-    includedInPackageSlugs: ["3d2n-kenyir-explorer"],
-  },
-  {
-    slug: "hawa-cave",
-    kind: "excursions",
-    title: "Hawa Cave",
-    images: [
-      media("Limestone cave entrance framed by rainforest", "/images/experiences/hawa-cave-entrance.webp"),
-      media("Inside Hawa cave with daylight shafts", "/images/experiences/hawa-cave-inside.webp"),
-    ],
-    lines: [
-      "A guided walk through a limestone cave system with daylight shafts, swiftlets and ancient water-carved walls.",
-      "Helmets and lights provided — no climbing experience needed, just shoes that can get wet.",
-    ],
-    tags: ["Guided walk", "Half-day"],
-    includedInPackageSlugs: ["4d3n-kenyir-grand-voyage"],
-  },
-  {
-    slug: "kampung-visit",
-    kind: "excursions",
-    title: "Kampung Sekayu Visit",
-    images: [
-      media("Village jetty at Kampung Sekayu", "/images/gallery/gallery-12-kampung-morning.webp"),
-      media("Morning market stalls at Kampung Sekayu", "/images/deck/company-trip.webp"),
-    ],
-    lines: [
-      "A morning at the fishing village most visitors never reach — market stalls, a lakeside school visit, and coffee with locals.",
-      "Purchases made here go straight to village families; the crew can point you to the best keropok on the lake.",
-    ],
-    tags: ["Culture", "Morning", "Family friendly"],
+    tags: ["Wildlife", "Conservation", "Family friendly"],
     includedInPackageSlugs: ["3d2n-kenyir-explorer", "4d3n-kenyir-grand-voyage"],
   },
   {
-    slug: "tembat-river-drift",
-    kind: "activities",
-    title: "Tembat River Drift",
-    images: [media("Kayaks drifting down the Tembat river canyon", "/images/experiences/tembat-kayak.webp")],
-    lines: [
-      "Engines off, kayaks out — a slow drift down the Tembat river canyon beneath 40-metre trees.",
-      "Guided by our crew; suitable for first-time paddlers.",
+    slug: "kelah-sanctuary",
+    kind: "excursions",
+    title: "Playing in Kenyir Kelah Sanctuary",
+    images: [
+      media("Natural Kelah Fish Spa Sanctuary at Petang River Kenyir", "/images/real/DSC07600.webp", 1920, 1280),
+      media("Feeding and wading with wild Malaysian Mahseer fish", "/images/real/DSC07610.webp", 1920, 1280),
     ],
-    tags: ["Kayak", "Gentle"],
+    lines: [
+      "Wade into crystal-clear river currents for a natural fish spa with hundreds of protected Kelah (Malaysian Mahseer).",
+      "Feed the friendly fish and immerse yourself in one of Kenyir's most vibrant living waters.",
+    ],
+    tags: ["Fish Spa", "River", "Iconic"],
+    includedInPackageSlugs: ["3d2n-kenyir-explorer", "4d3n-kenyir-grand-voyage"],
+  },
+  {
+    slug: "bewah-cave",
+    kind: "excursions",
+    title: "Exploring Bewah Cave",
+    images: [
+      media("Conqueror of Bewah Cave subterranean chamber exploration", "/images/real/495.webp", 1200, 800),
+      media("Ancient limestone formations inside Gua Bewah", "/images/real/bewah-cave-formations.webp", 1920, 1280),
+    ],
+    lines: [
+      "Climb into Southeast Asia's famous prehistoric limestone cave where ancient relics and mesmerising stalactites reside.",
+      "Boardwalk pathways and elevated viewing decks make exploration safe and fascinating.",
+    ],
+    tags: ["Subterranean", "Prehistoric", "Guided walk"],
+    includedInPackageSlugs: ["3d2n-kenyir-explorer", "4d3n-kenyir-grand-voyage"],
+  },
+  {
+    slug: "melunak-trail",
+    kind: "excursions",
+    title: "Melunak Trail Giant Tree Hike",
+    images: [
+      media("Enchanting Melunak Tree rainforest trail trekking", "/images/real/DSC07563-scaled.webp", 1920, 1280),
+      media("Hikers on the suspension canopy walkway", "/images/real/DSC07724-1.webp", 1920, 1280),
+    ],
+    lines: [
+      "Trek through ancient dipterocarp rainforest to stand before Malaysia's largest thousand-year-old Melunak tree.",
+      "Cross scenic suspension bridges and immerse yourself in pristine jungle ecology.",
+    ],
+    tags: ["Jungle Trek", "Giant Tree", "Adventure"],
     includedInPackageSlugs: ["4d3n-kenyir-grand-voyage"],
   },
   {
-    slug: "night-sounds-cruise",
-    kind: "activities",
-    title: "Night Sounds Cruise",
-    images: [media("Houseboat lit softly at night on the lake", "/images/experiences/night-sounds.webp")],
-    lines: [
-      "After dinner, we drift with engines off and lights low while the forest calls across the water.",
-      "The crew's favourite hour of the trip — bring something warm; the lake cools after dark.",
+    slug: "lasir-waterfall",
+    kind: "excursions",
+    title: "Lasir Waterfall & Natural Lagoons",
+    images: [
+      media("Lasir multi-tiered waterfall cascading into freshwater swimming pool", "/images/real/DSC07615-scaled.webp", 1920, 1280),
     ],
-    tags: ["Evening", "Wildlife"],
+    lines: [
+      "A scenic tender ride to Kenyir's iconic multi-tiered waterfall with refreshing natural rock swimming pools.",
+      "Relax on sunny granite rocks or swim beneath cooling jungle torrents.",
+    ],
+    tags: ["Waterfall", "Swimming", "Must-Visit"],
+    includedInPackageSlugs: ["3d2n-kenyir-explorer", "4d3n-kenyir-grand-voyage"],
+  },
+  {
+    slug: "saok-waterfall",
+    kind: "excursions",
+    title: "Saok Waterfall & Forest Canopy",
+    images: [
+      media("Air Terjun Saok cascades through rainforest canopy", "/images/real/air-terjun-saok-1-scaled.webp", 1920, 1280),
+    ],
+    lines: [
+      "A quieter, lush waterfall tucked within emerald ravines with tranquil shallow pools.",
+      "Perfect for relaxing picnics and gentle forest bathing.",
+    ],
+    tags: ["Waterfall", "Nature", "Quiet"],
     includedInPackageSlugs: ["3d2n-kenyir-explorer"],
   },
   {
-    slug: "sunrise-paddle",
+    slug: "kayaking-rafting",
     kind: "activities",
-    title: "Sunrise Paddle",
-    images: [media("Paddleboarder at sunrise with mist over the lake", "/images/experiences/sunrise-paddle.webp")],
-    lines: [
-      "An early paddleboard or kayak session as mist lifts off the water — the quietest moment on the lake.",
-      "Beginner-friendly boards, or just ride along in the support boat with coffee.",
+    title: "Kayaking & Bamboo Rafting",
+    images: [
+      media("Guests enjoying kayak and bamboo rafting on Kenyir Lake", "/images/real/DSC07926-min-1-scaled.webp", 1920, 1280),
+      media("Red kayak paddling across peaceful lake surface", "/images/real/DSC07934-scaled.webp", 1920, 1280),
     ],
-    tags: ["Sunrise", "Kayak", "Paddleboard"],
-    includedInPackageSlugs: ["4d3n-kenyir-grand-voyage"],
+    lines: [
+      "Glide silently across calm glassy lake waters in personal kayaks or traditional bamboo rafts.",
+      "All equipment and buoyancy aids provided with safety supervision.",
+    ],
+    tags: ["Water Sports", "Kayak", "Bamboo Raft"],
+    includedInPackageSlugs: ["3d2n-kenyir-explorer", "4d3n-kenyir-grand-voyage"],
+  },
+  {
+    slug: "fishing-terengganu",
+    kind: "activities",
+    title: "Lake Angling & Sport Fishing",
+    images: [
+      media("Angling and game fishing on Kenyir Lake", "/images/real/fishing-terengganu.webp", 1200, 800),
+    ],
+    lines: [
+      "Cast your lines for legendary Toman (Giant Snakehead), Kelah, and Sebarau in deep secluded bays.",
+      "Catch-and-release sport fishing with experienced local guides.",
+    ],
+    tags: ["Fishing", "Angling", "Toman"],
+    includedInPackageSlugs: ["3d2n-kenyir-explorer", "4d3n-kenyir-grand-voyage"],
   },
 ];

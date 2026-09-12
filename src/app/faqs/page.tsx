@@ -18,7 +18,7 @@ export default async function FaqsPage() {
   return (
     <>
       <PageHero
-        asset={media("Houseboat deck at dusk with lanterns", "/images/page-heroes/hero-faqs.webp")}
+        asset={media("Sunset dinner cruise on Lake Kenyir", "/images/page-heroes/hero-faqs.webp")}
         title={t("title")}
         line={t("subtitle")}
         crumbs={crumbs}

@@ -28,12 +28,14 @@ export const ROUTE_GROUPS: {
     titleKey: "sitemap.groups.main",
     routes: [
       { path: "/", group: "main" },
+      { path: "/book", group: "main" },
       { path: "/how-it-works", group: "main" },
       { path: "/the-lake", group: "main" },
       { path: "/private-charter", group: "main" },
       { path: "/gallery", group: "main" },
     ],
   },
+
   {
     id: "vessels",
     titleKey: "sitemap.groups.vessels",

@@ -21,7 +21,7 @@ export async function Footer() {
   const legalGroup = ROUTE_GROUPS.find((g) => g.id === "legal");
 
   return (
-    <footer className="bg-obsidian text-white/80">
+    <footer className="relative z-10 -mt-px bg-obsidian text-white/80">
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
         {/* §7.6: first-time visitors get pointed at the plain-language guide. */}
         <Link
@@ -41,21 +41,29 @@ export async function Footer() {
               <Image
                 src="/images/logo/summer-cruise-logo-white.webp"
                 alt={SITE.name}
-                width={200}
-                height={52}
-                className="h-11 w-auto object-contain"
+                width={360}
+                height={94}
+                className="h-[80px] w-auto object-contain"
               />
             </Link>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/70">
               {t("footer.tagline")}
             </p>
-            <ul className="mt-6 space-y-2 text-sm">
+            <ul className="mt-5 space-y-2.5 text-sm">
               <li>
                 <a
-                  href={SITE.phoneHref}
-                  className="inline-flex min-h-11 items-center gap-2 text-white/80 transition-colors hover:text-gold"
+                  href="tel:+60199129966"
+                  className="inline-flex items-center gap-2 text-white/80 transition-colors hover:text-gold"
                 >
-                  <Phone aria-hidden className="size-4 text-gold" /> {SITE.phone}
+                  <Phone aria-hidden className="size-4 text-gold" /> +6019-912 9966 (Sales Team)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="tel:+60179819827"
+                  className="inline-flex items-center gap-2 text-white/80 transition-colors hover:text-gold"
+                >
+                  <Phone aria-hidden className="size-4 text-gold" /> +60 17 981 9827 (Direct)
                 </a>
               </li>
               <li>
@@ -63,7 +71,7 @@ export async function Footer() {
                   href={whatsappLink(WHATSAPP_NUMBER, t("common.whatsappMessage"))}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-11 items-center gap-2 text-white/80 transition-colors hover:text-gold"
+                  className="inline-flex items-center gap-2 text-white/80 transition-colors hover:text-gold"
                 >
                   <MessageCircle aria-hidden className="size-4 text-[#25D366]" /> {t("common.whatsapp")}
                 </a>
@@ -71,13 +79,18 @@ export async function Footer() {
               <li>
                 <a
                   href={`mailto:${SITE.email}`}
-                  className="inline-flex min-h-11 items-center gap-2 text-white/80 transition-colors hover:text-gold"
+                  className="inline-flex items-center gap-2 text-white/80 transition-colors hover:text-gold"
                 >
                   <Mail aria-hidden className="size-4 text-gold" /> {SITE.email}
                 </a>
               </li>
-              <li className="flex items-start gap-2 pt-1 text-sm text-white/60">
-                <MapPin aria-hidden className="mt-1 size-4 shrink-0 text-gold" /> {SITE.address}
+              <li className="flex items-start gap-2 pt-1 text-xs leading-relaxed text-white/60">
+                <MapPin aria-hidden className="mt-0.5 size-4 shrink-0 text-gold" />
+                <div>
+                  <span className="font-medium text-white/80">Reservation Office:</span>
+                  <br />
+                  {SITE.address}
+                </div>
               </li>
             </ul>
           </div>
@@ -87,12 +100,12 @@ export async function Footer() {
               <p className="font-secondary text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-gold">
                 {t("footer.explore")}
               </p>
-              <ul className="mt-4 space-y-2">
+              <ul className="mt-3.5 space-y-2">
                 {exploreGroups.flatMap((g) => g.routes.slice(0, 1)).map((r) => (
                   <li key={r.path}>
                     <Link
                       href={r.path}
-                      className="inline-flex min-h-11 items-center text-sm text-white/70 transition-colors hover:text-white"
+                      className="inline-block text-sm text-white/70 transition-colors hover:text-white"
                     >
                       {t(`nav.${navKeyForPath(r.path)}`)}
                     </Link>
@@ -104,12 +117,12 @@ export async function Footer() {
               <p className="font-secondary text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-gold">
                 {t("footer.help")}
               </p>
-              <ul className="mt-4 space-y-2">
+              <ul className="mt-3.5 space-y-2">
                 {helpGroup?.routes.map((r) => (
                   <li key={r.path}>
                     <Link
                       href={r.path}
-                      className="inline-flex min-h-11 items-center text-sm text-white/70 transition-colors hover:text-white"
+                      className="inline-block text-sm text-white/70 transition-colors hover:text-white"
                     >
                       {labelForPath(r.path, t)}
                     </Link>
@@ -121,12 +134,12 @@ export async function Footer() {
               <p className="font-secondary text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-gold">
                 {t("footer.legal")}
               </p>
-              <ul className="mt-4 space-y-2">
+              <ul className="mt-3.5 space-y-2">
                 {legalGroup?.routes.map((r) => (
                   <li key={r.path}>
                     <Link
                       href={r.path}
-                      className="inline-flex min-h-11 items-center text-sm text-white/70 transition-colors hover:text-white"
+                      className="inline-block text-sm text-white/70 transition-colors hover:text-white"
                     >
                       {t(r.path === "/privacy-policy" ? "privacy.title" : "terms.title")}
                     </Link>
@@ -135,7 +148,7 @@ export async function Footer() {
                 <li>
                   <Link
                     href="/brochure"
-                    className="inline-flex min-h-11 items-center text-sm text-white/70 transition-colors hover:text-white"
+                    className="inline-block text-sm text-white/70 transition-colors hover:text-white"
                   >
                     {t("brochure.title")}
                   </Link>
@@ -143,7 +156,7 @@ export async function Footer() {
                 <li>
                   <Link
                     href="/gift-vouchers"
-                    className="inline-flex min-h-11 items-center text-sm text-white/70 transition-colors hover:text-white"
+                    className="inline-block text-sm text-white/70 transition-colors hover:text-white"
                   >
                     {t("giftVouchers.title")}
                   </Link>
@@ -157,8 +170,10 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 pt-6 text-xs text-white/45">
-          <p>{t("footer.rights", { year })}</p>
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-white/8 pt-6 text-xs text-white/45">
+          <p>
+            Copyright © {year} {SITE.companyName} {SITE.companyNo}. All Rights Reserved.
+          </p>
           <div className="flex gap-6 text-xs">
             <Link href="/sitemap" className="transition-colors hover:text-white">
               Sitemap

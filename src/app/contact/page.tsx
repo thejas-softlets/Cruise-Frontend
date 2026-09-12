@@ -38,7 +38,7 @@ export default async function ContactPage() {
   return (
     <>
       <PageHero
-        asset={media("Pengkalan Gawi jetty in soft morning light", "/images/page-heroes/hero-contact.webp")}
+        asset={media("Aerial view of the houseboat on Lake Kenyir", "/images/page-heroes/hero-contact.webp")}
         title={t("title")}
         line={t("subtitle")}
         crumbs={crumbs}

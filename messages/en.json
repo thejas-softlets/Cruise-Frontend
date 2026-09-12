@@ -87,7 +87,7 @@
     "journalTitle": "From the journal",
     "ctaScript": "see you on the water",
     "ctaTitle": "Ready when you are.",
-    "ctaLine": "Enquire online, or message us on WhatsApp — we reply within 24 hours.",
+    "ctaLine": "Enquire online, or message us on WhatsApp.",
     "durationBadge": "{nights}D{daysMinusOne}N"
   },
   "vessels": {
@@ -115,7 +115,7 @@
     "experiences": "Experiences on this cruise",
     "reviews": "Guest reviews",
     "enquireTitle": "Enquire about this package",
-    "enquireLine": "Tell us your dates — we'll WhatsApp you a personalised quote within 24 hours.",
+    "enquireLine": "Tell us your dates — we'll WhatsApp you a personalised quote.",
     "day": "Day {n}",
     "meals": "Meals",
     "occupancy": "Sleeps {count}",
@@ -131,7 +131,7 @@
     "applicablePackages": "Applies to these packages",
     "terms": "Terms & conditions",
     "enquireTitle": "Enquire with this offer",
-    "enquireLine": "We'll check availability and WhatsApp you within 24 hours."
+    "enquireLine": "We'll check availability and WhatsApp you with options."
   },
   "experiences": {
     "hubTitle": "Experiences",
@@ -227,7 +227,7 @@
     "steps": {
       "browse": { "title": "1. Browse", "body": "Look through our packages and offers online — no sign-up, no pressure." },
       "enquire": { "title": "2. Enquire", "body": "Send the form here, message us on WhatsApp, or just call. Whichever you prefer." },
-      "quote": { "title": "3. Get your quote", "body": "Within 24 hours we send your personalised quote — by WhatsApp, email or phone, your choice." },
+      "quote": { "title": "3. Get your quote", "body": "We send your personalised quote — by WhatsApp, email or phone, your choice." },
       "confirm": { "title": "4. Confirm & pay", "body": "Happy with it? We send simple payment instructions. Bank transfer, card or cash at our office." },
       "board": { "title": "5. Check in & board", "body": "Arrive at the jetty, show your booking code, step on board. That's it." }
     },
@@ -255,12 +255,12 @@
     "howItWorks": "Choose an amount, enquire below, and we'll arrange payment and a personalised voucher — printed or digital.",
     "amountLabel": "RM{amount}",
     "enquireTitle": "Enquire about a voucher",
-    "enquireLine": "Tell us the amount and who it's for — we'll handle the rest within 24 hours."
+    "enquireLine": "Tell us the amount and who it's for — we'll handle the rest."
   },
   "privateCharterPage": {
     "body": "Take a whole houseboat for your group — weddings, corporate retreats, family reunions, or simply everyone you love in one place. Full-boat charter means your dates, your route, your pace: the crew plans the days around what your group actually wants.",
     "enquireTitle": "Enquire about a charter",
-    "enquireLine": "Tell us your group size and rough dates — we'll reply within 24 hours with options."
+    "enquireLine": "Tell us your group size and rough dates — we'll reply with options."
   },
   "contact": {
     "title": "Contact",
@@ -271,7 +271,7 @@
     "address": "Find us at the jetty",
     "mapTitle": "Map — Pengkalan Gawi Jetty, Kenyir Lake",
     "formTitle": "Send a message",
-    "formLine": "We reply within 24 hours, every day of the week."
+    "formLine": "We're here to help every day of the week."
   },
   "checkIn": {
     "title": "Check in",
@@ -347,7 +347,7 @@
     "messagePlaceholder": "Allergies, occasions, questions…",
     "reviewNote": "One more look — then we'll send it to our team.",
     "successTitle": "Thank you — we've got it!",
-    "successLine": "Our team will WhatsApp you within 24 hours with your personalised quote.",
+    "successLine": "Our team will WhatsApp you with your personalised quote.",
     "successHint": "Screenshot or save this page if you like — it won't disappear.",
     "enquiryRef": "Enquiry reference",
     "sendAnother": "Send another enquiry"

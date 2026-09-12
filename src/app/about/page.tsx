@@ -16,7 +16,7 @@ export default async function AboutHubPage() {
   return (
     <>
       <PageHero
-        asset={media("Crew of Summer Cruise on the deck at golden hour", "/images/page-heroes/hero-about.webp")}
+        asset={media("Guests dining on the open top deck at golden hour", "/images/page-heroes/hero-about.webp")}
         title={t("hubTitle")}
         line={t("hubLine")}
         crumbs={crumbs}

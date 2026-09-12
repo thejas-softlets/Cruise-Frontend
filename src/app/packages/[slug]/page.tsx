@@ -12,12 +12,16 @@ import { StickySubNav } from "@/components/layout/StickySubNav";
 import { Button } from "@/components/ui/Button";
 import { PlaceholderMedia } from "@/components/ui/PlaceholderMedia";
 import { ReviewCard } from "@/components/cards/ReviewCard";
+import { DynamicCruiseMap } from "@/components/booking/DynamicCruiseMap";
+import { AquaBookingFlow } from "@/components/booking/AquaBookingFlow";
 import { getAllPackages, getPackageBySlug } from "@/lib/api/packages";
 import { getRoomsByIds } from "@/lib/api/rooms";
 import { getExperiencesBySlugs } from "@/lib/api/experiences";
 import { getReviewsByPackage } from "@/lib/api/reviews";
+import { getWaypointsForPackage, getCabinDeckSlots } from "@/lib/api/booking";
 import { getTranslations } from "next-intl/server";
 import { formatPrice } from "@/lib/format";
+
 
 export async function generateStaticParams() {
   const packages = await getAllPackages();
@@ -36,22 +40,27 @@ export default async function PackageDetailPage({
   const t = await getTranslations("packages");
   const tc = await getTranslations("common");
 
-  const [rooms, experiences, reviews] = await Promise.all([
+  const [rooms, experiences, reviews, waypoints, cabinSlots] = await Promise.all([
     getRoomsByIds(pkg.roomCategoryIds),
     getExperiencesBySlugs(pkg.experienceSlugs),
     getReviewsByPackage(pkg.slug),
+    getWaypointsForPackage(pkg.slug),
+    getCabinDeckSlots(),
   ]);
 
   const crumbs = await buildCrumbs(["packages", slug], { [`/packages/${slug}`]: pkg.title });
 
   const subnav = [
     { id: "overview", label: t("overview") },
+    { id: "route-map", label: "Navigation Chart" },
     { id: "itinerary", label: t("itinerary") },
     { id: "rooms", label: t("rooms") },
+    { id: "book-cabins", label: "Cabin Selection" },
     { id: "included", label: t("inclusions") },
     { id: "experiences", label: t("experiences") },
     { id: "enquire", label: tc("enquire") },
   ];
+
 
   return (
     <div>
@@ -84,7 +93,10 @@ export default async function PackageDetailPage({
             <aside className="h-fit rounded-3xl border border-ink/8 bg-white p-7">
               <p className="text-sm leading-relaxed text-text-muted">{t("relatedNote")}</p>
               <div className="mt-6 flex flex-col gap-3">
-                <Button href="#enquire" size="lg">
+                <Button href="#book-cabins" size="lg">
+                  {tc("bookNow")}
+                </Button>
+                <Button href="#enquire" variant="ghost" size="lg">
                   {tc("enquireNow")}
                 </Button>
                 <PrintSummaryButton />
@@ -93,8 +105,34 @@ export default async function PackageDetailPage({
           </div>
         </section>
 
+        {/* Dynamic Interactive Expedition Navigation Chart (Aqua style) */}
+        <section id="route-map" className="scroll-mt-28 pt-20">
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <span className="font-secondary text-xs font-semibold uppercase tracking-widest text-gold-deep">
+                Expedition Navigation
+              </span>
+              <h2 className="font-display mt-1 text-3xl font-medium text-ink">
+                Kenyir Lake Passage Route Chart
+              </h2>
+            </div>
+            <p className="max-w-md text-xs leading-relaxed text-text-muted">
+              Explore scheduled daily waypoints, secluded waterfalls, subterranean limestone caves, and sanctuary anchorages along your voyage.
+            </p>
+          </div>
+
+          <FadeIn>
+            <DynamicCruiseMap
+              waypoints={waypoints}
+              packageTitle={pkg.title}
+              durationLabel={pkg.durationLabel}
+            />
+          </FadeIn>
+        </section>
+
         {/* Itinerary */}
         <section id="itinerary" className="scroll-mt-28 pt-20">
+
           <h2 className="font-display text-3xl font-medium">{t("itinerary")}</h2>
           <ol className="mt-8 space-y-4">
             {pkg.itinerary.map((day, i) => (
@@ -141,8 +179,33 @@ export default async function PackageDetailPage({
           </div>
         </section>
 
+        {/* 4-Step Interactive Stateroom & Cabin Reservation (Directly adapted from Aqua Expeditions) */}
+        <section id="book-cabins" className="scroll-mt-28 pt-20">
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <span className="font-secondary text-xs font-semibold uppercase tracking-widest text-gold-deep">
+                Direct Stateroom Reservation
+              </span>
+              <h2 className="font-display mt-1 text-3xl font-medium text-ink">
+                Select Your Cabins & Secure Your Passage
+              </h2>
+            </div>
+            <p className="max-w-md text-xs leading-relaxed text-text-muted">
+              Select available staterooms on Upper, Main, or Lower decks with transparent pricing and flexible 30% deposit terms.
+            </p>
+          </div>
+
+          <FadeIn>
+            <AquaBookingFlow
+              pkg={pkg}
+              availableCabins={cabinSlots}
+            />
+          </FadeIn>
+        </section>
+
         {/* Included / not included */}
         <section id="included" className="scroll-mt-28 pt-20">
+
           <h2 className="font-display text-3xl font-medium">{t("inclusions")}</h2>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             <div className="rounded-3xl border border-ink/8 bg-white p-6">

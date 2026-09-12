@@ -50,7 +50,7 @@ export const MOCK_VOUCHERS: GiftVoucherOption[] = [
 ];
 
 export const MOCK_FAQS: { id: string; question: string; answer: string }[] = [
-  { id: "faq-book-1", question: "How do I book?", answer: "Enquire through any page on this site, message us on WhatsApp, or call us. We reply within 24 hours with a personalised quote, and you confirm with a 30% deposit." },
+  { id: "faq-book-1", question: "How do I book?", answer: "Enquire through any page on this site, message us on WhatsApp, or call us. We reply with a personalised quote, and you confirm with a 30% deposit." },
   { id: "faq-book-2", question: "Do I need to create an account?", answer: "No. You never need an account to browse, enquire, book or check in." },
   { id: "faq-book-3", question: "Can I book entirely through WhatsApp?", answer: "Yes — many guests do exactly that, from first question to boarding time." },
   { id: "faq-book-4", question: "What are your payment methods?", answer: "Bank transfer, credit/debit card, or cash at our office near the jetty. Payment details come with your quote." },
