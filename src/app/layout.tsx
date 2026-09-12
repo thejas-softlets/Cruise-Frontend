@@ -1,11 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import {
-  Outfit,
-  Plus_Jakarta_Sans,
-  Roboto_Condensed,
-  Yellowtail,
-} from "next/font/google";
+import { Outfit } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
@@ -16,38 +11,26 @@ import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 
 import "../styles/tokens.css";
 
-const caacupe = localFont({
-  src: "../../public/fonts/CaacupeOne-Regular.ttf",
-  variable: "--font-caacupe",
+/** Migatsu — Summer Cruise official brand display & headline font */
+const migatsu = localFont({
+  src: "../../public/fonts/Migatsu-Regular.woff2",
+  variable: "--font-migatsu",
   display: "swap",
   weight: "400",
 });
 
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-jakarta",
+/** Marker Mark — Summer Cruise official handwritten marker/script font */
+const markerMark = localFont({
+  src: "../../public/fonts/MarkerMark-Regular.ttf",
+  variable: "--font-marker",
   display: "swap",
+  weight: "400",
 });
 
-/** Outfit — the Summer Cruise site's primary sans (body + UI). */
+/** Outfit — Summer Cruise official primary sans font (body + UI) */
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
-  display: "swap",
-});
-
-const robotoCondensed = Roboto_Condensed({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-roboto-condensed",
-  display: "swap",
-});
-
-/** Handwritten script accent — sparingly: one or two words per page max for highlights. */
-const yellowtail = Yellowtail({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-script",
   display: "swap",
 });
 
@@ -85,7 +68,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${caacupe.variable} ${jakarta.variable} ${outfit.variable} ${robotoCondensed.variable} ${yellowtail.variable} antialiased`}
+      className={`${migatsu.variable} ${markerMark.variable} ${outfit.variable} antialiased`}
     >
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>

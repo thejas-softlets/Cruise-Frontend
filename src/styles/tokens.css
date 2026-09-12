@@ -24,12 +24,15 @@
   --color-dark: #0c2b33; /* legacy name kept */
   --color-dark-text: #f2f8f9; /* soft ice-white */
 
-  --font-display: var(--font-caacupe), var(--font-outfit), system-ui, sans-serif;
+  --font-display: var(--font-migatsu), var(--font-outfit), system-ui, sans-serif;
   --font-secondary: var(--font-outfit), system-ui, sans-serif;
   --font-sans: var(--font-outfit), system-ui, sans-serif;
   --font-body: var(--font-outfit), system-ui, sans-serif;
   --font-roboto: var(--font-outfit), system-ui, sans-serif;
-  --font-script: var(--font-script), cursive;
+  --font-script: var(--font-marker), cursive;
+  --font-migatsu: var(--font-migatsu), serif, sans-serif;
+  --font-outfit: var(--font-outfit), sans-serif;
+  --font-marker: var(--font-marker), cursive;
 
   --text-body: 1.0625rem;
   --text-body--line-height: 1.65;
