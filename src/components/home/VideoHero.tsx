@@ -66,19 +66,19 @@ export function VideoHero() {
       </div>
 
       {/* ── Content ── */}
-      <div ref={content} className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pb-24 pt-40 sm:px-8 sm:pb-28">
-        <p data-hero-eyebrow className="text-[0.75rem] font-semibold uppercase tracking-[0.32em] text-teal-soft/90">
+      <div ref={content} className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pb-16 pt-28 sm:px-8 sm:pb-24 sm:pt-36 lg:pb-28 lg:pt-40">
+        <p data-hero-eyebrow className="text-[0.7rem] font-semibold uppercase tracking-[0.32em] text-teal-soft/90 sm:text-[0.75rem]">
           Tasik Kenyir · Terengganu · Malaysia
         </p>
 
-        <h1 className="font-display mt-5 whitespace-normal text-[clamp(2.4rem,10.5vw,7.5rem)] font-medium leading-[0.98] tracking-tight text-white xl:whitespace-nowrap">
+        <h1 className="font-display mt-3 whitespace-normal text-[clamp(2.2rem,6.5vw,6.5rem)] font-medium leading-[1.02] tracking-tight text-white sm:mt-4 sm:whitespace-nowrap lg:text-[clamp(2.6rem,7.5vw,7.5rem)]">
           <span aria-label="Kenyir Lake Cruises" className="sr-only">Kenyir Lake Cruises</span>
           <span aria-hidden className="block overflow-hidden">
             <span data-hero-word className="block">Kenyir&nbsp;Lake&nbsp;Cruises</span>
           </span>
         </h1>
 
-        <div className="mt-8 flex flex-wrap items-center gap-4">
+        <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4">
           <div data-hero-cta>
             <Magnetic>
               <Button href="/packages" size="lg" className="bg-teal hover:bg-white hover:text-obsidian">
@@ -97,7 +97,7 @@ export function VideoHero() {
       </div>
 
       {/* Scroll cue */}
-      <div data-hero-cue className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2">
+      <div data-hero-cue className="hidden sm:block absolute bottom-5 left-1/2 z-10 -translate-x-1/2">
         <ChevronDown className="size-6 animate-bounce text-white/60" aria-hidden />
       </div>
     </section>

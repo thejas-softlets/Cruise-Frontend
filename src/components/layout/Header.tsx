@@ -91,30 +91,30 @@ export function Header() {
           : "bg-gradient-to-b from-obsidian/60 to-transparent",
       )}
     >
-      <div className="mx-auto flex h-20 max-w-[88rem] items-center justify-between gap-4 pl-6 pr-3 sm:px-6">
+      <div className="mx-auto flex h-20 max-w-[88rem] items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
           aria-label={SITE.name}
-          className="group inline-flex items-center transition-opacity duration-300 hover:opacity-85 sm:-ml-5 lg:-ml-10"
+          className="group inline-flex shrink-0 items-center transition-opacity duration-300 hover:opacity-85"
         >
           <Image
             src="/images/logo/summer-cruise-logo-white.webp"
             alt={SITE.name}
             width={180}
             height={46}
-            className="h-11 w-auto translate-y-[2px] object-contain sm:h-12"
+            className="h-10 w-auto translate-y-[1px] object-contain sm:h-12"
             priority
           />
         </Link>
 
         {/* Desktop nav — compact pill links */}
-        <nav aria-label="Main" className="hidden items-center gap-0.5 xl:flex">
+        <nav aria-label="Main" className="hidden items-center gap-0.5 xl:flex 2xl:gap-1">
           {NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "group relative whitespace-nowrap rounded-full px-3.5 py-2.5 text-[0.9375rem] font-semibold tracking-wide transition-colors duration-300",
+                "group relative whitespace-nowrap rounded-full px-3 py-2 text-[0.875rem] font-semibold tracking-wide transition-colors duration-300 2xl:px-3.5 2xl:py-2.5 2xl:text-[0.9375rem]",
                 onDark
                   ? "text-white/90 [text-shadow:0_1px_8px_rgba(12,43,51,0.6)] hover:text-white"
                   : "text-ink/75 hover:text-teal-deep",
@@ -133,13 +133,13 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-2.5">
           <LanguageToggle onDark={onDark} />
           <a
             href={SITE.phoneHref}
             aria-label={tc("callUs")}
             className={cn(
-              "hidden size-9 items-center justify-center rounded-full transition-colors sm:inline-flex",
+              "hidden size-9 items-center justify-center rounded-full transition-colors 2xl:inline-flex",
               onDark ? "text-white/80 hover:bg-white/10" : "text-ink/60 hover:bg-ink/5",
             )}
           >
@@ -148,7 +148,7 @@ export function Header() {
           <Link
             href="/book"
             className={cn(
-              "font-secondary hidden min-h-10 items-center whitespace-nowrap rounded-full px-5 text-xs font-semibold uppercase tracking-[0.14em] transition-all duration-500 sm:inline-flex",
+              "font-secondary hidden min-h-9 items-center whitespace-nowrap rounded-full px-4 text-xs font-semibold uppercase tracking-[0.12em] transition-all duration-500 sm:inline-flex sm:min-h-10 sm:px-5 sm:tracking-[0.14em]",
               onDark
                 ? "bg-teal text-white hover:bg-white hover:text-obsidian"
                 : "bg-teal text-white hover:bg-teal-deep",
@@ -159,7 +159,7 @@ export function Header() {
           <Link
             href="/contact"
             className={cn(
-              "font-secondary hidden min-h-10 items-center whitespace-nowrap rounded-full px-5 text-xs font-semibold uppercase tracking-[0.14em] transition-all duration-500 md:inline-flex",
+              "font-secondary hidden min-h-10 items-center whitespace-nowrap rounded-full px-5 text-xs font-semibold uppercase tracking-[0.14em] transition-all duration-500 2xl:inline-flex",
               onDark
                 ? "border border-white/40 bg-white/10 text-white backdrop-blur-sm hover:bg-white hover:text-obsidian"
                 : "bg-obsidian text-white hover:bg-teal-deep",
@@ -174,7 +174,7 @@ export function Header() {
             aria-expanded={menuOpen}
             aria-label={menuOpen ? tc("closeMenu") : tc("openMenu")}
             className={cn(
-              "inline-flex size-9 items-center justify-center rounded-full transition-colors xl:hidden",
+              "inline-flex size-10 items-center justify-center rounded-full transition-colors xl:hidden",
               onDark ? "text-white hover:bg-white/10" : "text-ink hover:bg-ink/5",
             )}
           >
