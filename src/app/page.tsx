@@ -12,12 +12,11 @@ import {
   HorizontalScroll,
   StatCounter,
   Magnetic,
-  LineDraw,
-  PinFade,
   SplitDoors,
   AutoGallery,
 } from "@/components/motion/gsap-primitives";
 import { VideoHero } from "@/components/home/VideoHero";
+import { DualVoyagesSection } from "@/components/home/DualVoyagesSection";
 
 import { PartnerPromotionsBanner } from "@/components/home/PartnerPromotionsBanner";
 import { getAllArticles } from "@/lib/api/journal";
@@ -118,7 +117,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 5 ── VOYAGE STATS BAND — dark chapter with counters */}
+      {/* 5 ── VOYAGE STATS BAND — dual vessel specs, dark chapter */}
       <section className="relative overflow-hidden bg-obsidian py-16 text-white sm:py-24">
         <ParallaxLayer speed={0.1} className="absolute inset-0 -top-[10%] h-[120%] opacity-25">
           <img src="/images/real/DJI_0123-min-scaled.webp" alt="" className="size-full object-cover" loading="lazy" />
@@ -127,25 +126,109 @@ export default async function HomePage() {
         <div className="relative mx-auto max-w-7xl px-5 text-center sm:px-8">
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-soft">03 — Life On Board</p>
           <SplitHeadline
-            text="Every voyage is fully crewed, fully served"
+            text="Two handcrafted vessels, fully crewed & served"
             className="font-display mx-auto mt-4 max-w-3xl text-4xl font-medium leading-[1.06] tracking-tight text-balance sm:text-6xl"
           />
-          <StaggerGrid className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
-            {[
-              { v: 34, s: "", label: "Guests aboard" },
-              { v: 12, s: "", label: "Private rooms" },
-              { v: 10, s: "", label: "Dedicated crew" },
-              { v: 3, s: "D2N", label: "Signature voyages" },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <p className="font-display text-5xl font-medium text-teal-soft sm:text-6xl">
-                  <StatCounter value={stat.v} suffix={stat.s} />
-                </p>
-                <p className="mt-2 text-[0.68rem] font-medium uppercase tracking-[0.2em] text-white/60">{stat.label}</p>
+          <p className="mx-auto mt-3 max-w-xl text-sm font-light text-white/75 sm:text-base">
+            Whether an intimate family voyage or a grand celebration, experience Kenyir Lake in tailored comfort.
+          </p>
+
+          <StaggerGrid className="mx-auto mt-10 grid max-w-5xl gap-6 md:grid-cols-2">
+            {/* Summer Cruise */}
+            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left backdrop-blur-sm transition-all duration-300 hover:border-teal/40 sm:p-8">
+              <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-4">
+                <div>
+                  <h3 className="font-display text-2xl font-medium text-white sm:text-3xl">Summer Cruise</h3>
+                  <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-teal-soft">Flagship Luxury Houseboat</p>
+                </div>
+                <Link
+                  href="/vessels/summer-cruise"
+                  className="flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-all duration-300 hover:border-teal hover:bg-teal"
+                  aria-label="View Summer Cruise"
+                >
+                  <span className="font-secondary text-sm">↗</span>
+                </Link>
               </div>
-            ))}
+              <div className="mt-6 grid grid-cols-3 gap-3 text-center">
+                <div>
+                  <p className="font-display text-3xl font-medium text-teal-soft sm:text-4xl">
+                    <StatCounter value={34} />
+                  </p>
+                  <p className="mt-1 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-white/60">Guests</p>
+                </div>
+                <div>
+                  <p className="font-display text-3xl font-medium text-teal-soft sm:text-4xl">
+                    <StatCounter value={12} />
+                  </p>
+                  <p className="mt-1 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-white/60">Rooms</p>
+                </div>
+                <div>
+                  <p className="font-display text-3xl font-medium text-teal-soft sm:text-4xl">
+                    <StatCounter value={10} />
+                  </p>
+                  <p className="mt-1 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-white/60">Crew</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Green Horizon */}
+            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left backdrop-blur-sm transition-all duration-300 hover:border-teal/40 sm:p-8">
+              <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-4">
+                <div>
+                  <h3 className="font-display text-2xl font-medium text-white sm:text-3xl">Green Horizon</h3>
+                  <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-teal-soft">Newly Launched Grand Houseboat</p>
+                </div>
+                <Link
+                  href="/vessels/green-horizon"
+                  className="flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-all duration-300 hover:border-teal hover:bg-teal"
+                  aria-label="View Green Horizon"
+                >
+                  <span className="font-secondary text-sm">↗</span>
+                </Link>
+              </div>
+              <div className="mt-6 grid grid-cols-3 gap-3 text-center">
+                <div>
+                  <p className="font-display text-3xl font-medium text-teal-soft sm:text-4xl">
+                    <StatCounter value={60} />
+                  </p>
+                  <p className="mt-1 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-white/60">Guests</p>
+                </div>
+                <div>
+                  <p className="font-display text-3xl font-medium text-teal-soft sm:text-4xl">
+                    <StatCounter value={15} />
+                  </p>
+                  <p className="mt-1 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-white/60">Rooms</p>
+                </div>
+                <div>
+                  <p className="font-display text-3xl font-medium text-teal-soft sm:text-4xl">
+                    <StatCounter value={10} />
+                  </p>
+                  <p className="mt-1 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-white/60">Crew</p>
+                </div>
+              </div>
+            </div>
           </StaggerGrid>
-          <LineDraw path="M 300 60 C 500 10, 700 110, 900 60" className="mx-auto mt-10 w-full max-w-3xl text-teal/50" />
+
+          {/* Highlights tag strip */}
+          <div className="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-2 sm:gap-2.5">
+            {[
+              "Lasir Waterfall",
+              "Kelah Sanctuary",
+              "Bewah Cave",
+              "Melunak Trail",
+              "Saok Waterfall",
+              "Orchid Garden",
+              "Cave Hiking",
+              "Jungle Trekking",
+            ].map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-white/80 transition-colors hover:border-teal/50 hover:text-white"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -214,53 +297,16 @@ export default async function HomePage() {
         </HorizontalScroll>
       </section>
 
-      {/* 7 ── PACKAGES — chaptered reveal cards */}
-      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">05 — Voyages</p>
-            <SplitHeadline
-              text="Choose your days on the lake"
-              className="font-display mt-4 max-w-2xl text-4xl font-medium leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl"
-            />
-          </div>
-          <Rise delay={0.2}>
-            <Magnetic>
-              <Button href="/packages" variant="ghost">All packages</Button>
-            </Magnetic>
-          </Rise>
-        </div>
+      {/* 7 ── PACKAGES — interactive dual-cruise vessel showcase */}
+      <DualVoyagesSection />
 
-        {/* PinFade drives the reveal itself — no StaggerGrid here so opacity isn't tweened twice */}
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          {PACKAGES.map((p) => (
-            <PinFade key={p.slug}>
-              <Link
-                href={`/packages/${p.slug}`}
-                className="group relative block overflow-hidden rounded-3xl"
-              >
-                <div className="relative aspect-[16/10]">
-                  <img src={p.image} alt={p.title} className="absolute inset-0 size-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-[1.06]" loading="lazy" />
-                  <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-transparent to-transparent" />
-                </div>
-                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-7 sm:p-8">
-                  <div>
-                    <p className="text-[0.65rem] font-semibold uppercase tracking-[0.26em] text-teal-soft">{p.meta}</p>
-                    <h3 className="font-display mt-2 text-2xl font-medium text-white sm:text-3xl">{p.title}</h3>
-                  </div>
-                  <span className="font-display shrink-0 text-xl font-medium text-teal-soft">{p.price}</span>
-                </div>
-              </Link>
-            </PinFade>
-          ))}
-        </div>
-
-        {/* Current offer — single ribbon, low text density */}
-        {offer && (
+      {/* Current offer — single ribbon, low text density */}
+      {offer && (
+        <div className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-24 -mt-6">
           <Rise delay={0.15}>
             <Link
               href={`/offers/${offer.slug}`}
-              className="group mt-8 flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-teal/20 bg-teal/5 px-7 py-6 transition-colors duration-500 hover:bg-teal/10 sm:px-9"
+              className="group flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-teal/20 bg-teal/5 px-7 py-6 transition-colors duration-500 hover:bg-teal/10 sm:px-9"
             >
               <span className="inline-flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-[0.26em] text-teal-deep">
                 <Sparkle /> {offer.shortTag}
@@ -271,8 +317,8 @@ export default async function HomePage() {
               </span>
             </Link>
           </Rise>
-        )}
-      </section>
+        </div>
+      )}
 
       {/* 8 ── PANORAMIC INTERLUDE — pinned slow parallax quote */}
       <section className="relative overflow-hidden bg-obsidian py-28 text-center text-white sm:py-40">
@@ -457,9 +503,4 @@ const EXCURSIONS = [
   { tag: "Rainforest", title: "Melunak Giant Tree", image: "/images/real/DSC07563-scaled.webp" },
   { tag: "On the water", title: "Kayak & Bamboo Raft", image: "/images/real/DSC07926-min-1-scaled.webp" },
   { tag: "After dark", title: "Stargazing Anchorage", image: "/images/real/sc-stargazing.webp" },
-];
-
-const PACKAGES = [
-  { slug: "3d2n-kenyir-explorer", title: "Kenyir Explorer", meta: "3 Days · 2 Nights", price: "RM 1,050", image: "/images/real/DJI_0911-min-scaled.webp" },
-  { slug: "4d3n-kenyir-grand-voyage", title: "Grand Voyage", meta: "4 Days · 3 Nights", price: "RM 2,050", image: "/images/vessels/gh-hero.webp" },
 ];
