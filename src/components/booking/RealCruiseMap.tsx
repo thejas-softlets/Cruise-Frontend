@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import type { MapWaypoint } from "@/types";
-import { Layers, Maximize2, Compass, Navigation } from "lucide-react";
+import { Maximize2, Navigation } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface RealCruiseMapProps {
@@ -46,6 +46,11 @@ export default function RealCruiseMap({
   const tileLayerRef = useRef<L.TileLayer | null>(null);
   const markersRef = useRef<L.Marker[]>([]);
   const routePolylineRef = useRef<L.Polyline | null>(null);
+  const onSelectWaypointRef = useRef(onSelectWaypoint);
+
+  useEffect(() => {
+    onSelectWaypointRef.current = onSelectWaypoint;
+  }, [onSelectWaypoint]);
 
   const [activeLayer, setActiveLayer] = useState<LayerMode>("voyager");
 
@@ -182,7 +187,7 @@ export default function RealCruiseMap({
 
       const marker = L.marker(latLng, { icon: customIcon }).addTo(map);
       marker.on("click", () => {
-        onSelectWaypoint(idx);
+        onSelectWaypointRef.current(idx);
       });
 
       newMarkers.push(marker);
@@ -194,7 +199,7 @@ export default function RealCruiseMap({
     if (bounds.isValid()) {
       map.fitBounds(bounds, { padding: [40, 40], maxZoom: 13 });
     }
-  }, [waypoints, navigationPath, activeLayer]);
+  }, [waypoints, navigationPath, activeLayer, activeWaypointIndex]);
 
   // Pan to active waypoint when selected
   useEffect(() => {

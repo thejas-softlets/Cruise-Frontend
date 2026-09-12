@@ -7,26 +7,28 @@
  * reserved for image scrims and the closing CTA band only.
  */
 @theme {
-  --color-bg-base: #faf9f6; /* cream */
+  --color-bg-base: #f7fafb; /* cool porcelain — teal-tinted white */
   --color-bg-elevated: #ffffff;
-  --color-obsidian: #1a2430; /* soft charcoal-navy — scrims, CTA band, text on gold */
-  --color-charcoal: #2a3542;
-  --color-ink: #22262b; /* near-black text on light */
-  --color-text-primary: #22262b;
-  --color-text-muted: #6b7280;
-  --color-teal: #b89b74; /* legacy name kept; champagne sand */
-  --color-teal-deep: #1a2430;
-  --color-gold: #c9a86a; /* warm champagne */
-  --color-gold-bright: #a8823f; /* deeper gold — readable on cream */
-  --color-sage: #9db4a4;
-  --color-dark: #1a2430; /* legacy name kept */
-  --color-dark-text: #f6f5f1; /* soft off-white */
+  --color-obsidian: #0c2b33; /* deep lagoon charcoal — scrims, CTA band, dark text */
+  --color-charcoal: #143842;
+  --color-ink: #10262e; /* near-black teal text on light */
+  --color-text-primary: #10262e;
+  --color-text-muted: #5b7280;
+  --color-teal: #00a9b5; /* Summer Cruise brand teal (logo) */
+  --color-teal-deep: #226d7a; /* logo deep teal — readable on light */
+  --color-teal-soft: #e2f2f4; /* tint for fills/hovers */
+  /* legacy gold names now alias teal so existing class names render on-brand */
+  --color-gold: #00a9b5;
+  --color-gold-bright: #226d7a;
+  --color-sage: #7fb5ae;
+  --color-dark: #0c2b33; /* legacy name kept */
+  --color-dark-text: #f2f8f9; /* soft ice-white */
 
-  --font-display: var(--font-caacupe), var(--font-jakarta), system-ui, sans-serif;
-  --font-secondary: var(--font-roboto-condensed), system-ui, sans-serif;
-  --font-sans: var(--font-jakarta), system-ui, sans-serif;
-  --font-body: var(--font-jakarta), system-ui, sans-serif;
-  --font-roboto: var(--font-roboto-condensed), system-ui, sans-serif;
+  --font-display: var(--font-caacupe), var(--font-outfit), system-ui, sans-serif;
+  --font-secondary: var(--font-outfit), system-ui, sans-serif;
+  --font-sans: var(--font-outfit), system-ui, sans-serif;
+  --font-body: var(--font-outfit), system-ui, sans-serif;
+  --font-roboto: var(--font-outfit), system-ui, sans-serif;
   --font-script: var(--font-script), cursive;
 
   --text-body: 1.0625rem;
@@ -86,20 +88,41 @@ html.lenis body {
 body {
   background-color: var(--color-bg-base);
   color: var(--color-ink);
-  font-family: var(--font-body);
+  /* CJK-aware stack: WeChat/QQ/UC devices lack Segoe/SF — PingFang, MiSans and
+     YaHei keep mixed Chinese text metrics correct. */
+  font-family: var(--font-body), "PingFang SC", "Hiragino Sans GB", "MiSans",
+    "Microsoft YaHei", "Noto Sans SC", sans-serif;
   font-size: var(--text-body);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
 
+/* ── Legacy / China-browser hardening (WeChat X5, QQ, UC, old Android WebView) ──
+   Old X5 kernels inflate text on wide blocks — pin it. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* 100svh collapses to 0 where small-viewport units are unsupported (X5, iOS < 15.4).
+   Declared vh-first so unsupported svh lines are simply dropped. */
+.min-h-screen-safe {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+.h-screen-safe {
+  height: 100vh;
+  height: 100svh;
+}
+
 ::selection {
-  background-color: var(--color-gold);
+  background-color: var(--color-teal);
   color: #fff;
 }
 
-/* Gold focus ring everywhere — the luxury micro-signal. */
+/* Teal focus ring everywhere — the brand micro-signal. */
 :focus-visible {
-  outline: 2px solid var(--color-gold-bright);
+  outline: 2px solid var(--color-teal-deep);
   outline-offset: 2px;
 }
 
@@ -115,7 +138,7 @@ body {
   border-radius: 0;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-gold);
+  background: var(--color-teal);
 }
 
 /* Print: strip chrome so "Download / Print Summary" stays clean. */

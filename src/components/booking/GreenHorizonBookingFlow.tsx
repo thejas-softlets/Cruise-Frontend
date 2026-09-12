@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import type { RoomCategory, Package } from "@/types";
 import { formatPrice } from "@/lib/format";
-import { cn, whatsappLink, WHATSAPP_NUMBER } from "@/lib/utils";
+import { cn, WHATSAPP_NUMBER } from "@/lib/utils";
 import { GreenHorizonCabinPicker } from "./GreenHorizonCabinPicker";
 import { GH_CABIN_SPOTS } from "@/lib/gh-deck-plan";
 
@@ -59,7 +59,6 @@ export function GreenHorizonBookingFlow({ pkg, roomCategories }: GreenHorizonBoo
   const [bookingRef, setBookingRef] = useState<string | null>(null);
 
   const bookableSpots = useMemo(() => GH_CABIN_SPOTS.filter((s) => s.kind === "cabin"), []);
-  const roomById = useMemo(() => new Map(roomCategories.map((r) => [r.id, r])), [roomCategories]);
   const selectedSpots = bookableSpots.filter((s) => selectedSpotIds.includes(s.id));
   const subtotal = selectedSpots.reduce((sum, s) => sum + s.basePriceMYR, 0);
   const sst = Math.round(subtotal * 0.06);

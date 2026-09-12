@@ -45,14 +45,15 @@ export function PartnerPromotionsBanner() {
             <FadeIn key={promo.title} delay={i * 0.08}>
               <Link
                 href={promo.href}
-                className="group relative block aspect-[16/9] w-full overflow-hidden rounded-2xl border border-ink/8 shadow-md transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
+                className="group relative block aspect-[2/1] w-full overflow-hidden rounded-2xl border border-ink/8 bg-white shadow-md transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
               >
+                {/* Natural 2:1 art, full image visible — object-contain, no crop */}
                 <Image
                   src={promo.image}
                   alt={promo.alt}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 />
               </Link>
             </FadeIn>

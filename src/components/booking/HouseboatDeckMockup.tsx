@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Bed, Users, Check, Ban, Navigation, Compass, Waves, Sparkles, Eye } from "lucide-react";
+import { Bed, Users, Check, Ban, Compass, Waves, Sparkles } from "lucide-react";
 import type { CabinDeckSlot } from "@/types";
 import { formatPrice } from "@/lib/format";
 import { cn } from "@/lib/utils";
@@ -11,7 +11,7 @@ interface HouseboatDeckMockupProps {
   cabins: CabinDeckSlot[];
   selectedCabinIds: string[];
   onToggleCabin: (cabinId: string, status: string) => void;
-  onSelectDeck: (deck: "upper" | "main" | "lower") => void;
+  onSelectDeck?: (deck: "upper" | "main" | "lower") => void;
 }
 
 const DECK_META = {
@@ -40,7 +40,7 @@ export function HouseboatDeckMockup({
   cabins,
   selectedCabinIds,
   onToggleCabin,
-  onSelectDeck,
+  onSelectDeck: _onSelectDeck,
 }: HouseboatDeckMockupProps) {
   const currentCabins = cabins.filter((c) => c.deck === activeDeck);
   const meta = DECK_META[activeDeck];

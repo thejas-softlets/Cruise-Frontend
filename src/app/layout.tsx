@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import {
+  Outfit,
   Plus_Jakarta_Sans,
   Roboto_Condensed,
   Yellowtail,
@@ -28,6 +29,13 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
+/** Outfit — the Summer Cruise site's primary sans (body + UI). */
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  display: "swap",
+});
+
 const robotoCondensed = Roboto_Condensed({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -42,6 +50,15 @@ const yellowtail = Yellowtail({
   variable: "--font-script",
   display: "swap",
 });
+
+/* Explicit viewport: China browsers (WeChat X5, QQ, UC) honor declared
+   viewport-fit better than heuristics; maximum-scale avoids their
+   auto-inflate-text heuristic. */
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("meta.home");
@@ -68,7 +85,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${caacupe.variable} ${jakarta.variable} ${robotoCondensed.variable} ${yellowtail.variable} antialiased`}
+      className={`${caacupe.variable} ${jakarta.variable} ${outfit.variable} ${robotoCondensed.variable} ${yellowtail.variable} antialiased`}
     >
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>

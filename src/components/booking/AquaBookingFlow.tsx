@@ -11,11 +11,7 @@ import {
   Info,
   ChevronRight,
   ChevronLeft,
-  Sparkles,
-  Phone,
   MessageCircle,
-  Clock,
-  Anchor,
   Bed,
   Layers,
   FileCheck,
@@ -29,7 +25,7 @@ import { HouseboatDeckMockup } from "./HouseboatDeckMockup";
 interface AquaBookingFlowProps {
   pkg: Package;
   availableCabins: CabinDeckSlot[];
-  onCompleteBooking?: (data: any) => void;
+  onCompleteBooking?: (data: Record<string, unknown>) => void;
 }
 
 const DEPARTURE_DATES = [

@@ -1,41 +1,60 @@
 "use client";
 
-import Lenis from "lenis";
-import { useReducedMotion } from "framer-motion";
 import { useEffect } from "react";
+import Lenis from "lenis";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { usePathname } from "next/navigation";
+import { useReducedMotion } from "framer-motion";
+
+gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Ultra-smooth Lenis scrolling synced with native requestAnimationFrame loop.
- * Automatically respects user reduced-motion preference.
+ * Buttery Lenis smooth scroll synced into GSAP's ticker so ScrollTrigger
+ * animations scrub against the eased scroll position with zero double-smoothing.
+ * Under prefers-reduced-motion both are disabled entirely (native scroll).
  */
 export function SmoothScroll() {
   const reduce = useReducedMotion();
+  const pathname = usePathname();
 
   useEffect(() => {
     if (reduce) return;
 
     const lenis = new Lenis({
-      duration: 1.15,
+      duration: 1.65, // heavier resistance — long glide, strong decel
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 0.95,
-      touchMultiplier: 1.2,
+      wheelMultiplier: 0.78, // more drag per wheel tick
+      touchMultiplier: 1.05,
     });
 
-    let rafId: number;
-    function raf(time: number) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
+    // Single RAF source: GSAP's ticker drives Lenis (never two loops —
+    // double-raf'ing makes Lenis step twice per frame = visible jitter).
+    const syncGsap = (time: number) => lenis.raf(time * 1000);
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(syncGsap);
+    gsap.ticker.lagSmoothing(0);
+
+    // Images decoding late change layout heights — re-measure pinned sections.
+    const onLoad = () => ScrollTrigger.refresh();
+    window.addEventListener("load", onLoad, { once: true });
 
     return () => {
-      cancelAnimationFrame(rafId);
+      window.removeEventListener("load", onLoad);
+      gsap.ticker.remove(syncGsap);
       lenis.destroy();
     };
   }, [reduce]);
+
+  // Recalculate pinned/parallax triggers after route changes
+  useEffect(() => {
+    if (reduce) return;
+    const id = window.setTimeout(() => ScrollTrigger.refresh(), 350);
+    return () => window.clearTimeout(id);
+  }, [pathname, reduce]);
 
   return null;
 }

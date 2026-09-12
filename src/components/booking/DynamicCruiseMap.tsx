@@ -3,7 +3,7 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
-import { Compass, MapPin, ChevronRight, ChevronLeft, Navigation, Sparkles, X, Ship } from "lucide-react";
+import { Compass, MapPin, ChevronRight, ChevronLeft, Sparkles, Ship } from "lucide-react";
 import type { MapWaypoint } from "@/types";
 import { WATER_NAVIGATION_CHANNELS } from "@/lib/api/mock/booking";
 import { cn } from "@/lib/utils";

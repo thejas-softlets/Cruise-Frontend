@@ -14,7 +14,7 @@ const eslintConfig = defineConfig([
       ],
     },
   },
-  globalIgnores([".next/**", "node_modules/**", "out/**", ".agents/**", "scripts/**"]),
+  globalIgnores([".next/**", "node_modules/**", "out/**", ".agents/**", "scripts/**", "scratch/**"]),
 ]);
 
 export default eslintConfig;

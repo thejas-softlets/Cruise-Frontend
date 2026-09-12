@@ -1,4 +1,3 @@
-import { getTranslations } from "next-intl/server";
 import { PageHero } from "@/components/layout/PageHero";
 import { buildCrumbs } from "@/components/layout/Breadcrumbs";
 import { FadeIn } from "@/components/motion";
@@ -12,8 +11,6 @@ export default async function BookPage({
 }: {
   searchParams: Promise<{ package?: string }>;
 }) {
-  const t = await getTranslations("packages");
-  const tc = await getTranslations("common");
   const { package: selectedSlug } = await searchParams;
 
   const [allPackages, cabinSlots] = await Promise.all([

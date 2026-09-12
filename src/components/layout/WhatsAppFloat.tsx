@@ -17,6 +17,11 @@ export function WhatsAppFloat() {
       rel="noopener noreferrer"
       aria-label={tFloat("ariaLabel")}
       className="fixed bottom-5 right-5 z-40 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#128C7E] px-4 py-3 text-[0.8125rem] font-semibold text-white shadow-lg shadow-ink/20 transition-transform duration-500 hover:scale-[1.04] motion-reduce:transition-none"
+      style={{
+        // iOS notch / gesture-bar safe area (X5/QQ browsers ignore env() gracefully)
+        marginBottom: "env(safe-area-inset-bottom, 0px)",
+        marginRight: "env(safe-area-inset-right, 0px)",
+      }}
     >
       <MessageCircle aria-hidden className="size-5" />
       <span className="hidden xs:inline">{tFloat("label")}</span>

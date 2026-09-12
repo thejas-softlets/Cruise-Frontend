@@ -12,12 +12,12 @@ export function ArticleCard({ article }: { article: JournalArticle }) {
   return (
     <Link
       href={`/journal/${article.slug}`}
-      className="group relative block overflow-hidden rounded-2xl bg-obsidian ring-1 ring-black/5 transition-all duration-500 hover:shadow-2xl hover:ring-gold/30"
+      className="group relative block overflow-hidden rounded-2xl bg-obsidian ring-1 ring-black/5 transition-[shadow,ring] duration-500 hover:shadow-2xl hover:ring-teal/30"
     >
       <PlaceholderMedia
         asset={article.coverImage}
         className="aspect-[3/4] w-full"
-        imgClassName="transition-transform duration-700 ease-out group-hover:scale-108 motion-reduce:transform-none"
+        imgClassName="transition-transform duration-700 ease-out group-hover:scale-105 motion-reduce:transform-none"
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
       <div

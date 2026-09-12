@@ -1,175 +1,459 @@
-import { ArrowUpRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import { ArticleCard } from "@/components/cards/ArticleCard";
 import { Button } from "@/components/ui/Button";
-import { FadeIn, ParallaxImage } from "@/components/motion";
-import { PlaceholderMedia } from "@/components/ui/PlaceholderMedia";
-import { HeroAnchorStrip } from "@/components/home/HeroAnchorStrip";
-import { KenyirAdventuresStory } from "@/components/home/KenyirAdventuresStory";
-import { AudiencePersonaGrid } from "@/components/home/AudiencePersonaGrid";
-import { FleetShowcaseSection } from "@/components/home/FleetShowcaseSection";
-import { PackageScheduleSection } from "@/components/home/PackageScheduleSection";
-import { PanoramicDivider } from "@/components/home/PanoramicDivider";
-import { HighlightsExcursionsSection } from "@/components/home/HighlightsExcursionsSection";
+import { FadeIn } from "@/components/motion";
+import {
+  SplitHeadline,
+  Rise,
+  StaggerGrid,
+  ParallaxLayer,
+  CurtainReveal,
+  HorizontalScroll,
+  StatCounter,
+  Magnetic,
+  LineDraw,
+  PinFade,
+  SplitDoors,
+  AutoGallery,
+} from "@/components/motion/gsap-primitives";
+import { VideoHero } from "@/components/home/VideoHero";
+
 import { PartnerPromotionsBanner } from "@/components/home/PartnerPromotionsBanner";
 import { getAllArticles } from "@/lib/api/journal";
+import { getAllReviews } from "@/lib/api/reviews";
+import { getAllOffers } from "@/lib/api/offers";
+import { getExperiencesByKind } from "@/lib/api/experiences";
 import { Link } from "@/lib/i18n/navigation";
-import { media } from "@/lib/api/mock/media";
-
-const heroAsset = media(
-  "Summer Cruise luxury houseboat aerial sailing across Kenyir Lake",
-  "/images/real/Homepage-banner-new-two.webp",
-  2560,
-  1440
-);
+import { GoogleG, StarRow } from "@/components/layout/BrandBadges";
 
 export default async function HomePage() {
   const t = await getTranslations("home");
   const tc = await getTranslations("common");
-
-  const articles = await getAllArticles();
+  const [articles, reviews, offers, experiences] = await Promise.all([
+    getAllArticles(),
+    getAllReviews(),
+    getAllOffers(),
+    getExperiencesByKind("excursions"),
+  ]);
+  const offer = offers[0];
 
   return (
     <>
-      {/* 1. Cinematic Hero — Inspired by reference layout with script eyebrow & bold title */}
-      <section className="relative flex min-h-[100svh] items-end overflow-hidden bg-obsidian pb-24 pt-36 sm:pb-32 sm:pt-48">
-        <ParallaxImage
-          asset={heroAsset}
-          className="absolute inset-0 h-[115%]"
-          priority
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-obsidian/95 via-obsidian/45 to-obsidian/25"
-        />
-        <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8">
-          <FadeIn>
-            <p className="font-script text-3xl text-gold sm:text-4xl lg:text-5xl">
-              Enjoy Nature, Be Part of Nature
+      {/* 1 ── CINEMATIC VIDEO HERO (Summer Cruise's own film) */}
+      <VideoHero />
+
+      {/* 2 ── CENTER-SPLIT DOORS — the screen parts from the middle (Aqua's cinematic lake chapter) */}
+      <div data-nav-transparent-until>
+      <SplitDoors leftWord="Kenyir" rightWord="Lake">
+        <div className="relative size-full">
+          <img
+            src="/images/lake/kenyir-shoreline.webp"
+            alt="Rainforest islands rising from Kenyir Lake"
+            className="absolute inset-0 size-full object-cover"
+            loading="lazy"
+          />
+          <div aria-hidden className="absolute inset-0 bg-obsidian/35" />
+          <div className="relative mx-auto flex h-full max-w-4xl flex-col items-center justify-center px-5 text-center text-white sm:px-8">
+            <p data-reveal-rise className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-soft">
+              01 — The Lake
             </p>
-            <h1 className="font-display mt-3 max-w-5xl text-5xl font-medium uppercase tracking-tight text-[#F6F5F1] text-balance sm:text-7xl lg:text-[5.5rem]">
-              Kenyir Lake Cruises
-            </h1>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <Button href="/packages" size="lg">
-                {tc("enquireNow")}
-              </Button>
-              <Button href="/vessels" size="lg" variant="ghostLight">
-                {tc("learnMore")}
-              </Button>
+            <h2 data-reveal-rise className="font-display mt-5 text-4xl font-medium leading-[1.05] tracking-tight text-balance sm:text-6xl">
+              130 million years of rainforest, one mirror-still lake
+            </h2>
+            <p data-reveal-rise className="mt-6 max-w-lg text-base leading-relaxed text-white/85">
+              Malaysia&apos;s largest man-made lake — a maze of emerald islands where
+              waterfalls pour out of untouched jungle and the only morning commute
+              is a tender boat.
+            </p>
+            <div data-reveal-rise className="mt-9">
+              <Magnetic strength={0.25}>
+                <Button href="/the-lake" variant="ghostLight">
+                  Discover Kenyir
+                </Button>
+              </Magnetic>
             </div>
-          </FadeIn>
+          </div>
+        </div>
+      </SplitDoors>
+      </div>
+
+      {/* 4 ── THE FLEET — two vessel panels, pinned scale-fade (Aqua ships grammar) */}
+      <FleetSection />
+
+      {/* 4.5 ── GUEST VOICES — Aqua-style testimonial chapter (low text density) */}
+      <section className="border-y border-ink/5 bg-[#f7fafb] py-28 sm:py-36">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">Guest Words</p>
+              <SplitHeadline
+                text="What guests say"
+                className="font-display mt-5 text-4xl font-medium tracking-tight text-ink sm:text-6xl"
+              />
+            </div>
+            <Rise delay={0.2}>
+              <span className="inline-flex items-center gap-2.5 rounded-full border border-teal/25 bg-white px-5 py-2.5 text-xs font-semibold tracking-wide text-teal-deep shadow-sm">
+                <StarRow className="text-teal" /> 5.0 · Google &amp; TripAdvisor
+              </span>
+            </Rise>
+          </div>
+          <StaggerGrid className="mt-14 grid gap-6 lg:grid-cols-3">
+            {reviews.slice(0, 3).map((r) => (
+              <figure
+                key={r.id}
+                className="flex h-full flex-col rounded-3xl border border-ink/8 bg-white p-8 shadow-[0_10px_40px_rgba(12,43,51,0.06)]"
+              >
+                <StarRow className="text-teal" />
+                <blockquote className="mt-5 flex-1 text-[0.95rem] leading-relaxed text-text-muted">
+                  &ldquo;{r.quote}&rdquo;
+                </blockquote>
+                <figcaption className="mt-7 border-t border-ink/8 pt-5">
+                  <p className="font-display text-lg font-medium text-ink">{r.guestName}</p>
+                  <p className="mt-0.5 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-text-muted">{r.guestLocation}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </StaggerGrid>
         </div>
       </section>
 
-      {/* 2. Anchor Strip for Fast Page Navigation */}
-      <HeroAnchorStrip />
+      {/* 5 ── VOYAGE STATS BAND — dark chapter with counters */}
+      <section className="relative overflow-hidden bg-obsidian py-28 text-white sm:py-36">
+        <ParallaxLayer speed={0.1} className="absolute inset-0 -top-[10%] h-[120%] opacity-25">
+          <img src="/images/real/DJI_0123-min-scaled.webp" alt="" className="size-full object-cover" loading="lazy" />
+        </ParallaxLayer>
+        <div aria-hidden className="absolute inset-0 bg-obsidian/60" />
+        <div className="relative mx-auto max-w-7xl px-5 text-center sm:px-8">
+          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-soft">03 — Life On Board</p>
+          <SplitHeadline
+            text="Every voyage is fully crewed, fully served"
+            className="font-display mx-auto mt-5 max-w-3xl text-4xl font-medium leading-[1.06] tracking-tight text-balance sm:text-6xl"
+          />
+          <StaggerGrid className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-4">
+            {[
+              { v: 34, s: "", label: "Guests aboard" },
+              { v: 12, s: "", label: "Private rooms" },
+              { v: 10, s: "", label: "Dedicated crew" },
+              { v: 3, s: "D2N", label: "Signature voyages" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <p className="font-display text-5xl font-medium text-teal-soft sm:text-6xl">
+                  <StatCounter value={stat.v} suffix={stat.s} />
+                </p>
+                <p className="mt-2 text-[0.68rem] font-medium uppercase tracking-[0.2em] text-white/60">{stat.label}</p>
+              </div>
+            ))}
+          </StaggerGrid>
+          <LineDraw path="M 300 60 C 500 10, 700 110, 900 60" className="mx-auto mt-16 w-full max-w-3xl text-teal/50" />
+        </div>
+      </section>
 
-      {/* 3. Kenyir Lake Adventures Story & Asymmetric Collage */}
-      <KenyirAdventuresStory />
+      {/* 5.5 ── SIGNATURE EXPERIENCES — auto-gliding strip (constant ambient motion) */}
+      <section className="bg-bg-base py-28 sm:py-36">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">Experiences</p>
+          <SplitHeadline
+            text="On the lake"
+            className="font-display mt-5 text-4xl font-medium tracking-tight text-ink sm:text-5xl"
+          />
+        </div>
+        <AutoGallery className="mt-12" baseDuration={46}>
+          {experiences.slice(0, 10).map((e) => (
+            <Link
+              key={e.slug}
+              href="/experiences"
+              className="group relative block h-[56vh] w-[70vw] shrink-0 overflow-hidden rounded-3xl sm:w-[38vw] lg:w-[26vw]"
+            >
+              <img
+                src={e.images[0]?.src ?? ""}
+                alt={e.title}
+                className="absolute inset-0 size-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
+                loading="lazy"
+              />
+              <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/10 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <h3 className="font-display text-xl font-medium text-white sm:text-2xl">{e.title}</h3>
+                <p className="mt-1.5 line-clamp-1 text-xs font-light text-white/75">{e.lines[0]}</p>
+              </div>
+            </Link>
+          ))}
+        </AutoGallery>
+      </section>
 
-      {/* 4. Kenyir Lake For (Audience Personas Grid) */}
-      <AudiencePersonaGrid />
+      {/* 6 ── EXCURSIONS — pinned horizontal scroll gallery */}
+      <section className="bg-bg-base">
+        <div className="mx-auto max-w-7xl px-5 pt-28 sm:px-8 sm:pt-36">
+          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">04 — Excursions</p>
+          <SplitHeadline
+            text="Days shaped by water and wilderness"
+            className="font-display mt-5 max-w-3xl text-4xl font-medium leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl"
+          />
+        </div>
+        <HorizontalScroll className="mt-10">
+          {EXCURSIONS.map((ex) => (
+            <article
+              key={ex.title}
+              data-panel
+              className="group relative mx-3 h-[72vh] w-[78vw] shrink-0 overflow-hidden rounded-3xl sm:mx-5 sm:w-[46vw] lg:w-[36vw]"
+            >
+              <img src={ex.image} alt={ex.title} className="absolute inset-0 size-full object-cover transition-transform duration-[1.8s] ease-out group-hover:scale-105" loading="lazy" />
+              <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/15 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-7 sm:p-9">
+                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-teal-soft">{ex.tag}</p>
+                <h3 className="font-display mt-3 text-2xl font-medium text-white sm:text-3xl">{ex.title}</h3>
+              </div>
+            </article>
+          ))}
+        </HorizontalScroll>
+      </section>
 
-      {/* 5. Our Houseboats Fleet Showcase (Summer Cruise & Green Horizon) */}
-      <FleetShowcaseSection />
+      {/* 7 ── PACKAGES — chaptered reveal cards */}
+      <section className="mx-auto max-w-7xl px-5 py-28 sm:px-8 sm:py-36">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">05 — Voyages</p>
+            <SplitHeadline
+              text="Choose your days on the lake"
+              className="font-display mt-5 max-w-2xl text-4xl font-medium leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl"
+            />
+          </div>
+          <Rise delay={0.2}>
+            <Magnetic>
+              <Button href="/packages" variant="ghost">All packages</Button>
+            </Magnetic>
+          </Rise>
+        </div>
 
-      {/* 6. Packages & Schedules (Interactive Tabbed Selector) */}
-      <PackageScheduleSection />
+        {/* PinFade drives the reveal itself — no StaggerGrid here so opacity isn't tweened twice */}
+        <div className="mt-16 grid gap-6 md:grid-cols-2">
+          {PACKAGES.map((p) => (
+            <PinFade key={p.slug}>
+              <Link
+                href={`/packages/${p.slug}`}
+                className="group relative block overflow-hidden rounded-3xl"
+              >
+                <div className="relative aspect-[16/10]">
+                  <img src={p.image} alt={p.title} className="absolute inset-0 size-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-[1.06]" loading="lazy" />
+                  <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-transparent to-transparent" />
+                </div>
+                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-7 sm:p-8">
+                  <div>
+                    <p className="text-[0.65rem] font-semibold uppercase tracking-[0.26em] text-teal-soft">{p.meta}</p>
+                    <h3 className="font-display mt-2 text-2xl font-medium text-white sm:text-3xl">{p.title}</h3>
+                  </div>
+                  <span className="font-display shrink-0 text-xl font-medium text-teal-soft">{p.price}</span>
+                </div>
+              </Link>
+            </PinFade>
+          ))}
+        </div>
 
-      {/* 7. Full-Bleed Panoramic Parallax Interlude */}
-      <PanoramicDivider />
+        {/* Current offer — single ribbon, low text density */}
+        {offer && (
+          <Rise delay={0.15}>
+            <Link
+              href={`/offers/${offer.slug}`}
+              className="group mt-8 flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-teal/20 bg-teal/5 px-7 py-6 transition-colors duration-500 hover:bg-teal/10 sm:px-9"
+            >
+              <span className="inline-flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-[0.26em] text-teal-deep">
+                <Sparkle /> {offer.shortTag}
+              </span>
+              <span className="font-display text-xl font-medium text-ink sm:text-2xl">{offer.title}</span>
+              <span className="font-secondary text-xs font-semibold uppercase tracking-[0.16em] text-teal-deep transition-transform duration-500 group-hover:translate-x-1">
+                View offer →
+              </span>
+            </Link>
+          </Rise>
+        )}
+      </section>
 
-      {/* 8. Highlights & Excursions / Activities Tabs */}
-      <HighlightsExcursionsSection />
+      {/* 8 ── PANORAMIC INTERLUDE — pinned slow parallax quote */}
+      <section className="relative overflow-hidden bg-obsidian py-44 text-center text-white sm:py-64">
+        <ParallaxLayer speed={0.22} className="absolute inset-0 -top-[15%] h-[130%]">
+          <img src="/images/real/DJI_0117-min-scaled.webp" alt="" className="size-full object-cover" loading="lazy" />
+        </ParallaxLayer>
+        <div aria-hidden className="absolute inset-0 bg-obsidian/55" />
+        <div className="relative mx-auto max-w-4xl px-5 sm:px-8">
+          <SplitHeadline
+            text="Enjoy Nature. Be Part of Nature."
+            className="font-display text-4xl font-medium leading-[1.1] tracking-tight text-balance sm:text-6xl lg:text-7xl"
+          />
+          <Rise delay={0.3}>
+            <p className="mt-6 font-light italic text-teal-soft/90 sm:text-xl">Summer Cruise · Kenyir Lake</p>
+          </Rise>
+        </div>
+      </section>
 
-      {/* 9. Travel Guide to Kenyir Lake, Terengganu (Journal / Blog) */}
-      <section id="travel-guide" className="scroll-mt-20 bg-white py-24 sm:py-32">
+      {/* 9 ── JOURNAL — travel guide cards */}
+      <section id="travel-guide" className="scroll-mt-20 bg-bg-base py-28 sm:py-36">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <FadeIn>
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
-                <h2 className="font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl lg:text-5xl">
-                  Travel Guide to the Kenyir Lake, Terengganu
-                </h2>
-                <p className="mt-3 max-w-3xl text-sm leading-relaxed text-text-muted sm:text-base">
-                  As you explore the unknown, be ready for awe-inspiring sights, thrilling experiences, and
-                  the joy of overcoming challenges. Every moment holds a new treasure.
-                </p>
+                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">06 — Journal</p>
+                <SplitHeadline
+                  text="Notes from the lake"
+                  className="font-display mt-5 text-4xl font-medium tracking-tight text-ink sm:text-5xl"
+                />
               </div>
-              <Link
-                href="/journal"
-                className="font-secondary inline-flex min-h-11 items-center gap-2 rounded-full border border-ink/15 px-6 text-xs font-semibold uppercase tracking-[0.16em] text-ink transition-colors hover:border-ink hover:bg-ink/5"
-              >
-                Explore Kenyir
-                <ArrowUpRight aria-hidden className="size-4" />
-              </Link>
+              <Magnetic>
+                <Button href="/journal" variant="ghost">
+                  Explore Kenyir
+                </Button>
+              </Magnetic>
             </div>
           </FadeIn>
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {articles.slice(0, 3).map((article, i) => (
-              <FadeIn key={article.slug} delay={i * 0.08}>
-                <ArticleCard article={article} />
-              </FadeIn>
+          <StaggerGrid className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" duration={0.85} stagger={0.08} y={40}>
+            {articles.slice(0, 3).map((article) => (
+              <ArticleCard key={article.slug} article={article} />
             ))}
-          </div>
+          </StaggerGrid>
         </div>
       </section>
 
-      {/* 10. Partner Promotions (Summerbay Resort) */}
+      {/* 10 ── Partner Promotions */}
       <PartnerPromotionsBanner />
 
-      {/* 11. Closing CTA — Dusk lake panoramic background */}
-      <section className="relative overflow-hidden bg-obsidian pt-48 pb-24 text-center sm:pt-64 sm:pb-32">
-        <PlaceholderMedia
-          asset={media(
-            "Moody atmospheric wide panoramic photography of Lake Kenyir mist rolling over water surrounded by ancient rainforest mountain silhouettes at dusk",
-            "/images/real/DJI_0123-min-scaled.webp",
-            2048,
-            1152
-          )}
-          className="absolute inset-0 h-full w-full"
-          imgClassName="object-cover object-center scale-105"
-        />
+      {/* 11 ── RECOGNITION — awards band (kept below promotions) */}
+      <section className="border-y border-ink/5 bg-[#f7fafb] py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <StaggerGrid className="grid items-center gap-10 sm:grid-cols-3">
+            <div className="flex flex-col items-center gap-3 text-center">
+              <GoogleG className="size-8 text-teal-deep" />
+              <p className="font-display text-3xl font-medium text-ink">5.0</p>
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-text-muted">Google Reviews</p>
+            </div>
+            <div className="flex flex-col items-center gap-3 text-center">
+              <StarRow className="text-teal-deep" />
+              <p className="font-display text-3xl font-medium text-ink">Rated · 5</p>
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-text-muted">TripAdvisor · Kenyir Lake</p>
+            </div>
+            <div className="flex flex-col items-center gap-3 text-center">
+              <svg viewBox="0 0 24 24" className="size-8 text-teal-deep" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+                <circle cx="12" cy="9" r="5" />
+                <path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <p className="font-display text-3xl font-medium text-ink">No. 1</p>
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-text-muted">Houseboat Cruise · Tasik Kenyir</p>
+            </div>
+          </StaggerGrid>
+        </div>
+      </section>
 
-        {/* Top dissolve — smooth cream fade into the dark section */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 z-10 h-64 bg-gradient-to-b from-[#faf9f6] via-[#faf9f6]/50 to-transparent sm:h-80"
-        />
+      {/* 12 ── CLOSING CTA — dusk lake, magnetic buttons */}
+      <section className="relative overflow-hidden bg-obsidian pb-28 pt-40 text-center text-white sm:pb-36 sm:pt-56">
+        <ParallaxLayer speed={0.16} className="absolute inset-0 -top-[12%] h-[124%]">
+          <img src="/images/real/DJI_0123-min-scaled.webp" alt="" className="size-full object-cover" loading="lazy" />
+        </ParallaxLayer>
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-bg-base/0 via-obsidian/40 to-obsidian/85" />
+        <div aria-hidden className="absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-bg-base/70 to-transparent" />
 
-        {/* Ambient dark contrast layer — gradual vignette */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-transparent via-obsidian/25 to-obsidian/75"
-        />
-
-        {/* Bottom obsidian dissolve into footer — extended for seamless blend */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-3/5 bg-gradient-to-t from-obsidian via-obsidian/50 to-transparent sm:h-2/3"
-        />
-
-        <FadeIn className="relative z-20 mx-auto max-w-4xl px-5 sm:px-8">
-          <p className="font-script text-3xl text-gold sm:text-4xl">{t("ctaScript")}</p>
-          <h2 className="font-display mx-auto mt-4 max-w-3xl text-5xl font-medium leading-[1.06] text-[#F6F5F1] text-balance sm:text-6xl lg:text-7xl">
-            {t("ctaTitle")}
-          </h2>
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/85">
-            {t("ctaLine")}
-          </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Button href="/contact" size="lg">
-              {tc("enquireNow")}
-            </Button>
-            <Button href="/vessels" size="lg" variant="ghostLight">
-              {t("vesselsTitle")}
-            </Button>
-          </div>
-        </FadeIn>
+        <div className="relative z-20 mx-auto max-w-4xl px-5 sm:px-8">
+          <SplitHeadline
+            text={t("ctaTitle")}
+            className="font-display mx-auto max-w-3xl text-4xl font-medium leading-[1.08] tracking-tight text-balance sm:text-6xl lg:text-7xl"
+          />
+          <Rise delay={0.25}>
+            <p className="mx-auto mt-6 max-w-xl text-base font-light leading-relaxed text-white/85 sm:text-lg">
+              {t("ctaLine")}
+            </p>
+            <div className="mt-10 flex flex-wrap justify-center gap-4">
+              <Magnetic>
+                <Button href="/contact" size="lg" className="bg-teal hover:bg-white hover:text-obsidian">
+                  {tc("enquireNow")}
+                </Button>
+              </Magnetic>
+              <Magnetic>
+                <Button href="/vessels" size="lg" variant="ghostLight">
+                  {t("vesselsTitle")}
+                </Button>
+              </Magnetic>
+            </div>
+          </Rise>
+        </div>
       </section>
     </>
   );
 }
+
+/* Small 4-point sparkle used in the offer ribbon */
+function Sparkle() {
+  return (
+    <svg viewBox="0 0 24 24" className="size-3.5 fill-current" aria-hidden>
+      <path d="M12 1.5c.7 4.6 3.9 7.8 8.5 8.5-4.6.7-7.8 3.9-8.5 8.5-.7-4.6-3.9-7.8-8.5-8.5 4.6-.7 7.8-3.9 8.5-8.5Z" />
+    </svg>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Fleet — two full-bleed vessel panels with scroll-scrubbed reveals   */
+/* ------------------------------------------------------------------ */
+function FleetSection() {
+  return (
+    <section className="bg-bg-base pb-28 pt-16 sm:pb-36 sm:pt-24">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">02 — The Fleet</p>
+        <SplitHeadline
+          text="Two houses on the water"
+          className="font-display mt-5 max-w-2xl text-4xl font-medium leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl"
+        />
+      </div>
+
+      <div className="mt-16 space-y-6 sm:space-y-8">
+        {FLEET.map((v, i) => (
+          <CurtainReveal key={v.id} className={i % 2 ? "mx-auto max-w-[88%]" : "mx-auto max-w-[94%]"}>
+            <Link href={`/vessels/${v.id}`} className="group relative block aspect-[16/8] min-h-[420px] overflow-hidden rounded-3xl">
+              <img
+                src={v.image}
+                alt={v.name}
+                className="absolute inset-0 size-full object-cover transition-transform duration-[2.4s] ease-out group-hover:scale-[1.05]"
+                loading="lazy"
+              />
+              <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/20 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-5 p-8 sm:p-12">
+                <div>
+                  <p className="text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-teal-soft">{v.meta}</p>
+                  <h3 className="font-display mt-3 text-3xl font-medium text-white sm:text-5xl">{v.name}</h3>
+                </div>
+                <span className="font-secondary inline-flex min-h-11 items-center gap-2 rounded-full border border-white/30 px-6 text-xs font-semibold uppercase tracking-[0.16em] text-white transition-all duration-500 group-hover:border-teal group-hover:bg-teal">
+                  View vessel →
+                </span>
+              </div>
+            </Link>
+          </CurtainReveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+const FLEET = [
+  {
+    id: "summer-cruise",
+    name: "Summer Cruise",
+    meta: "34 guests · 12 rooms · 10 crew",
+    image: "/images/vessels/sc-hero.webp",
+  },
+  {
+    id: "green-horizon",
+    name: "Green Horizon",
+    meta: "60 guests · 15 rooms · 10 crew",
+    image: "/images/vessels/gh-hero.webp",
+  },
+];
+
+const EXCURSIONS = [
+  { tag: "Waterfall", title: "Lasir Falls", image: "/images/real/DSC07615-scaled.webp" },
+  { tag: "Sanctuary", title: "Kelah Fish Spa", image: "/images/real/DSC07600.webp" },
+  { tag: "Prehistoric", title: "Bewah Cave", image: "/images/real/bewah-cave-card.webp" },
+  { tag: "Rainforest", title: "Melunak Giant Tree", image: "/images/real/DSC07563-scaled.webp" },
+  { tag: "On the water", title: "Kayak & Bamboo Raft", image: "/images/real/DSC07926-min-1-scaled.webp" },
+  { tag: "After dark", title: "Stargazing Anchorage", image: "/images/real/sc-stargazing.webp" },
+];
+
+const PACKAGES = [
+  { slug: "3d2n-kenyir-explorer", title: "Kenyir Explorer", meta: "3 Days · 2 Nights", price: "RM 1,050", image: "/images/real/DJI_0911-min-scaled.webp" },
+  { slug: "4d3n-kenyir-grand-voyage", title: "Grand Voyage", meta: "4 Days · 3 Nights", price: "RM 2,050", image: "/images/vessels/gh-hero.webp" },
+];
