@@ -54,10 +54,18 @@ export function Header() {
     measure();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
+    if (typeof window !== "undefined" && window.visualViewport) {
+      window.visualViewport.addEventListener("resize", onScroll);
+      window.visualViewport.addEventListener("scroll", onScroll);
+    }
     return () => {
       if (raf) cancelAnimationFrame(raf);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      if (typeof window !== "undefined" && window.visualViewport) {
+        window.visualViewport.removeEventListener("resize", onScroll);
+        window.visualViewport.removeEventListener("scroll", onScroll);
+      }
     };
   }, []);
 
@@ -77,17 +85,17 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
+        "fixed inset-x-0 top-0 z-50 transition-all duration-500 pt-[env(safe-area-inset-top,0px)]",
         scrolled || menuOpen
-          ? "border-b border-ink/8 bg-[#f7fafb]/90 shadow-[0_8px_30px_rgba(12,43,51,0.08)] backdrop-blur-2xl"
-          : "border-b border-transparent bg-gradient-to-b from-obsidian/60 to-transparent",
+          ? "bg-[#f7fafb]/95 shadow-[0_8px_30px_rgba(12,43,51,0.08)] backdrop-blur-2xl"
+          : "bg-gradient-to-b from-obsidian/60 to-transparent",
       )}
     >
-      <div className="mx-auto flex h-20 max-w-[88rem] items-center justify-between gap-4 px-4 sm:px-6">
+      <div className="mx-auto flex h-20 max-w-[88rem] items-center justify-between gap-4 pl-6 pr-3 sm:px-6">
         <Link
           href="/"
           aria-label={SITE.name}
-          className="group -ml-2 inline-flex items-center transition-opacity duration-300 hover:opacity-85 sm:-ml-5 lg:-ml-10"
+          className="group inline-flex items-center transition-opacity duration-300 hover:opacity-85 sm:-ml-5 lg:-ml-10"
         >
           <Image
             src="/images/logo/summer-cruise-logo-white.webp"
@@ -183,7 +191,7 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease: "easeOut" }}
-            className="fixed inset-0 top-20 z-40 overflow-y-auto bg-[#f7fafb] xl:hidden"
+            className="fixed inset-x-0 bottom-0 top-20 z-40 overflow-y-auto bg-[#f7fafb] xl:hidden min-h-[calc(100dvh-5rem)] h-[calc(100dvh-5rem)] pb-[env(safe-area-inset-bottom,2rem)]"
           >
             <nav aria-label="Mobile" className="px-6 py-8">
               <ul className="space-y-1">
