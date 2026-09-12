@@ -1,32 +1,25 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ChevronDown } from "lucide-react";
 import { useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Magnetic } from "@/components/motion/gsap-primitives";
 
-const YT_ID = "AnMoEXgakhQ"; // Summer Cruise's own hero film (1080p)
-const POSTER = "/images/vessels/sc-hero.webp"; // high-res poster while video loads
+const VIDEO_SRC = "/videos/sc-hero.mp4";
+const POSTER = "/images/vessels/sc-hero.webp";
 
 /**
- * Cinematic video hero — Summer Cruise's YouTube film as an ambient muted
- * background, masked headline word-rise, magnetic CTAs, animated stat counters
- * and a scroll cue. The video only mounts after a user-consent-free idle tick
- * so the poster paints instantly (LCP friendly).
+ * Cinematic video hero — native ambient looping 1080p film background,
+ * masked headline word-rise, magnetic CTAs, animated stat counters,
+ * and a scroll cue with zero external player UI or control flashes.
  */
 export function VideoHero() {
-  const [canPlay, setCanPlay] = useState(false);
   const root = useRef<HTMLElement>(null);
   const content = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const reduce = useReducedMotion();
-
-  // Load the YouTube iframe API after first paint
-  useEffect(() => {
-    const id = window.setTimeout(() => setCanPlay(true), 1200);
-    return () => window.clearTimeout(id);
-  }, []);
 
   // Entrance choreography
   useEffect(() => {
@@ -58,17 +51,18 @@ export function VideoHero() {
     <section ref={root} className="relative flex min-h-screen-safe flex-col overflow-hidden bg-obsidian text-white">
       {/* ── Media layer ── */}
       <div data-hero-media className="absolute inset-0 will-change-transform">
-        <img src={POSTER} alt="" className="size-full object-cover" fetchPriority="high" />
-        {canPlay && (
-          <iframe
-            src={`https://www.youtube.com/embed/${YT_ID}?autoplay=1&mute=1&controls=0&loop=1&playlist=${YT_ID}&modestbranding=1&rel=0&playsinline=1&disablekb=1&iv_load_policy=3&vq=hd1080`}
-            title=""
-            allow="autoplay; encrypted-media"
-            /* 16:9 cover: scales with BOTH axes so the film always fills the screen */
-            className="absolute left-1/2 top-1/2 h-[56.25vw] w-[177.78vh] min-h-full min-w-full -translate-x-1/2 -translate-y-1/2 border-0 pointer-events-none"
-            loading="lazy"
-          />
-        )}
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster={POSTER}
+          preload="auto"
+          className="size-full object-cover"
+        >
+          <source src={VIDEO_SRC} type="video/mp4" />
+        </video>
         {/* Cinematic scrims: lagoon gradient bottom, whisper of top dark for nav legibility */}
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/15 to-obsidian/25" />
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_10%,transparent_45%,rgba(12,43,51,0.45)_100%)]" />
