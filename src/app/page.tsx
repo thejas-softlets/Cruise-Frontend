@@ -407,10 +407,10 @@ function FleetSection() {
         />
       </div>
 
-      <div className="mt-10 space-y-6 sm:space-y-8">
-        {FLEET.map((v, i) => (
-          <CurtainReveal key={v.id} className={i % 2 ? "mx-auto max-w-[88%]" : "mx-auto max-w-[94%]"}>
-            <Link href={`/vessels/${v.id}`} className="group relative block aspect-[16/8] min-h-[420px] overflow-hidden rounded-3xl">
+      <div className="mx-auto mt-10 max-w-7xl space-y-6 px-5 sm:space-y-8 sm:px-8">
+        {FLEET.map((v) => (
+          <CurtainReveal key={v.id} className="w-full">
+            <Link href={`/vessels/${v.id}`} className="group relative block aspect-[16/8] min-h-[380px] w-full overflow-hidden rounded-3xl sm:min-h-[440px]">
               <img
                 src={v.image}
                 alt={v.name}

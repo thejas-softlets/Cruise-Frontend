@@ -192,26 +192,37 @@ export function CurtainReveal({
     if (!wrap.current || !inner.current || reduce) return;
     const ctx = gsap.context(() => {
       gsap.timeline({
-        scrollTrigger: { trigger: wrap.current, start: "top 80%" },
+        scrollTrigger: {
+          trigger: wrap.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+          invalidateOnRefresh: true,
+        },
       })
         .fromTo(
           wrap.current,
-          { clipPath: "inset(12% 8% 12% 8% round 24px)" },
-          { clipPath: "inset(0% 0% 0% 0% round 24px)", duration: 1.6, ease: "power4.inOut" }
+          { clipPath: "inset(8% 4% 8% 4% round 24px)", opacity: 0.8 },
+          { clipPath: "inset(0% 0% 0% 0% round 24px)", opacity: 1, duration: 1.4, ease: "power3.out" }
         )
         .fromTo(
           inner.current,
-          { scale: 1.18 },
-          { scale: 1, duration: 2.2, ease: EASE },
+          { scale: 1.12 },
+          { scale: 1, duration: 1.6, ease: "power2.out" },
           0
         );
-    });
+    }, wrap);
     return () => ctx.revert();
   }, [reduce]);
 
   return (
-    <div ref={wrap} className={cn("overflow-hidden will-change-[clip-path]", className)} style={{ clipPath: "inset(0% 0% 0% 0% round 24px)" }}>
-      <div ref={inner} className="size-full will-change-transform">{children}</div>
+    <div
+      ref={wrap}
+      className={cn("overflow-hidden will-change-[clip-path,transform]", className)}
+      style={{ clipPath: "inset(0% 0% 0% 0% round 24px)" }}
+    >
+      <div ref={inner} className="size-full will-change-transform">
+        {children}
+      </div>
     </div>
   );
 }
