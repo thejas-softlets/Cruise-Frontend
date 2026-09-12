@@ -217,61 +217,57 @@ export function CurtainReveal({
 }
 
 /* ------------------------------------------------------------------ */
-/* 6. Pinned horizontal scroll section                                 */
+/* 6. Unpinned horizontal scroll strip (natural sideways scroll/swipe) */
 /* ------------------------------------------------------------------ */
 export function HorizontalScroll({
   children,
   className,
-  panelSelector = "[data-panel]",
 }: {
   children: ReactNode;
   className?: string;
   panelSelector?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const track = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
+  const isDown = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
 
-  useEffect(() => {
-    if (!ref.current || !track.current || reduce) return;
-    const panels = track.current.querySelectorAll(panelSelector);
-    if (panels.length < 2) return;
+  const onMouseDown = (e: React.MouseEvent) => {
+    if (!ref.current) return;
+    isDown.current = true;
+    startX.current = e.pageX - ref.current.offsetLeft;
+    scrollLeft.current = ref.current.scrollLeft;
+  };
 
-    const ctx = gsap.context(() => {
-      const getAmount = () => track.current!.scrollWidth - window.innerWidth;
-      const tween = gsap.to(track.current, {
-        x: () => -getAmount(),
-        ease: "none",
-        scrollTrigger: {
-          trigger: ref.current,
-          start: "top top",
-          end: () => `+=${getAmount()}`,
-          pin: true,
-          scrub: 1.4, // heavy lag = buttery resistance
-          invalidateOnRefresh: true,
-          anticipatePin: 1,
-        },
-      });
-      // subtle scale-in on each panel as it enters
-      gsap.fromTo(
-        panels,
-        { scale: 0.94, opacity: 0.55 },
-        {
-          scale: 1,
-          opacity: 1,
-          stagger: 0.1,
-          ease: EASE,
-          scrollTrigger: { trigger: ref.current, start: "top 70%" },
-        }
-      );
-      return () => tween.kill();
-    }, ref);
-    return () => ctx.revert();
-  }, [reduce, panelSelector]);
+  const onMouseLeave = () => {
+    isDown.current = false;
+  };
+
+  const onMouseUp = () => {
+    isDown.current = false;
+  };
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!isDown.current || !ref.current) return;
+    e.preventDefault();
+    const x = e.pageX - ref.current.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    ref.current.scrollLeft = scrollLeft.current - walk;
+  };
 
   return (
-    <div ref={ref} className={cn("overflow-hidden", className)}>
-      <div ref={track} className="flex h-screen-safe items-center will-change-transform">
+    <div
+      ref={ref}
+      onMouseDown={onMouseDown}
+      onMouseLeave={onMouseLeave}
+      onMouseUp={onMouseUp}
+      onMouseMove={onMouseMove}
+      className={cn(
+        "relative flex w-full cursor-grab overflow-x-auto overflow-y-hidden pb-4 pt-2 select-none active:cursor-grabbing [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
+        className
+      )}
+    >
+      <div className="flex shrink-0 items-stretch gap-4 px-5 sm:gap-6 sm:px-8 lg:px-[max(2rem,calc((100vw-80rem)/2+2rem))]">
         {children}
       </div>
     </div>
@@ -559,10 +555,10 @@ export function SplitDoors({
     return () => ctx.revert();
   }, [reduce]);
 
-  const doorBase = "absolute inset-y-0 w-1/2 overflow-hidden bg-obsidian will-change-transform";
+  const doorBase = "absolute -top-1 -bottom-1 w-[calc(50%+2px)] overflow-hidden bg-obsidian will-change-transform";
 
   return (
-    <div ref={ref} className={cn("relative h-screen-safe overflow-hidden", className)}>
+    <div ref={ref} className={cn("relative h-screen-safe overflow-hidden bg-obsidian", className)}>
       <div data-reveal-content className="absolute inset-0 will-change-transform">
         {children}
       </div>
@@ -571,7 +567,7 @@ export function SplitDoors({
           <div ref={left} className={cn(doorBase, "left-0")}>
             <span
               data-door-word
-              className="font-display absolute inset-y-0 right-0 flex items-center pr-[3vw] text-[13vw] font-medium leading-none tracking-tight text-white/95"
+              className="font-display absolute inset-y-0 right-0 flex items-center pr-[3vw] text-[13vw] font-medium leading-none tracking-tight text-white/95 select-none"
             >
               {leftWord}
             </span>
@@ -579,7 +575,7 @@ export function SplitDoors({
           <div ref={right} className={cn(doorBase, "right-0")}>
             <span
               data-door-word
-              className="font-display absolute inset-y-0 left-0 flex items-center pl-[3vw] text-[13vw] font-medium leading-none tracking-tight text-white/95"
+              className="font-display absolute inset-y-0 left-0 flex items-center pl-[3vw] text-[13vw] font-medium leading-none tracking-tight text-white/95 select-none"
             >
               {rightWord}
             </span>

@@ -82,14 +82,14 @@ export default async function HomePage() {
       <FleetSection />
 
       {/* 4.5 ── GUEST VOICES — Aqua-style testimonial chapter (low text density) */}
-      <section className="border-y border-ink/5 bg-[#f7fafb] py-28 sm:py-36">
+      <section className="bg-[#f7fafb] py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">Guest Words</p>
               <SplitHeadline
                 text="What guests say"
-                className="font-display mt-5 text-4xl font-medium tracking-tight text-ink sm:text-6xl"
+                className="font-display mt-4 text-4xl font-medium tracking-tight text-ink sm:text-6xl"
               />
             </div>
             <Rise delay={0.2}>
@@ -98,7 +98,7 @@ export default async function HomePage() {
               </span>
             </Rise>
           </div>
-          <StaggerGrid className="mt-14 grid gap-6 lg:grid-cols-3">
+          <StaggerGrid className="mt-10 grid gap-6 lg:grid-cols-3">
             {reviews.slice(0, 3).map((r) => (
               <figure
                 key={r.id}
@@ -119,7 +119,7 @@ export default async function HomePage() {
       </section>
 
       {/* 5 ── VOYAGE STATS BAND — dark chapter with counters */}
-      <section className="relative overflow-hidden bg-obsidian py-28 text-white sm:py-36">
+      <section className="relative overflow-hidden bg-obsidian py-16 text-white sm:py-24">
         <ParallaxLayer speed={0.1} className="absolute inset-0 -top-[10%] h-[120%] opacity-25">
           <img src="/images/real/DJI_0123-min-scaled.webp" alt="" className="size-full object-cover" loading="lazy" />
         </ParallaxLayer>
@@ -128,9 +128,9 @@ export default async function HomePage() {
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-soft">03 — Life On Board</p>
           <SplitHeadline
             text="Every voyage is fully crewed, fully served"
-            className="font-display mx-auto mt-5 max-w-3xl text-4xl font-medium leading-[1.06] tracking-tight text-balance sm:text-6xl"
+            className="font-display mx-auto mt-4 max-w-3xl text-4xl font-medium leading-[1.06] tracking-tight text-balance sm:text-6xl"
           />
-          <StaggerGrid className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-4">
+          <StaggerGrid className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
             {[
               { v: 34, s: "", label: "Guests aboard" },
               { v: 12, s: "", label: "Private rooms" },
@@ -145,20 +145,20 @@ export default async function HomePage() {
               </div>
             ))}
           </StaggerGrid>
-          <LineDraw path="M 300 60 C 500 10, 700 110, 900 60" className="mx-auto mt-16 w-full max-w-3xl text-teal/50" />
+          <LineDraw path="M 300 60 C 500 10, 700 110, 900 60" className="mx-auto mt-10 w-full max-w-3xl text-teal/50" />
         </div>
       </section>
 
       {/* 5.5 ── SIGNATURE EXPERIENCES — auto-gliding strip (constant ambient motion) */}
-      <section className="bg-bg-base py-28 sm:py-36">
+      <section className="bg-bg-base py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">Experiences</p>
           <SplitHeadline
             text="On the lake"
-            className="font-display mt-5 text-4xl font-medium tracking-tight text-ink sm:text-5xl"
+            className="font-display mt-4 text-4xl font-medium tracking-tight text-ink sm:text-5xl"
           />
         </div>
-        <AutoGallery className="mt-12" baseDuration={46}>
+        <AutoGallery className="mt-8" baseDuration={46}>
           {experiences.slice(0, 10).map((e) => (
             <Link
               key={e.slug}
@@ -181,21 +181,27 @@ export default async function HomePage() {
         </AutoGallery>
       </section>
 
-      {/* 6 ── EXCURSIONS — pinned horizontal scroll gallery */}
-      <section className="bg-bg-base">
-        <div className="mx-auto max-w-7xl px-5 pt-28 sm:px-8 sm:pt-36">
-          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">04 — Excursions</p>
-          <SplitHeadline
-            text="Days shaped by water and wilderness"
-            className="font-display mt-5 max-w-3xl text-4xl font-medium leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl"
-          />
+      {/* 6 ── EXCURSIONS — unpinned horizontal scroll gallery */}
+      <section className="bg-bg-base py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">04 — Excursions</p>
+              <SplitHeadline
+                text="Days shaped by water and wilderness"
+                className="font-display mt-4 max-w-3xl text-4xl font-medium leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl"
+              />
+            </div>
+            <p className="hidden text-xs font-medium uppercase tracking-[0.2em] text-text-muted/80 sm:block">
+              Swipe to explore →
+            </p>
+          </div>
         </div>
-        <HorizontalScroll className="mt-10">
+        <HorizontalScroll className="mt-8">
           {EXCURSIONS.map((ex) => (
             <article
               key={ex.title}
-              data-panel
-              className="group relative mx-3 h-[72vh] w-[78vw] shrink-0 overflow-hidden rounded-3xl sm:mx-5 sm:w-[46vw] lg:w-[36vw]"
+              className="group relative h-[380px] w-[75vw] shrink-0 overflow-hidden rounded-3xl sm:h-[440px] sm:w-[42vw] lg:h-[480px] lg:w-[28vw]"
             >
               <img src={ex.image} alt={ex.title} className="absolute inset-0 size-full object-cover transition-transform duration-[1.8s] ease-out group-hover:scale-105" loading="lazy" />
               <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/15 to-transparent" />
@@ -209,13 +215,13 @@ export default async function HomePage() {
       </section>
 
       {/* 7 ── PACKAGES — chaptered reveal cards */}
-      <section className="mx-auto max-w-7xl px-5 py-28 sm:px-8 sm:py-36">
+      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">05 — Voyages</p>
             <SplitHeadline
               text="Choose your days on the lake"
-              className="font-display mt-5 max-w-2xl text-4xl font-medium leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl"
+              className="font-display mt-4 max-w-2xl text-4xl font-medium leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl"
             />
           </div>
           <Rise delay={0.2}>
@@ -226,7 +232,7 @@ export default async function HomePage() {
         </div>
 
         {/* PinFade drives the reveal itself — no StaggerGrid here so opacity isn't tweened twice */}
-        <div className="mt-16 grid gap-6 md:grid-cols-2">
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
           {PACKAGES.map((p) => (
             <PinFade key={p.slug}>
               <Link
@@ -269,7 +275,7 @@ export default async function HomePage() {
       </section>
 
       {/* 8 ── PANORAMIC INTERLUDE — pinned slow parallax quote */}
-      <section className="relative overflow-hidden bg-obsidian py-44 text-center text-white sm:py-64">
+      <section className="relative overflow-hidden bg-obsidian py-28 text-center text-white sm:py-40">
         <ParallaxLayer speed={0.22} className="absolute inset-0 -top-[15%] h-[130%]">
           <img src="/images/real/DJI_0117-min-scaled.webp" alt="" className="size-full object-cover" loading="lazy" />
         </ParallaxLayer>
@@ -286,7 +292,7 @@ export default async function HomePage() {
       </section>
 
       {/* 9 ── JOURNAL — travel guide cards */}
-      <section id="travel-guide" className="scroll-mt-20 bg-bg-base py-28 sm:py-36">
+      <section id="travel-guide" className="scroll-mt-20 bg-bg-base py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <FadeIn>
             <div className="flex flex-wrap items-end justify-between gap-6">
@@ -294,7 +300,7 @@ export default async function HomePage() {
                 <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">06 — Journal</p>
                 <SplitHeadline
                   text="Notes from the lake"
-                  className="font-display mt-5 text-4xl font-medium tracking-tight text-ink sm:text-5xl"
+                  className="font-display mt-4 text-4xl font-medium tracking-tight text-ink sm:text-5xl"
                 />
               </div>
               <Magnetic>
@@ -305,7 +311,7 @@ export default async function HomePage() {
             </div>
           </FadeIn>
 
-          <StaggerGrid className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" duration={0.85} stagger={0.08} y={40}>
+          <StaggerGrid className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" duration={0.85} stagger={0.08} y={40}>
             {articles.slice(0, 3).map((article) => (
               <ArticleCard key={article.slug} article={article} />
             ))}
@@ -317,7 +323,7 @@ export default async function HomePage() {
       <PartnerPromotionsBanner />
 
       {/* 11 ── RECOGNITION — awards band (kept below promotions) */}
-      <section className="border-y border-ink/5 bg-[#f7fafb] py-16 sm:py-20">
+      <section className="bg-[#f7fafb] py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <StaggerGrid className="grid items-center gap-10 sm:grid-cols-3">
             <div className="flex flex-col items-center gap-3 text-center">
@@ -359,7 +365,7 @@ export default async function HomePage() {
             <p className="mx-auto mt-6 max-w-xl text-base font-light leading-relaxed text-white/85 sm:text-lg">
               {t("ctaLine")}
             </p>
-            <div className="mt-10 flex flex-wrap justify-center gap-4">
+            <div className="mt-10 flex flex-wrap justify-center gap-4 sm:mt-12">
               <Magnetic>
                 <Button href="/contact" size="lg" className="bg-teal hover:bg-white hover:text-obsidian">
                   {tc("enquireNow")}
@@ -392,16 +398,16 @@ function Sparkle() {
 /* ------------------------------------------------------------------ */
 function FleetSection() {
   return (
-    <section className="bg-bg-base pb-28 pt-16 sm:pb-36 sm:pt-24">
+    <section className="bg-bg-base pb-16 pt-12 sm:pb-24 sm:pt-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">02 — The Fleet</p>
         <SplitHeadline
           text="Two houses on the water"
-          className="font-display mt-5 max-w-2xl text-4xl font-medium leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl"
+          className="font-display mt-4 max-w-2xl text-4xl font-medium leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl"
         />
       </div>
 
-      <div className="mt-16 space-y-6 sm:space-y-8">
+      <div className="mt-10 space-y-6 sm:space-y-8">
         {FLEET.map((v, i) => (
           <CurtainReveal key={v.id} className={i % 2 ? "mx-auto max-w-[88%]" : "mx-auto max-w-[94%]"}>
             <Link href={`/vessels/${v.id}`} className="group relative block aspect-[16/8] min-h-[420px] overflow-hidden rounded-3xl">

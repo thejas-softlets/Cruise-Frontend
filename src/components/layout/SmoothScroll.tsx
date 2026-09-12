@@ -42,6 +42,10 @@ export function SmoothScroll() {
     const onLoad = () => ScrollTrigger.refresh();
     window.addEventListener("load", onLoad, { once: true });
 
+    // Ensure route navigation always resets to the top
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+    lenis.scrollTo(0, { immediate: true });
+
     return () => {
       window.removeEventListener("load", onLoad);
       gsap.ticker.remove(syncGsap);
@@ -49,10 +53,15 @@ export function SmoothScroll() {
     };
   }, [reduce]);
 
-  // Recalculate pinned/parallax triggers after route changes
+  // Recalculate pinned/parallax triggers and reset scroll position on route changes
   useEffect(() => {
-    if (reduce) return;
-    const id = window.setTimeout(() => ScrollTrigger.refresh(), 350);
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+    const id = window.setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+      if (!reduce) {
+        ScrollTrigger.refresh();
+      }
+    }, 50);
     return () => window.clearTimeout(id);
   }, [pathname, reduce]);
 

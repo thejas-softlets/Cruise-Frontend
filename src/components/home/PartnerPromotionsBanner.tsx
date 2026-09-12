@@ -27,7 +27,7 @@ const PROMOTIONS = [
 
 export function PartnerPromotionsBanner() {
   return (
-    <section className="border-t border-ink/6 bg-[#faf9f6] py-20 sm:py-28">
+    <section className="bg-[#faf9f6] py-14 sm:py-20">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <FadeIn>
           <div className="flex flex-wrap items-center justify-between gap-4">

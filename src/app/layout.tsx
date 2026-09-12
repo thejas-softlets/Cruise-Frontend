@@ -51,6 +51,13 @@ export async function generateMetadata(): Promise<Metadata> {
       template: "%s · Summer Cruise",
     },
     description: t("description"),
+    icons: {
+      icon: [
+        { url: "/favicon.png", sizes: "192x192", type: "image/png" },
+        { url: "/favicon.ico" },
+      ],
+      apple: [{ url: "/favicon.png", sizes: "192x192", type: "image/png" }],
+    },
   };
 }
 
