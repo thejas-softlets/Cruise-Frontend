@@ -453,29 +453,34 @@ function FleetSection() {
         />
       </div>
 
-      <div className="mx-auto mt-10 max-w-7xl space-y-6 px-5 sm:space-y-8 sm:px-8">
-        {FLEET.map((v) => (
-          <CurtainReveal key={v.id} className="w-full">
-            <Link href={`/vessels/${v.id}`} className="group relative block aspect-[16/8] min-h-[380px] w-full overflow-hidden rounded-3xl sm:min-h-[440px]">
-              <img
-                src={v.image}
-                alt={v.name}
-                className="absolute inset-0 size-full object-cover transition-transform duration-[2.4s] ease-out group-hover:scale-[1.05]"
-                loading="lazy"
-              />
-              <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/20 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-5 p-8 sm:p-12">
-                <div>
-                  <p className="text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-teal-soft">{v.meta}</p>
-                  <h3 className="font-display mt-3 text-3xl font-medium text-white sm:text-5xl">{v.name}</h3>
+      <div className="mx-auto mt-10 max-w-7xl px-5 sm:px-8">
+        <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
+          {FLEET.map((v) => (
+            <CurtainReveal key={v.id} className="w-full">
+              <Link
+                href={`/vessels/${v.id}`}
+                className="group relative block aspect-[16/8] min-h-[380px] w-full overflow-hidden rounded-3xl sm:min-h-[440px] md:aspect-[4/3] lg:aspect-[16/11] lg:min-h-[480px]"
+              >
+                <img
+                  src={v.image}
+                  alt={v.name}
+                  className="absolute inset-0 size-full object-cover transition-transform duration-[2.4s] ease-out group-hover:scale-[1.05]"
+                  loading="lazy"
+                />
+                <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/20 to-transparent" />
+                <div data-curtain-text className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-4 p-6 sm:p-8 lg:p-10">
+                  <div>
+                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-teal-soft">{v.meta}</p>
+                    <h3 className="font-display mt-2 sm:mt-3 text-3xl font-medium text-white sm:text-4xl lg:text-5xl">{v.name}</h3>
+                  </div>
+                  <span className="font-secondary inline-flex min-h-11 items-center gap-2 rounded-full border border-white/30 px-5 sm:px-6 text-xs font-semibold uppercase tracking-[0.16em] text-white transition-all duration-500 group-hover:border-teal group-hover:bg-teal">
+                    View vessel →
+                  </span>
                 </div>
-                <span className="font-secondary inline-flex min-h-11 items-center gap-2 rounded-full border border-white/30 px-6 text-xs font-semibold uppercase tracking-[0.16em] text-white transition-all duration-500 group-hover:border-teal group-hover:bg-teal">
-                  View vessel →
-                </span>
-              </div>
-            </Link>
-          </CurtainReveal>
-        ))}
+              </Link>
+            </CurtainReveal>
+          ))}
+        </div>
       </div>
     </section>
   );

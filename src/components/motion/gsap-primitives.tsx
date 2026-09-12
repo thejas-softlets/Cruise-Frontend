@@ -191,37 +191,48 @@ export function CurtainReveal({
   useEffect(() => {
     if (!wrap.current || !inner.current || reduce) return;
     const ctx = gsap.context(() => {
-      gsap.timeline({
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: wrap.current,
-          start: "top 88%",
+          start: "top 78%",
           toggleActions: "play none none reverse",
           invalidateOnRefresh: true,
         },
-      })
-        .fromTo(
-          wrap.current,
-          {
-            clipPath: "inset(18% 6% 18% 6% round 32px)",
-            opacity: 0.35,
-            y: 40,
-            scale: 0.94,
-          },
-          {
-            clipPath: "inset(0% 0% 0% 0% round 24px)",
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 1.3,
-            ease: "power3.out",
-          }
-        )
+      });
+
+      tl.fromTo(
+        wrap.current,
+        {
+          clipPath: "inset(40% 18% 40% 18% round 48px)",
+          opacity: 0,
+          y: 90,
+          scale: 0.84,
+        },
+        {
+          clipPath: "inset(0% 0% 0% 0% round 24px)",
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1.5,
+          ease: "power3.out",
+        }
+      )
         .fromTo(
           inner.current,
-          { scale: 1.2, filter: "brightness(0.8)" },
-          { scale: 1, filter: "brightness(1)", duration: 1.5, ease: "power2.out" },
+          { scale: 1.45, filter: "brightness(0.55) contrast(1.15)" },
+          { scale: 1, filter: "brightness(1) contrast(1)", duration: 1.7, ease: "power2.out" },
           0
         );
+
+      const textEl = wrap.current?.querySelector("[data-curtain-text]");
+      if (textEl) {
+        tl.fromTo(
+          textEl,
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.1, ease: "power3.out" },
+          0.25
+        );
+      }
     }, wrap);
     return () => ctx.revert();
   }, [reduce]);

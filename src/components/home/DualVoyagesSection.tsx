@@ -117,44 +117,64 @@ export function DualVoyagesSection() {
             transition={{ duration: 0.35, ease: "easeInOut" }}
             className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12"
           >
-            {/* Left Media Card with Feature Badges */}
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl sm:rounded-3xl lg:col-span-6">
-              <img
-                src={activeCruise.image}
-                alt={activeCruise.alt}
-                className="size-full object-cover transition-transform duration-[2.5s] ease-out hover:scale-105"
-                loading="lazy"
-              />
-              <div
-                aria-hidden
-                className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-transparent to-transparent"
-              />
+            {/* Left Column: Unified Media & Amenities Card */}
+            <div className="overflow-hidden rounded-2xl sm:rounded-3xl border border-black/10 bg-[#0e1d22] shadow-lg lg:col-span-6 flex flex-col">
+              {/* Photo Showcase Container */}
+              <div className="relative aspect-[16/10] w-full overflow-hidden group">
+                <img
+                  src={activeCruise.image}
+                  alt={activeCruise.alt}
+                  className="size-full object-cover object-center transition-transform duration-[2.5s] ease-out group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-gradient-to-t from-[#0e1d22]/40 via-transparent to-black/10 pointer-events-none"
+                />
 
-              {/* Floating Glass Feature Bar */}
-              <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/20 bg-obsidian/65 p-4 text-white shadow-lg backdrop-blur-md sm:inset-x-6 sm:bottom-6 sm:p-5">
-                <div className="grid grid-cols-5 gap-1 text-center">
+                {/* Vessel Badge without dot */}
+                <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4">
+                  <span className="inline-flex items-center rounded-full bg-obsidian/85 px-3.5 py-1.5 text-[0.65rem] sm:text-xs font-semibold tracking-wide text-white backdrop-blur-md border border-white/15 shadow-sm">
+                    {activeCruise.name}
+                  </span>
+                </div>
+              </div>
+
+              {/* Luxury Amenities & Scenery Highlights Bar (Seamlessly Attached) */}
+              <div className="p-4 sm:p-5 text-white">
+                <div className="grid grid-cols-5 gap-1.5 text-center">
                   <div className="flex flex-col items-center">
-                    <BedIcon className="size-5 sm:size-6 text-white/90" />
-                    <span className="mt-1 text-[0.65rem] sm:text-xs font-medium text-white/90">Stay</span>
+                    <div className="flex size-7 sm:size-8 items-center justify-center rounded-lg bg-white/10 text-white/95 mb-1">
+                      <BedIcon className="size-3.5 sm:size-4" />
+                    </div>
+                    <span className="text-[0.65rem] sm:text-xs font-medium text-white/90">Stay</span>
                   </div>
                   <div className="flex flex-col items-center">
-                    <ExploreIcon className="size-5 sm:size-6 text-white/90" />
-                    <span className="mt-1 text-[0.65rem] sm:text-xs font-medium text-white/90">Explore</span>
+                    <div className="flex size-7 sm:size-8 items-center justify-center rounded-lg bg-white/10 text-white/95 mb-1">
+                      <ExploreIcon className="size-3.5 sm:size-4" />
+                    </div>
+                    <span className="text-[0.65rem] sm:text-xs font-medium text-white/90">Explore</span>
                   </div>
                   <div className="flex flex-col items-center">
-                    <ActivitiesIcon className="size-5 sm:size-6 text-white/90" />
-                    <span className="mt-1 text-[0.65rem] sm:text-xs font-medium text-white/90">Activites</span>
+                    <div className="flex size-7 sm:size-8 items-center justify-center rounded-lg bg-white/10 text-white/95 mb-1">
+                      <ActivitiesIcon className="size-3.5 sm:size-4" />
+                    </div>
+                    <span className="text-[0.65rem] sm:text-xs font-medium text-white/90">Activities</span>
                   </div>
                   <div className="flex flex-col items-center">
-                    <FoodIcon className="size-5 sm:size-6 text-white/90" />
-                    <span className="mt-1 text-[0.65rem] sm:text-xs font-medium text-white/90">Food</span>
+                    <div className="flex size-7 sm:size-8 items-center justify-center rounded-lg bg-white/10 text-white/95 mb-1">
+                      <FoodIcon className="size-3.5 sm:size-4" />
+                    </div>
+                    <span className="text-[0.65rem] sm:text-xs font-medium text-white/90">Food</span>
                   </div>
                   <div className="flex flex-col items-center">
-                    <TeaIcon className="size-5 sm:size-6 text-white/90" />
-                    <span className="mt-1 text-[0.65rem] sm:text-xs font-medium text-white/90">Tea</span>
+                    <div className="flex size-7 sm:size-8 items-center justify-center rounded-lg bg-white/10 text-white/95 mb-1">
+                      <TeaIcon className="size-3.5 sm:size-4" />
+                    </div>
+                    <span className="text-[0.65rem] sm:text-xs font-medium text-white/90">Tea</span>
                   </div>
                 </div>
-                <p className="mt-3 border-t border-white/15 pt-2.5 text-center text-[0.7rem] sm:text-xs font-light tracking-wide text-white/85">
+                <p className="mt-3 border-t border-white/10 pt-2.5 text-center text-[0.7rem] sm:text-xs font-light tracking-wide text-white/80">
                   Marvel views at the stunning scenery of Kenyir Lake.
                 </p>
               </div>
