@@ -4,8 +4,6 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ChevronDown } from "lucide-react";
 import { useReducedMotion } from "framer-motion";
-import { Button } from "@/components/ui/Button";
-import { Magnetic } from "@/components/motion/gsap-primitives";
 
 const VIDEO_SRC = "/videos/sc-hero.mp4";
 const POSTER = "/images/vessels/sc-hero.webp";
@@ -28,7 +26,6 @@ export function VideoHero() {
       gsap.timeline({ delay: 0.15 })
         .fromTo("[data-hero-eyebrow]", { y: 40, opacity: 0, letterSpacing: "0.6em" }, { y: 0, opacity: 1, letterSpacing: "0.32em", duration: 1.6, ease: "power3.out" })
         .fromTo("[data-hero-word]", { yPercent: 118, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.5, ease: "power4.out", stagger: 0.12 }, "-=1.1")
-        .fromTo("[data-hero-cta]", { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: EASE_OUT, stagger: 0.1 }, "-=0.8")
         .fromTo("[data-hero-cue]", { opacity: 0 }, { opacity: 1, duration: 1, ease: "power1.out" }, "-=0.4");
 
       // Scroll-out parallax: content drifts up & fades as you leave the hero
@@ -77,23 +74,6 @@ export function VideoHero() {
             <span data-hero-word className="block">Kenyir&nbsp;Lake&nbsp;Cruises</span>
           </span>
         </h1>
-
-        <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4">
-          <div data-hero-cta>
-            <Magnetic>
-              <Button href="/packages" size="lg" className="bg-teal hover:bg-white hover:text-obsidian">
-                Book Your Voyage
-              </Button>
-            </Magnetic>
-          </div>
-          <div data-hero-cta>
-            <Magnetic>
-              <Button href="/vessels" size="lg" variant="ghostLight">
-                Explore the Fleet
-              </Button>
-            </Magnetic>
-          </div>
-        </div>
       </div>
 
       {/* Scroll cue */}
@@ -103,5 +83,3 @@ export function VideoHero() {
     </section>
   );
 }
-
-const EASE_OUT = "power3.out";
