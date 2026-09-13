@@ -44,15 +44,71 @@ export default async function HomePage() {
         <VideoHero />
       </div>
 
-      {/* 2 ── THE FLEET — two vessel panels with prominent curtain zoom-reveal */}
+      {/* 2 ── PREMIER LUXURY RIVER CRUISES & LIFE ON BOARD COMBINED */}
       <FleetSection />
 
-      {/* 3 ── GUEST VOICES — Aqua-style testimonial chapter (low text density) */}
+      {/* 3 ── UNFORGETTABLE KENYIR LAKE CRUISE PACKAGES */}
+      <DualVoyagesSection />
+
+      {/* Current offer — single ribbon, low text density */}
+      {offer && (
+        <div className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-24 -mt-6">
+          <Rise delay={0.15}>
+            <Link
+              href={`/offers/${offer.slug}`}
+              className="group flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-teal/20 bg-teal/5 px-7 py-6 transition-colors duration-500 hover:bg-teal/10 sm:px-9"
+            >
+              <span className="inline-flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-[0.26em] text-teal-deep">
+                <Sparkle /> {offer.shortTag}
+              </span>
+              <span className="font-display text-xl font-medium text-ink sm:text-2xl">{offer.title}</span>
+              <span className="font-secondary text-xs font-semibold uppercase tracking-[0.16em] text-teal-deep transition-transform duration-500 group-hover:translate-x-1">
+                View offer →
+              </span>
+            </Link>
+          </Rise>
+        </div>
+      )}
+
+      {/* 4 ── KENYIR THE LAKE SECTION — center-split doors */}
+      <SplitDoors leftWord="Kenyir" rightWord="Lake">
+        <div className="relative size-full">
+          <img
+            src="/images/lake/kenyir-shoreline.webp"
+            alt="Rainforest islands rising from Kenyir Lake"
+            className="absolute inset-0 size-full object-cover"
+            loading="lazy"
+          />
+          <div aria-hidden className="absolute inset-0 bg-obsidian/35" />
+          <div className="relative mx-auto flex h-full max-w-4xl flex-col items-center justify-center px-5 text-center text-white sm:px-8">
+            <p data-reveal-rise className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-soft">
+              04 — The Lake
+            </p>
+            <h2 data-reveal-rise className="font-display mt-5 text-4xl font-medium leading-[1.05] tracking-tight text-balance sm:text-6xl">
+              130 million years of rainforest, one mirror-still lake
+            </h2>
+            <p data-reveal-rise className="mt-6 max-w-lg text-base leading-relaxed text-white/85">
+              Malaysia&apos;s largest man-made lake — a maze of emerald islands where
+              waterfalls pour out of untouched jungle and the only morning commute
+              is a tender boat.
+            </p>
+            <div data-reveal-rise className="mt-9">
+              <Magnetic strength={0.25}>
+                <Button href="/the-lake" variant="ghostLight">
+                  Discover Kenyir
+                </Button>
+              </Magnetic>
+            </div>
+          </div>
+        </div>
+      </SplitDoors>
+
+      {/* 5 ── WHAT GUESTS SAY */}
       <section className="bg-[#f7fafb] py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">Guest Words</p>
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">05 — Guest Words</p>
               <SplitHeadline
                 text="What guests say"
                 className="font-display mt-4 text-4xl font-medium tracking-tight text-ink sm:text-6xl"
@@ -84,160 +140,12 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 4 ── CENTER-SPLIT DOORS — the screen parts from the middle (Aqua's cinematic lake chapter) */}
-      <SplitDoors leftWord="Kenyir" rightWord="Lake">
-        <div className="relative size-full">
-          <img
-            src="/images/lake/kenyir-shoreline.webp"
-            alt="Rainforest islands rising from Kenyir Lake"
-            className="absolute inset-0 size-full object-cover"
-            loading="lazy"
-          />
-          <div aria-hidden className="absolute inset-0 bg-obsidian/35" />
-          <div className="relative mx-auto flex h-full max-w-4xl flex-col items-center justify-center px-5 text-center text-white sm:px-8">
-            <p data-reveal-rise className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-soft">
-              01 — The Lake
-            </p>
-            <h2 data-reveal-rise className="font-display mt-5 text-4xl font-medium leading-[1.05] tracking-tight text-balance sm:text-6xl">
-              130 million years of rainforest, one mirror-still lake
-            </h2>
-            <p data-reveal-rise className="mt-6 max-w-lg text-base leading-relaxed text-white/85">
-              Malaysia&apos;s largest man-made lake — a maze of emerald islands where
-              waterfalls pour out of untouched jungle and the only morning commute
-              is a tender boat.
-            </p>
-            <div data-reveal-rise className="mt-9">
-              <Magnetic strength={0.25}>
-                <Button href="/the-lake" variant="ghostLight">
-                  Discover Kenyir
-                </Button>
-              </Magnetic>
-            </div>
-          </div>
-        </div>
-      </SplitDoors>
-
-      {/* 5 ── VOYAGE STATS BAND — dual vessel specs, dark chapter */}
-      <section className="relative overflow-hidden bg-obsidian py-16 text-white sm:py-24">
-        <ParallaxLayer speed={0.1} className="absolute inset-0 -top-[10%] h-[120%] opacity-25">
-          <img src="/images/real/DJI_0123-min-scaled.webp" alt="" className="size-full object-cover" loading="lazy" />
-        </ParallaxLayer>
-        <div aria-hidden className="absolute inset-0 bg-obsidian/60" />
-        <div className="relative mx-auto max-w-7xl px-5 text-center sm:px-8">
-          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-soft">03 — Life On Board</p>
-          <SplitHeadline
-            text="Two handcrafted vessels, fully crewed & served"
-            className="font-display mx-auto mt-4 max-w-3xl text-4xl font-medium leading-[1.06] tracking-tight text-balance sm:text-6xl"
-          />
-          <p className="mx-auto mt-3 max-w-xl text-sm font-light text-white/75 sm:text-base">
-            Whether an intimate family voyage or a grand celebration, experience Kenyir Lake in tailored comfort.
-          </p>
-
-          <StaggerGrid className="mx-auto mt-10 grid max-w-5xl gap-6 md:grid-cols-2">
-            {/* Summer Cruise */}
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left backdrop-blur-sm transition-all duration-300 hover:border-teal/40 sm:p-8">
-              <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-4">
-                <div>
-                  <h3 className="font-display text-2xl font-medium text-white sm:text-3xl">Summer Cruise</h3>
-                  <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-teal-soft">Flagship Luxury Houseboat</p>
-                </div>
-                <Link
-                  href="/vessels/summer-cruise"
-                  className="flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-all duration-300 hover:border-teal hover:bg-teal"
-                  aria-label="View Summer Cruise"
-                >
-                  <span className="font-secondary text-sm">↗</span>
-                </Link>
-              </div>
-              <div className="mt-6 grid grid-cols-3 gap-3 text-center">
-                <div>
-                  <p className="font-display text-3xl font-medium text-teal-soft sm:text-4xl">
-                    <StatCounter value={34} />
-                  </p>
-                  <p className="mt-1 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-white/60">Guests</p>
-                </div>
-                <div>
-                  <p className="font-display text-3xl font-medium text-teal-soft sm:text-4xl">
-                    <StatCounter value={12} />
-                  </p>
-                  <p className="mt-1 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-white/60">Rooms</p>
-                </div>
-                <div>
-                  <p className="font-display text-3xl font-medium text-teal-soft sm:text-4xl">
-                    <StatCounter value={10} />
-                  </p>
-                  <p className="mt-1 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-white/60">Crew</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Green Horizon */}
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left backdrop-blur-sm transition-all duration-300 hover:border-teal/40 sm:p-8">
-              <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-4">
-                <div>
-                  <h3 className="font-display text-2xl font-medium text-white sm:text-3xl">Green Horizon</h3>
-                  <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-teal-soft">Newly Launched Grand Houseboat</p>
-                </div>
-                <Link
-                  href="/vessels/green-horizon"
-                  className="flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-all duration-300 hover:border-teal hover:bg-teal"
-                  aria-label="View Green Horizon"
-                >
-                  <span className="font-secondary text-sm">↗</span>
-                </Link>
-              </div>
-              <div className="mt-6 grid grid-cols-3 gap-3 text-center">
-                <div>
-                  <p className="font-display text-3xl font-medium text-teal-soft sm:text-4xl">
-                    <StatCounter value={60} />
-                  </p>
-                  <p className="mt-1 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-white/60">Guests</p>
-                </div>
-                <div>
-                  <p className="font-display text-3xl font-medium text-teal-soft sm:text-4xl">
-                    <StatCounter value={15} />
-                  </p>
-                  <p className="mt-1 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-white/60">Rooms</p>
-                </div>
-                <div>
-                  <p className="font-display text-3xl font-medium text-teal-soft sm:text-4xl">
-                    <StatCounter value={10} />
-                  </p>
-                  <p className="mt-1 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-white/60">Crew</p>
-                </div>
-              </div>
-            </div>
-          </StaggerGrid>
-
-          {/* Highlights tag strip */}
-          <div className="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-2 sm:gap-2.5">
-            {[
-              "Lasir Waterfall",
-              "Kelah Sanctuary",
-              "Bewah Cave",
-              "Melunak Trail",
-              "Saok Waterfall",
-              "Orchid Garden",
-              "Cave Hiking",
-              "Jungle Trekking",
-            ].map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-white/80 transition-colors hover:border-teal/50 hover:text-white"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5.5 ── SIGNATURE EXPERIENCES — auto-gliding strip (constant ambient motion) */}
+      {/* 6 ── KENYIR LAKE EXPERIENCES: DISCOVER EXPERIENCES & EXPLORE EXCURSIONS */}
       <section className="bg-bg-base py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">Experiences</p>
+          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">06 — Kenyir Lake Experiences</p>
           <SplitHeadline
-            text="On the lake"
+            text="Discover Kenyir Lake Experiences"
             className="font-display mt-4 text-4xl font-medium tracking-tight text-ink sm:text-5xl"
           />
         </div>
@@ -264,14 +172,13 @@ export default async function HomePage() {
         </AutoGallery>
       </section>
 
-      {/* 6 ── EXCURSIONS — unpinned horizontal scroll gallery */}
       <section className="bg-bg-base py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">04 — Excursions</p>
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">Excursions</p>
               <SplitHeadline
-                text="Days shaped by water and wilderness"
+                text="Explore Kenyir Lake Excursions"
                 className="font-display mt-4 max-w-3xl text-4xl font-medium leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl"
               />
             </div>
@@ -297,30 +204,7 @@ export default async function HomePage() {
         </HorizontalScroll>
       </section>
 
-      {/* 7 ── PACKAGES — interactive dual-cruise vessel showcase */}
-      <DualVoyagesSection />
-
-      {/* Current offer — single ribbon, low text density */}
-      {offer && (
-        <div className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-24 -mt-6">
-          <Rise delay={0.15}>
-            <Link
-              href={`/offers/${offer.slug}`}
-              className="group flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-teal/20 bg-teal/5 px-7 py-6 transition-colors duration-500 hover:bg-teal/10 sm:px-9"
-            >
-              <span className="inline-flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-[0.26em] text-teal-deep">
-                <Sparkle /> {offer.shortTag}
-              </span>
-              <span className="font-display text-xl font-medium text-ink sm:text-2xl">{offer.title}</span>
-              <span className="font-secondary text-xs font-semibold uppercase tracking-[0.16em] text-teal-deep transition-transform duration-500 group-hover:translate-x-1">
-                View offer →
-              </span>
-            </Link>
-          </Rise>
-        </div>
-      )}
-
-      {/* 8 ── PANORAMIC INTERLUDE — pinned slow parallax quote */}
+      {/* 7 ── PANORAMIC INTERLUDE — pinned slow parallax quote */}
       <section className="relative overflow-hidden bg-obsidian py-28 text-center text-white sm:py-40">
         <ParallaxLayer speed={0.22} className="absolute inset-0 -top-[15%] h-[130%]">
           <img src="/images/real/DJI_0117-min-scaled.webp" alt="" className="size-full object-cover" loading="lazy" />
@@ -337,13 +221,13 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 9 ── JOURNAL — travel guide cards */}
+      {/* 8 ── JOURNAL — travel guide cards */}
       <section id="travel-guide" className="scroll-mt-20 bg-bg-base py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <FadeIn>
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
-                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">06 — Journal</p>
+                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">08 — Journal</p>
                 <SplitHeadline
                   text="Notes from the lake"
                   className="font-display mt-4 text-4xl font-medium tracking-tight text-ink sm:text-5xl"
@@ -365,10 +249,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 10 ── Partner Promotions */}
+      {/* 9 ── Partner Promotions (M Hotels · Island Resorts · Travel agents) */}
       <PartnerPromotionsBanner />
 
-      {/* 11 ── RECOGNITION — awards band (kept below promotions) */}
+      {/* 10 ── RECOGNITION — awards band */}
       <section className="bg-[#f7fafb] py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <StaggerGrid className="grid items-center gap-10 sm:grid-cols-3">
@@ -394,7 +278,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 12 ── CLOSING CTA — dusk lake, magnetic buttons */}
+      {/* 11 ── CLOSING CTA — dusk lake, magnetic buttons */}
       <section className="relative overflow-hidden bg-obsidian pb-28 pt-40 text-center text-white sm:pb-36 sm:pt-56">
         <ParallaxLayer speed={0.16} className="absolute inset-0 -top-[12%] h-[124%]">
           <img src="/images/real/DJI_0123-min-scaled.webp" alt="" className="size-full object-cover" loading="lazy" />
@@ -440,26 +324,32 @@ function Sparkle() {
 }
 
 /* ------------------------------------------------------------------ */
-/* Fleet — two full-bleed vessel panels with scroll-scrubbed reveals   */
+/* Fleet & Life On Board Combined — Two Premier Luxury River Cruises  */
 /* ------------------------------------------------------------------ */
 function FleetSection() {
   return (
     <section className="bg-bg-base pb-16 pt-12 sm:pb-24 sm:pt-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">02 — The Fleet</p>
+        <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">
+          02 — The Fleet &amp; Life On Board
+        </p>
         <SplitHeadline
-          text="Two houses on the water"
-          className="font-display mt-4 max-w-2xl text-4xl font-medium leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl"
+          text="Kenyir Lake’s Premier Luxury River Cruises."
+          className="font-display mt-4 max-w-4xl text-3xl font-medium leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-6xl"
         />
+        <p className="mt-4 max-w-3xl text-base leading-relaxed text-text-muted sm:text-lg">
+          Discover the beauty of Kenyir Lake through the exceptional experiences of SummerCruise and Green Horizon
+        </p>
       </div>
 
       <div className="mx-auto mt-10 max-w-7xl px-5 sm:px-8">
-        <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {FLEET.map((v) => (
-            <CurtainReveal key={v.id} className="w-full">
+            <CurtainReveal key={v.id} className="w-full flex flex-col">
+              {/* Vessel Image Card */}
               <Link
                 href={`/vessels/${v.id}`}
-                className="group relative block aspect-[16/8] min-h-[380px] w-full overflow-hidden rounded-3xl sm:min-h-[440px] md:aspect-[4/3] lg:aspect-[16/11] lg:min-h-[480px]"
+                className="group relative block aspect-[16/9] min-h-[320px] w-full overflow-hidden rounded-3xl sm:min-h-[380px] lg:aspect-[16/10]"
               >
                 <img
                   src={v.image}
@@ -468,18 +358,82 @@ function FleetSection() {
                   loading="lazy"
                 />
                 <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/20 to-transparent" />
-                <div data-curtain-text className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-4 p-6 sm:p-8 lg:p-10">
+                <div data-curtain-text className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-4 p-6 sm:p-8">
                   <div>
-                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-teal-soft">{v.meta}</p>
-                    <h3 className="font-display mt-2 sm:mt-3 text-3xl font-medium text-white sm:text-4xl lg:text-5xl">{v.name}</h3>
+                    <span className="inline-block rounded-full bg-white/20 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-md">
+                      {v.role}
+                    </span>
+                    <h3 className="font-display mt-2 text-2xl font-medium text-white sm:text-3xl lg:text-4xl">{v.name}</h3>
                   </div>
-                  <span className="font-secondary inline-flex min-h-11 items-center gap-2 rounded-full border border-white/30 px-5 sm:px-6 text-xs font-semibold uppercase tracking-[0.16em] text-white transition-all duration-500 group-hover:border-teal group-hover:bg-teal">
+                  <span className="font-secondary inline-flex min-h-10 items-center gap-2 rounded-full border border-white/30 px-5 text-xs font-semibold uppercase tracking-[0.16em] text-white transition-all duration-500 group-hover:border-teal group-hover:bg-teal">
                     View vessel →
                   </span>
                 </div>
               </Link>
+
+              {/* Life On Board Stats Card for this vessel */}
+              <div className="mt-4 rounded-3xl border border-black/6 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md">
+                <div className="flex items-center justify-between border-b border-ink/8 pb-3">
+                  <div>
+                    <p className="font-display text-lg font-medium text-ink">{v.name}</p>
+                    <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-teal-deep">{v.role}</p>
+                  </div>
+                  <Link
+                    href={`/vessels/${v.id}`}
+                    className="text-xs font-semibold text-teal-deep hover:text-ink transition-colors"
+                  >
+                    Specs &amp; Decks →
+                  </Link>
+                </div>
+                <div className="mt-4 grid grid-cols-3 gap-2 text-center">
+                  <div className="rounded-2xl bg-stone-50 py-3 px-2 border border-black/[0.03]">
+                    <p className="font-display text-2xl font-medium text-teal-deep sm:text-3xl">
+                      <StatCounter value={v.guests} />
+                    </p>
+                    <p className="mt-0.5 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-text-muted">Guests</p>
+                  </div>
+                  <div className="rounded-2xl bg-stone-50 py-3 px-2 border border-black/[0.03]">
+                    <p className="font-display text-2xl font-medium text-teal-deep sm:text-3xl">
+                      <StatCounter value={v.rooms} />
+                    </p>
+                    <p className="mt-0.5 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-text-muted">Rooms</p>
+                  </div>
+                  <div className="rounded-2xl bg-stone-50 py-3 px-2 border border-black/[0.03]">
+                    <p className="font-display text-2xl font-medium text-teal-deep sm:text-3xl">
+                      <StatCounter value={v.crew} />
+                    </p>
+                    <p className="mt-0.5 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-text-muted">Crew</p>
+                  </div>
+                </div>
+              </div>
             </CurtainReveal>
           ))}
+        </div>
+
+        {/* Highlights tag strip from Life On Board */}
+        <div className="mt-12 flex flex-col items-center text-center">
+          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-text-muted">
+            Included Life On Board Highlights
+          </p>
+          <div className="mt-4 flex max-w-4xl flex-wrap justify-center gap-2 sm:gap-2.5">
+            {[
+              "Lasir Waterfall",
+              "Kelah Sanctuary",
+              "Bewah Cave",
+              "Melunak Trail",
+              "Saok Waterfall",
+              "Orchid Garden",
+              "Cave Hiking",
+              "Jungle Trekking",
+            ].map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-black/8 bg-white px-4 py-1.5 text-xs font-medium text-ink/80 shadow-xs transition-colors hover:border-teal/40 hover:text-teal-deep"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -490,14 +444,22 @@ const FLEET = [
   {
     id: "summer-cruise",
     name: "Summer Cruise",
+    role: "Flagship Luxury Houseboat",
     meta: "34 guests · 12 rooms · 10 crew",
     image: "/images/vessels/sc-hero.webp",
+    guests: 34,
+    rooms: 12,
+    crew: 10,
   },
   {
     id: "green-horizon",
     name: "Green Horizon",
+    role: "Newly Launched Grand Houseboat",
     meta: "60 guests · 15 rooms · 10 crew",
     image: "/images/vessels/gh-hero.webp",
+    guests: 60,
+    rooms: 15,
+    crew: 10,
   },
 ];
 

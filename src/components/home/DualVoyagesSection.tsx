@@ -65,16 +65,16 @@ export function DualVoyagesSection() {
       {/* Section Header */}
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">05 — Voyages</p>
-          <h2 className="font-display mt-4 max-w-2xl text-4xl font-medium leading-[1.05] tracking-tight text-ink sm:text-6xl">
-            Choose your days on the lake
+          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">03 — Packages &amp; Charters</p>
+          <h2 className="font-display mt-4 max-w-3xl text-4xl font-medium leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-6xl">
+            Unforgettable Kenyir Lake Cruise Packages.
           </h2>
         </div>
         <Link
           href="/packages"
-          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-teal-deep transition-colors hover:text-ink"
+          className="inline-flex min-h-11 items-center gap-2 rounded-full border border-teal-deep/25 bg-teal-deep/5 px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-teal-deep transition-all duration-300 hover:bg-teal-deep hover:text-white shadow-xs"
         >
-          All packages →
+          Packages Detailed Page →
         </Link>
       </div>
 

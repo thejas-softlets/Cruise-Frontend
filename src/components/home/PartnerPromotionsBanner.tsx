@@ -19,19 +19,6 @@ interface PartnerDestination {
 
 const PARTNER_DESTINATIONS: PartnerDestination[] = [
   {
-    title: "Summer Bay Resort",
-    tag: "Marine Island Sanctuary",
-    location: "Lang Tengah Island, Terengganu",
-    description:
-      "Award-winning PADI 5-star marine dive resort nestled on crystal-clear reef lagoons with beachfront villas, powdery white sands, and vibrant coral gardens.",
-    image: "/images/partners/summer-bay-sb16.jpg",
-    alt: "Summer Bay Resort beachfront and white sand at Lang Tengah Island",
-    url: "https://www.summerbayresort.com.my",
-    displayUrl: "summerbayresort.com.my",
-    badge: "Island Resort",
-    actionText: "Visit Resort",
-  },
-  {
     title: "The M Hotels Collection",
     tag: "Boutique & Executive Stays",
     location: "Kuala Terengganu & Kuantan",
@@ -41,8 +28,21 @@ const PARTNER_DESTINATIONS: PartnerDestination[] = [
     alt: "The M Hotels collection executive suite",
     url: "https://mhgbrand.netlify.app/our-hotels",
     displayUrl: "mhgbrand.netlify.app",
-    badge: "MHG Managed",
+    badge: "M Hotels",
     actionText: "Explore Hotels",
+  },
+  {
+    title: "Summer Bay Resort",
+    tag: "Marine Island Sanctuary",
+    location: "Lang Tengah Island, Terengganu",
+    description:
+      "Award-winning PADI 5-star marine dive resort nestled on crystal-clear reef lagoons with beachfront villas, powdery white sands, and vibrant coral gardens.",
+    image: "/images/partners/summer-bay-sb16.jpg",
+    alt: "Summer Bay Resort beachfront and white sand at Lang Tengah Island",
+    url: "https://www.summerbayresort.com.my",
+    displayUrl: "summerbayresort.com.my",
+    badge: "Island Resorts",
+    actionText: "Visit Resort",
   },
   {
     title: "Summer Bay Holiday Package",
@@ -54,7 +54,7 @@ const PARTNER_DESTINATIONS: PartnerDestination[] = [
     alt: "Summer Bay Resort holiday package promotion",
     url: "https://www.summerbayresort.com.my/packages/",
     displayUrl: "summerbayresort.com.my/packages",
-    badge: "Featured Promotion",
+    badge: "Travel Agents",
     actionText: "View Promotion",
     isPoster: true,
   },
