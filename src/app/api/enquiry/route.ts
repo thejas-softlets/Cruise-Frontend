@@ -41,9 +41,7 @@ export async function POST(request: Request) {
       vesselId: typeof body.vesselId === "string" ? body.vesselId : undefined,
       bookingType: typeof body.bookingType === "string" ? body.bookingType : undefined,
       preferredLanguage:
-        body.preferredLanguage === "ms" || body.preferredLanguage === "en"
-          ? body.preferredLanguage
-          : undefined,
+        body.preferredLanguage === "en" ? "en" : undefined,
     });
 
     return NextResponse.json({ ref: record.ref });

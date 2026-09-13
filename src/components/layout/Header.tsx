@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
-import { LanguageToggle } from "./LanguageToggle";
 import { Link, usePathname } from "@/lib/i18n/navigation";
 import { SITE } from "@/lib/site";
 import { cn, whatsappLink, WHATSAPP_NUMBER } from "@/lib/utils";
@@ -147,7 +146,17 @@ export function Header() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-2 sm:gap-2.5">
-          <LanguageToggle onDark={onDark} />
+          <Link
+            href="/book"
+            className={cn(
+              "font-secondary inline-flex min-h-9 items-center whitespace-nowrap rounded-full px-4 text-xs font-semibold uppercase tracking-[0.12em] transition-all duration-300 sm:min-h-10 sm:px-5 sm:tracking-[0.14em]",
+              onDark
+                ? "bg-teal text-white hover:bg-white hover:text-obsidian shadow-sm"
+                : "bg-teal text-white hover:bg-teal-deep shadow-sm",
+            )}
+          >
+            {tc("bookNow")}
+          </Link>
           <a
             href={SITE.phoneHref}
             aria-label={tc("callUs")}
@@ -158,17 +167,6 @@ export function Header() {
           >
             <Phone aria-hidden className="size-4" />
           </a>
-          <Link
-            href="/book"
-            className={cn(
-              "font-secondary hidden min-h-9 items-center whitespace-nowrap rounded-full px-4 text-xs font-semibold uppercase tracking-[0.12em] transition-all duration-500 sm:inline-flex sm:min-h-10 sm:px-5 sm:tracking-[0.14em]",
-              onDark
-                ? "bg-teal text-white hover:bg-white hover:text-obsidian"
-                : "bg-teal text-white hover:bg-teal-deep",
-            )}
-          >
-            {tc("bookNow")}
-          </Link>
           <Link
             href="/contact"
             className={cn(

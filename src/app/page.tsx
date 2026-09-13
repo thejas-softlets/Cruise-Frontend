@@ -9,14 +9,16 @@ import {
   StaggerGrid,
   ParallaxLayer,
   CurtainReveal,
-  HorizontalScroll,
   StatCounter,
   Magnetic,
   SplitDoors,
-  AutoGallery,
 } from "@/components/motion/gsap-primitives";
 import { VideoHero } from "@/components/home/VideoHero";
 import { DualVoyagesSection } from "@/components/home/DualVoyagesSection";
+import {
+  ExperiencesInfiniteMarquee,
+  type ExperienceItem,
+} from "@/components/home/ExperiencesInfiniteMarquee";
 
 import { PartnerPromotionsBanner } from "@/components/home/PartnerPromotionsBanner";
 import { getAllArticles } from "@/lib/api/journal";
@@ -36,6 +38,34 @@ export default async function HomePage() {
     getExperiencesByKind("excursions"),
   ]);
   const offer = offers[0];
+
+  const allExperienceItems: ExperienceItem[] = [
+    ...EXCURSIONS.map((ex) => ({
+      id: ex.id,
+      title: ex.title,
+      tag: ex.tag,
+      image: ex.image,
+      description: ex.description,
+      href: "/experiences",
+    })),
+    ...experiences
+      .filter(
+        (e) =>
+          !EXCURSIONS.some(
+            (ex) =>
+              ex.id === e.slug ||
+              ex.title.toLowerCase().includes(e.title.toLowerCase().slice(0, 7))
+          )
+      )
+      .map((e) => ({
+        id: e.slug,
+        title: e.title,
+        tag: e.tags?.[0] ?? "Excursion",
+        image: e.images[0]?.src ?? "/images/real/DSC07615-scaled.webp",
+        description: e.lines?.[0],
+        href: `/experiences/${e.slug}`,
+      })),
+  ];
 
   return (
     <>
@@ -140,68 +170,32 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 6 ── KENYIR LAKE EXPERIENCES: DISCOVER EXPERIENCES & EXPLORE EXCURSIONS */}
-      <section className="bg-bg-base py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">06 — Kenyir Lake Experiences</p>
-          <SplitHeadline
-            text="Discover Kenyir Lake Experiences"
-            className="font-display mt-4 text-4xl font-medium tracking-tight text-ink sm:text-5xl"
-          />
-        </div>
-        <AutoGallery className="mt-8" baseDuration={46}>
-          {experiences.slice(0, 10).map((e) => (
-            <Link
-              key={e.slug}
-              href="/experiences"
-              className="group relative block h-[56vh] w-[70vw] shrink-0 overflow-hidden rounded-3xl sm:w-[38vw] lg:w-[26vw]"
-            >
-              <img
-                src={e.images[0]?.src ?? ""}
-                alt={e.title}
-                className="absolute inset-0 size-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
-                loading="lazy"
-              />
-              <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/10 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-6">
-                <h3 className="font-display text-xl font-medium text-white sm:text-2xl">{e.title}</h3>
-                <p className="mt-1.5 line-clamp-1 text-xs font-light text-white/75">{e.lines[0]}</p>
-              </div>
-            </Link>
-          ))}
-        </AutoGallery>
-      </section>
-
+      {/* 6 ── KENYIR LAKE EXPERIENCES & EXCURSIONS: Combined Infinite Marquee & Horizontal Drag */}
       <section className="bg-bg-base py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">Excursions</p>
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">
+                06 — Experiences &amp; Excursions
+              </p>
               <SplitHeadline
-                text="Explore Kenyir Lake Excursions"
-                className="font-display mt-4 max-w-3xl text-4xl font-medium leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl"
+                text="Discover Kenyir Lake Experiences &amp; Excursions"
+                className="font-display mt-4 max-w-3xl text-3xl font-medium leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-6xl"
               />
+              <p className="mt-3 max-w-2xl text-base text-text-muted">
+                From ancient limestone caves and roaring waterfalls to misty bamboo rafting — discover every signature Kenyir encounter.
+              </p>
             </div>
-            <p className="hidden text-xs font-medium uppercase tracking-[0.2em] text-text-muted/80 sm:block">
-              Swipe to explore →
-            </p>
+            <Link
+              href="/experiences"
+              className="font-secondary inline-flex min-h-10 items-center gap-2 rounded-full border border-ink/15 bg-white px-5 text-xs font-semibold uppercase tracking-[0.14em] text-ink shadow-xs transition-all duration-300 hover:border-teal hover:bg-teal hover:text-white"
+            >
+              All Experiences →
+            </Link>
           </div>
         </div>
-        <HorizontalScroll className="mt-8">
-          {EXCURSIONS.map((ex) => (
-            <article
-              key={ex.title}
-              className="group relative h-[380px] w-[75vw] shrink-0 overflow-hidden rounded-3xl sm:h-[440px] sm:w-[42vw] lg:h-[480px] lg:w-[28vw]"
-            >
-              <img src={ex.image} alt={ex.title} className="absolute inset-0 size-full object-cover transition-transform duration-[1.8s] ease-out group-hover:scale-105" loading="lazy" />
-              <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/15 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-7 sm:p-9">
-                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-teal-soft">{ex.tag}</p>
-                <h3 className="font-display mt-3 text-2xl font-medium text-white sm:text-3xl">{ex.title}</h3>
-              </div>
-            </article>
-          ))}
-        </HorizontalScroll>
+
+        <ExperiencesInfiniteMarquee items={allExperienceItems} className="mt-8" />
       </section>
 
       {/* 7 ── PANORAMIC INTERLUDE — pinned slow parallax quote */}
@@ -345,96 +339,84 @@ function FleetSection() {
       <div className="mx-auto mt-10 max-w-7xl px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {FLEET.map((v) => (
-            <CurtainReveal key={v.id} className="w-full flex flex-col">
-              {/* Vessel Image Card */}
+            <CurtainReveal key={v.id} className="w-full">
+              {/* Vessel Card with concise nested glassmorphic specs card */}
               <Link
                 href={`/vessels/${v.id}`}
-                className="group relative block aspect-[16/9] min-h-[320px] w-full overflow-hidden rounded-3xl sm:min-h-[380px] lg:aspect-[16/10]"
+                className="group relative block w-full overflow-hidden rounded-[2rem] min-h-[480px] sm:min-h-[520px] lg:min-h-[550px] aspect-[4/4.5] sm:aspect-[1/1] lg:aspect-[16/13] shadow-lg transition-all duration-500 hover:shadow-2xl"
               >
+                {/* Vessel background image with smooth slow zoom on hover */}
                 <img
                   src={v.image}
                   alt={v.name}
-                  className="absolute inset-0 size-full object-cover transition-transform duration-[2.4s] ease-out group-hover:scale-[1.05]"
+                  className="absolute inset-0 size-full object-cover transition-transform duration-[2.2s] ease-out group-hover:scale-[1.05]"
                   loading="lazy"
                 />
-                <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/20 to-transparent" />
-                <div data-curtain-text className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-4 p-6 sm:p-8">
-                  <div>
-                    <span className="inline-block rounded-full bg-white/20 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-md">
-                      {v.role}
-                    </span>
-                    <h3 className="font-display mt-2 text-2xl font-medium text-white sm:text-3xl lg:text-4xl">{v.name}</h3>
-                  </div>
-                  <span className="font-secondary inline-flex min-h-10 items-center gap-2 rounded-full border border-white/30 px-5 text-xs font-semibold uppercase tracking-[0.16em] text-white transition-all duration-500 group-hover:border-teal group-hover:bg-teal">
-                    View vessel →
+                {/* Editorial gradient scrim: transparent top, subtle lagoon tint at base */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-gradient-to-t from-obsidian/90 via-obsidian/20 to-black/15"
+                />
+
+                {/* Top category badge */}
+                <div className="absolute left-4 top-4 z-10 sm:left-5 sm:top-5">
+                  <span className="inline-block rounded-full border border-white/25 bg-black/40 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-md shadow-sm">
+                    {v.role}
                   </span>
                 </div>
-              </Link>
 
-              {/* Life On Board Stats Card for this vessel */}
-              <div className="mt-4 rounded-3xl border border-black/6 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md">
-                <div className="flex items-center justify-between border-b border-ink/8 pb-3">
-                  <div>
-                    <p className="font-display text-lg font-medium text-ink">{v.name}</p>
-                    <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-teal-deep">{v.role}</p>
+                {/* Concise, slim nested glassmorphic card */}
+                <div className="absolute inset-x-3.5 bottom-3.5 z-10 sm:inset-x-5 sm:bottom-5">
+                  <div className="rounded-2xl border border-white/25 bg-black/40 p-3.5 sm:p-4 backdrop-blur-xl shadow-[0_12px_32px_rgba(0,0,0,0.35)] ring-1 ring-white/10 transition-all duration-500 group-hover:border-white/40 group-hover:bg-black/50">
+                    {/* Header row: Vessel name + role + specs CTA */}
+                    <div className="flex items-center justify-between gap-3 border-b border-white/15 pb-2.5">
+                      <div>
+                        <h3 className="font-display text-lg font-medium text-white tracking-tight sm:text-xl drop-shadow-sm">
+                          {v.name}
+                        </h3>
+                        <p className="text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-teal-soft">
+                          {v.role}
+                        </p>
+                      </div>
+                      <span className="font-secondary inline-flex min-h-7 items-center gap-1.5 rounded-full border border-white/30 bg-white/15 px-3 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-md transition-all duration-300 group-hover:border-teal group-hover:bg-teal">
+                        Specs &amp; Decks →
+                      </span>
+                    </div>
+
+                    {/* Concise stats divider strip */}
+                    <div className="mt-2.5 grid grid-cols-3 text-center">
+                      <div className="flex flex-col items-center justify-center border-r border-white/10 py-1">
+                        <span className="font-display text-base font-medium text-white sm:text-lg leading-none">
+                          <StatCounter value={v.guests} />
+                        </span>
+                        <span className="mt-0.5 text-[0.58rem] sm:text-[0.62rem] font-semibold uppercase tracking-[0.15em] text-white/75">
+                          Guests
+                        </span>
+                      </div>
+                      <div className="flex flex-col items-center justify-center border-r border-white/10 py-1">
+                        <span className="font-display text-base font-medium text-white sm:text-lg leading-none">
+                          <StatCounter value={v.rooms} />
+                        </span>
+                        <span className="mt-0.5 text-[0.58rem] sm:text-[0.62rem] font-semibold uppercase tracking-[0.15em] text-white/75">
+                          Rooms
+                        </span>
+                      </div>
+                      <div className="flex flex-col items-center justify-center py-1">
+                        <span className="font-display text-base font-medium text-white sm:text-lg leading-none">
+                          <StatCounter value={v.crew} />
+                        </span>
+                        <span className="mt-0.5 text-[0.58rem] sm:text-[0.62rem] font-semibold uppercase tracking-[0.15em] text-white/75">
+                          Crew
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <Link
-                    href={`/vessels/${v.id}`}
-                    className="text-xs font-semibold text-teal-deep hover:text-ink transition-colors"
-                  >
-                    Specs &amp; Decks →
-                  </Link>
                 </div>
-                <div className="mt-4 grid grid-cols-3 gap-2 text-center">
-                  <div className="rounded-2xl bg-stone-50 py-3 px-2 border border-black/[0.03]">
-                    <p className="font-display text-2xl font-medium text-teal-deep sm:text-3xl">
-                      <StatCounter value={v.guests} />
-                    </p>
-                    <p className="mt-0.5 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-text-muted">Guests</p>
-                  </div>
-                  <div className="rounded-2xl bg-stone-50 py-3 px-2 border border-black/[0.03]">
-                    <p className="font-display text-2xl font-medium text-teal-deep sm:text-3xl">
-                      <StatCounter value={v.rooms} />
-                    </p>
-                    <p className="mt-0.5 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-text-muted">Rooms</p>
-                  </div>
-                  <div className="rounded-2xl bg-stone-50 py-3 px-2 border border-black/[0.03]">
-                    <p className="font-display text-2xl font-medium text-teal-deep sm:text-3xl">
-                      <StatCounter value={v.crew} />
-                    </p>
-                    <p className="mt-0.5 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-text-muted">Crew</p>
-                  </div>
-                </div>
-              </div>
+              </Link>
             </CurtainReveal>
           ))}
         </div>
 
-        {/* Highlights tag strip from Life On Board */}
-        <div className="mt-12 flex flex-col items-center text-center">
-          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-text-muted">
-            Included Life On Board Highlights
-          </p>
-          <div className="mt-4 flex max-w-4xl flex-wrap justify-center gap-2 sm:gap-2.5">
-            {[
-              "Lasir Waterfall",
-              "Kelah Sanctuary",
-              "Bewah Cave",
-              "Melunak Trail",
-              "Saok Waterfall",
-              "Orchid Garden",
-              "Cave Hiking",
-              "Jungle Trekking",
-            ].map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-black/8 bg-white px-4 py-1.5 text-xs font-medium text-ink/80 shadow-xs transition-colors hover:border-teal/40 hover:text-teal-deep"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );
@@ -464,10 +446,60 @@ const FLEET = [
 ];
 
 const EXCURSIONS = [
-  { tag: "Waterfall", title: "Lasir Falls", image: "/images/real/DSC07615-scaled.webp" },
-  { tag: "Sanctuary", title: "Kelah Fish Spa", image: "/images/real/DSC07600.webp" },
-  { tag: "Prehistoric", title: "Bewah Cave", image: "/images/real/bewah-cave-card.webp" },
-  { tag: "Rainforest", title: "Melunak Giant Tree", image: "/images/real/DSC07563-scaled.webp" },
-  { tag: "On the water", title: "Kayak & Bamboo Raft", image: "/images/real/DSC07926-min-1-scaled.webp" },
-  { tag: "After dark", title: "Stargazing Anchorage", image: "/images/real/sc-stargazing.webp" },
+  {
+    id: "lasir-falls",
+    tag: "Waterfall",
+    title: "Lasir Falls",
+    image: "/images/real/DSC07615-scaled.webp",
+    description: "Multi-tiered natural cascades tumbling into crystal pools fringed by lush canopy.",
+  },
+  {
+    id: "kelah-fish-spa",
+    tag: "Sanctuary",
+    title: "Kelah Fish Spa",
+    image: "/images/real/DSC07600.webp",
+    description: "Wade into clear river currents with hundreds of protected Malaysian Mahseer.",
+  },
+  {
+    id: "bewah-cave",
+    tag: "Prehistoric",
+    title: "Bewah Cave",
+    image: "/images/real/bewah-cave-card.webp",
+    description: "16,000-year-old archaeological cavern with awe-inspiring limestone chambers.",
+  },
+  {
+    id: "elephant-village",
+    tag: "Wildlife",
+    title: "Elephant Village",
+    image: "/images/real/Kenyir-Elephant-Conservation-Village.webp",
+    description: "Ethical encounters with Asian elephants in their protected forest sanctuary.",
+  },
+  {
+    id: "melunak-tree",
+    tag: "Rainforest",
+    title: "Melunak Giant Tree",
+    image: "/images/real/DSC07563-scaled.webp",
+    description: "Trek pristine dipterocarp trails to stand before a thousand-year-old rainforest icon.",
+  },
+  {
+    id: "kayak-raft",
+    tag: "On The Water",
+    title: "Kayak & Bamboo Raft",
+    image: "/images/real/DSC07926-min-1-scaled.webp",
+    description: "Glide silently across misty emerald inlets directly from the houseboat deck.",
+  },
+  {
+    id: "stargazing",
+    tag: "After Dark",
+    title: "Stargazing Anchorage",
+    image: "/images/real/sc-stargazing.webp",
+    description: "Unpolluted dark-sky celestial panoramas from the open observation deck at night.",
+  },
+  {
+    id: "herbal-island",
+    tag: "Botanical",
+    title: "Kenyir Herbal Island",
+    image: "/images/real/herbal-park.webp",
+    description: "Explore hundreds of rare indigenous medicinal rainforest plants and tropical flora.",
+  },
 ];

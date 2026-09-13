@@ -45,18 +45,17 @@ const PARTNER_DESTINATIONS: PartnerDestination[] = [
     actionText: "Visit Resort",
   },
   {
-    title: "Summer Bay Holiday Package",
-    tag: "All-Inclusive Island Getaway",
-    location: "Lang Tengah Island, Terengganu",
+    title: "Arcadia Beach Resort",
+    tag: "Private Coral Atoll Retreat",
+    location: "Pandanan Island, Semporna, Sabah",
     description:
-      "Signature all-inclusive holiday package featuring 4-star accommodation, full-board dining, 2-way boat transfers, and 3 complimentary activities.",
-    image: "/images/real/ads2.webp",
-    alt: "Summer Bay Resort holiday package promotion",
-    url: "https://www.summerbayresort.com.my/packages/",
-    displayUrl: "summerbayresort.com.my/packages",
-    badge: "Travel Agents",
-    actionText: "View Promotion",
-    isPoster: true,
+      "Idyllic beachfront sanctuary on Pandanan Island off the coast of Semporna, Sabah, surrounded by turquoise coral lagoons, white sand beaches, and Celebes Sea marine life.",
+    image: "/images/partners/arcadia-beach-resort.jpg",
+    alt: "Arcadia Beach Resort aerial view on Pandanan Island Semporna Sabah",
+    url: "https://www.arcadiabeachresort.com.my",
+    displayUrl: "arcadiabeachresort.com.my",
+    badge: "Island Resorts",
+    actionText: "Visit Resort",
   },
 ];
 

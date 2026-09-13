@@ -7,12 +7,10 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatDate(
   iso: string,
-  locale: string = "en",
+  _locale: string = "en",
   opts: Intl.DateTimeFormatOptions = { day: "numeric", month: "short", year: "numeric" },
 ) {
-  return new Intl.DateTimeFormat(locale === "ms" ? "ms-MY" : "en-MY", opts).format(
-    new Date(iso),
-  );
+  return new Intl.DateTimeFormat("en-MY", opts).format(new Date(iso));
 }
 
 /** §7.1/§9.4: wa.me deep link with a pre-filled message so guests can pick the channel they trust. */

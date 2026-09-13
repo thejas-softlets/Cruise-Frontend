@@ -286,7 +286,13 @@
   },
   "faqs": {
     "title": "Frequently asked questions",
-    "subtitle": "Can't find it? WhatsApp us — we reply fast."
+    "subtitle": "Can't find it? WhatsApp us — we reply fast.",
+    "categories": {
+      "booking": "Booking & reservations",
+      "payment": "Payment & deposits",
+      "onboard": "Life on board",
+      "checkin": "Check-in & departure"
+    }
   },
   "sitemapPage": {
     "title": "Sitemap",

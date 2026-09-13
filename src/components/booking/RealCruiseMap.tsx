@@ -19,8 +19,8 @@ type LayerMode = "voyager" | "satellite" | "topo";
 const TILE_PROVIDERS: Record<LayerMode, { url: string; attribution: string; label: string }> = {
   voyager: {
     label: "Nautical Chart",
-    url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+    attribution: "Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, DeLorme, HERE, and others",
   },
   satellite: {
     label: "Satellite Imagery",

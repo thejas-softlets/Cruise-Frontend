@@ -156,7 +156,7 @@ export interface EnquiryPayload {
   packageSlug?: string;
   offerSlug?: string;
   vesselId?: string;
-  preferredLanguage?: "en" | "ms";
+  preferredLanguage?: "en";
   bookingType?: "cruise" | "charter" | "voucher";
 }
 

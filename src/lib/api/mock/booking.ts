@@ -11,8 +11,8 @@ export const MOCK_WAYPOINTS: Record<string, MapWaypoint[]> = {
       id: "gawi",
       name: "Pengkalan Gawi Jetty",
       dayNumber: 1,
-      lat: 5.1325,
-      lng: 102.8385,
+      lat: 5.1375,
+      lng: 102.8025,
       x: 72,
       y: 20,
       type: "embarkation",
@@ -22,11 +22,53 @@ export const MOCK_WAYPOINTS: Record<string, MapWaypoint[]> = {
       imageUrl: "/images/real/summercruise.webp",
     },
     {
-      id: "lasir",
-      name: "Lasir Waterfall",
+      id: "herba",
+      name: "Kenyir Herbal Island (Pulau Herba)",
+      dayNumber: 1,
+      lat: 5.0848,
+      lng: 102.8000,
+      x: 55,
+      y: 35,
+      type: "sanctuary",
+      title: "Rainforest Botanicals & Herbal Infusions",
+      shortDesc: "Tender landing at Pulau Sah Kecil to explore living indigenous rainforest medicinal collections — Tongkat Ali, Kacip Fatimah — with guided herbal tea tastings.",
+      activities: ["Guided Botanical Walk", "Herbal Tea Tasting", "Flora Photography"],
+      imageUrl: "/images/real/herbal-park.webp",
+    },
+    {
+      id: "saok",
+      name: "Air Terjun Saok (Saok Falls)",
       dayNumber: 2,
-      lat: 4.9650,
-      lng: 102.8420,
+      lat: 5.0805,
+      lng: 102.7745,
+      x: 45,
+      y: 38,
+      type: "waterfall",
+      title: "Cascading Pools & Rocky Rapids",
+      shortDesc: "Cruise into the sheltered western cove of Sungai Sauk. Climb the easy boulders to swim in refreshing natural forest plunge pools beneath towering canopies.",
+      activities: ["Cascade Swimming", "Boulder Scrambling", "Forest Plunge"],
+      imageUrl: "/images/lake/kenyir-aerial.webp",
+    },
+    {
+      id: "kelah",
+      name: "Petang River Kelah Sanctuary",
+      dayNumber: 2,
+      lat: 4.9272,
+      lng: 102.8041,
+      x: 50,
+      y: 65,
+      type: "sanctuary",
+      title: "Natural Kelah Fish Spa",
+      shortDesc: "Wade into the mountain waters of Petang River where schools of wild Malaysian Mahseer (Kelah) gather for a gentle fish spa in untouched current.",
+      activities: ["Fish Feeding", "Wading", "Nature Photography"],
+      imageUrl: "/images/real/DSC07600.webp",
+    },
+    {
+      id: "lasir",
+      name: "Air Terjun Lasir (Lasir Falls)",
+      dayNumber: 2,
+      lat: 4.9640,
+      lng: 102.8414,
       x: 75,
       y: 75,
       type: "waterfall",
@@ -36,25 +78,11 @@ export const MOCK_WAYPOINTS: Record<string, MapWaypoint[]> = {
       imageUrl: "/images/real/lasir-falls-2.webp",
     },
     {
-      id: "kelah",
-      name: "Petang River Kelah Sanctuary",
-      dayNumber: 2,
-      lat: 4.9300,
-      lng: 102.7800,
-      x: 35,
-      y: 68,
-      type: "sanctuary",
-      title: "Natural Kelah Fish Spa",
-      shortDesc: "Wade into the mountain waters of Petang River where schools of wild Malaysian Mahseer (Kelah) gather for a gentle fish spa in untouched current.",
-      activities: ["Fish Feeding", "Wading", "Nature Photography"],
-      imageUrl: "/images/real/DSC07600.webp",
-    },
-    {
       id: "disembark",
       name: "Pengkalan Gawi Return",
       dayNumber: 3,
-      lat: 5.1325,
-      lng: 102.8385,
+      lat: 5.1375,
+      lng: 102.8025,
       x: 72,
       y: 20,
       type: "disembarkation",
@@ -69,8 +97,8 @@ export const MOCK_WAYPOINTS: Record<string, MapWaypoint[]> = {
       id: "gawi",
       name: "Pengkalan Gawi Jetty",
       dayNumber: 1,
-      lat: 5.1325,
-      lng: 102.8385,
+      lat: 5.1375,
+      lng: 102.8025,
       x: 72,
       y: 20,
       type: "embarkation",
@@ -80,11 +108,67 @@ export const MOCK_WAYPOINTS: Record<string, MapWaypoint[]> = {
       imageUrl: "/images/vessels/gh-hero.webp",
     },
     {
+      id: "herba",
+      name: "Kenyir Herbal Island",
+      dayNumber: 1,
+      lat: 5.0848,
+      lng: 102.8000,
+      x: 55,
+      y: 35,
+      type: "sanctuary",
+      title: "Rainforest Botanicals Walk",
+      shortDesc: "Afternoon stop at Pulau Herba to discover aromatic tropical herbs and medicinal tree canopies.",
+      activities: ["Herbal Walk", "Tea Pavilion", "Bird Watching"],
+      imageUrl: "/images/real/herbal-park.webp",
+    },
+    {
+      id: "lasir",
+      name: "Air Terjun Lasir",
+      dayNumber: 2,
+      lat: 4.9640,
+      lng: 102.8414,
+      x: 75,
+      y: 75,
+      type: "waterfall",
+      title: "Multi-Tiered Forest Cascades",
+      shortDesc: "Navigate through the southeastern fjord to the iconic Lasir multi-tier cascades for an undisturbed morning swim.",
+      activities: ["Waterfall Swim", "Lagoon Relaxation", "Tender Excursion"],
+      imageUrl: "/images/real/lasir-falls-2.webp",
+    },
+    {
+      id: "kelah",
+      name: "Sungai Petang Kelah Sanctuary",
+      dayNumber: 2,
+      lat: 4.9272,
+      lng: 102.8041,
+      x: 50,
+      y: 65,
+      type: "sanctuary",
+      title: "Protected Kelah Fish Sanctuary",
+      shortDesc: "Enter the pristine river mouth of Sungai Petang for an immersive wild fish conservation encounter.",
+      activities: ["Fish Sanctuary", "River Wading", "Eco Discovery"],
+      imageUrl: "/images/real/DSC07600.webp",
+    },
+    {
+      id: "melunak",
+      name: "Melunak Giant Tree & Rainforest Trail",
+      dayNumber: 3,
+      lat: 4.8650,
+      lng: 102.7290,
+      x: 35,
+      y: 85,
+      type: "trail",
+      title: "Thousand-Year Rainforest Giant",
+      shortDesc: "A guided gentle trek through virgin rainforest to stand in awe before Malaysia's largest recorded Melunak tree with suspension walkway crossings.",
+      activities: ["Forest Trek", "Suspension Bridge", "Canopy Ecology"],
+      imageUrl: "/images/real/DSC07563-scaled.webp",
+    },
+    {
       id: "bewah",
       name: "Gua Bewah (Prehistoric Cave)",
-      dayNumber: 2,
-      lat: 4.8520,
-      lng: 102.7210,
+      dayNumber: 3,
+      lat: 4.8514,
+      lng: 102.7238,
       x: 28,
       y: 88,
       type: "cave",
@@ -94,39 +178,11 @@ export const MOCK_WAYPOINTS: Record<string, MapWaypoint[]> = {
       imageUrl: "/images/real/bewah-cave-card.webp",
     },
     {
-      id: "melunak",
-      name: "Melunak Giant Tree & Trail",
-      dayNumber: 3,
-      lat: 4.9850,
-      lng: 102.7150,
-      x: 25,
-      y: 62,
-      type: "trail",
-      title: "Thousand-Year Rainforest Giant",
-      shortDesc: "A guided gentle trek through virgin rainforest to stand in awe before Malaysia's largest recorded Melunak tree with suspension walkway crossings.",
-      activities: ["Forest Trek", "Suspension Bridge", "Canopy Ecology"],
-      imageUrl: "/images/real/DSC07563-scaled.webp",
-    },
-    {
-      id: "tembat",
-      name: "Tembat River Canyon",
-      dayNumber: 3,
-      lat: 5.1850,
-      lng: 102.7100,
-      x: 22,
-      y: 12,
-      type: "anchorage",
-      title: "River Canyon Drift & Night Sounds",
-      shortDesc: "Drift along the sheer granite cliffs of Tembat canyon. Anchor in deep secluded silence with boat engines silenced beneath the stargazing sky.",
-      activities: ["Canyon Cruising", "Stargazing", "Night Sounds"],
-      imageUrl: "/images/lake/kenyir-aerial.webp",
-    },
-    {
       id: "disembark",
       name: "Pengkalan Gawi Return",
       dayNumber: 4,
-      lat: 5.1325,
-      lng: 102.8385,
+      lat: 5.1375,
+      lng: 102.8025,
       x: 72,
       y: 20,
       type: "disembarkation",
@@ -144,58 +200,73 @@ export const MOCK_WAYPOINTS: Record<string, MapWaypoint[]> = {
  */
 export const WATER_NAVIGATION_CHANNELS: Record<string, [number, number][]> = {
   "3d2n-kenyir-explorer": [
-    // Leg 1: Pengkalan Gawi -> Lasir Waterfall via East Channel
-    [5.1325, 102.8385],
-    [5.1210, 102.8350],
-    [5.1050, 102.8420],
-    [5.0750, 102.8550],
-    [5.0450, 102.8580],
-    [5.0150, 102.8530],
-    [4.9850, 102.8480],
-    [4.9650, 102.8420], // Lasir Waterfall
-
-    // Leg 2: Lasir Waterfall -> direct southwest fairway -> Petang River Kelah Sanctuary
-    [4.9650, 102.8420], // Lasir Waterfall
-    [4.9580, 102.8220],
-    [4.9480, 102.8050],
-    [4.9380, 102.7900],
-    [4.9300, 102.7800], // Kelah Sanctuary
-
-    // Leg 3: Kelah Sanctuary -> Return north via Central West fairway to Pengkalan Gawi
-    [4.9300, 102.7800], // Kelah Sanctuary
-    [4.9450, 102.7950],
-    [4.9700, 102.8100],
-    [5.0100, 102.8200],
-    [5.0600, 102.8280],
-    [5.1000, 102.8330],
-    [5.1325, 102.8385], // Return to Gawi
+    // Outbound from Gawi Jetty through Sungai Terengganu fairway (west of Pulau Gawi & Serindik)
+    [5.1375, 102.8025], // Gawi Jetty
+    [5.1340, 102.7985], // Clear jetty pontoons into west channel
+    [5.1220, 102.7930], // Wide blue fairway west of Pulau Gawi
+    [5.1050, 102.7915], // West of Pulau Serindik
+    [5.0920, 102.7915], // Channel junction
+    // Side trip into Saok Falls
+    [5.0860, 102.7840],
+    [5.0805, 102.7745], // Air Terjun Saok
+    [5.0860, 102.7840],
+    // Pulau Herba
+    [5.0880, 102.7950],
+    [5.0848, 102.7990], // Pulau Herba landing
+    // Central basin southwards
+    [5.0750, 102.7960],
+    [5.0500, 102.8000],
+    [5.0150, 102.8090], // Open lake basin
+    [4.9800, 102.8130],
+    // Sungai Petang Kelah Sanctuary
+    [4.9450, 102.8090],
+    [4.9272, 102.8041], // Kelah Sanctuary
+    [4.9450, 102.8090],
+    // Lasir Waterfall
+    [4.9520, 102.8250],
+    [4.9640, 102.8414], // Lasir Waterfall
+    // Return navigation northward through central channel
+    [4.9530, 102.8220],
+    [4.9820, 102.8160],
+    [5.0200, 102.8120],
+    [5.0550, 102.8030],
+    [5.0780, 102.7990],
+    [5.0940, 102.7940],
+    [5.1070, 102.7940],
+    [5.1240, 102.7955],
+    [5.1340, 102.7995],
+    [5.1375, 102.8025], // Back at Pengkalan Gawi Jetty
   ],
   "4d3n-kenyir-grand-voyage": [
-    // Leg 1: Gawi -> South Karst Basin (Gua Bewah)
-    [5.1325, 102.8385],
-    [5.1050, 102.8420],
-    [5.0450, 102.8580],
-    [4.9850, 102.8480],
-    [4.9450, 102.8200],
-    [4.9050, 102.7800],
-    [4.8750, 102.7500],
-    [4.8520, 102.7210], // Gua Bewah
-
-    // Leg 2: Gua Bewah -> Melunak Rainforest
-    [4.8750, 102.7500],
-    [4.9350, 102.7450],
-    [4.9850, 102.7150], // Melunak Giant Tree
-
-    // Leg 3: Melunak -> Tembat Canyon Fjord
-    [5.0380, 102.7450],
-    [5.0950, 102.7350],
-    [5.1450, 102.7200],
-    [5.1850, 102.7100], // Tembat River Canyon
-
-    // Leg 4: Tembat Canyon -> Gawi Return
-    [5.1450, 102.7500],
-    [5.1280, 102.8000],
-    [5.1325, 102.8385], // Pengkalan Gawi Return
+    // Gawi -> Central Lake -> Herba -> Lasir -> Kelah -> Southern Fjord -> Melunak & Bewah -> Return
+    [5.1375, 102.8025], // Gawi Jetty
+    [5.1340, 102.7985],
+    [5.1220, 102.7930],
+    [5.1050, 102.7915],
+    [5.0920, 102.7915],
+    [5.0848, 102.7990], // Pulau Herba
+    [5.0500, 102.8000],
+    [5.0150, 102.8090],
+    [4.9800, 102.8130],
+    [4.9640, 102.8414], // Lasir Waterfall
+    [4.9520, 102.8250],
+    [4.9450, 102.8090],
+    [4.9272, 102.8041], // Kelah Sanctuary
+    [4.9150, 102.7900], // Cruise deep southwest toward Tanjung Mentong
+    [4.8850, 102.7600],
+    [4.8680, 102.7380],
+    [4.8650, 102.7290], // Melunak Rainforest Trailhead
+    [4.8514, 102.7238], // Gua Bewah (Prehistoric Cave)
+    // Homeward cruise northward through open basin
+    [4.8680, 102.7380],
+    [4.8900, 102.7650],
+    [4.9250, 102.7950],
+    [4.9800, 102.8130],
+    [5.0200, 102.8120],
+    [5.0750, 102.7980],
+    [5.1100, 102.7935],
+    [5.1340, 102.7995],
+    [5.1375, 102.8025], // Pengkalan Gawi Return
   ],
 };
 

@@ -36,11 +36,18 @@ const outfit = Outfit({
 
 /* Explicit viewport: China browsers (WeChat X5, QQ, UC) honor declared
    viewport-fit better than heuristics; maximum-scale avoids their
-   auto-inflate-text heuristic. */
+   auto-inflate-text heuristic. userScalable must stay true for a11y. */
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  minimumScale: 1,
+  maximumScale: 5, // Allow zoom but cap WeChat X5/UC auto-inflate
+  userScalable: true,
   viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f7fafb" },
+    { media: "(prefers-color-scheme: dark)", color: "#0c2b33" },
+  ],
 };
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -51,12 +58,38 @@ export async function generateMetadata(): Promise<Metadata> {
       template: "%s · Summer Cruise",
     },
     description: t("description"),
+    keywords: ["Lake Kenyir", "cruise", "summer cruise", "Malaysia", "Tasik Kenyir", "luxury cruise", "湖游", "Kenyir"],
+    authors: [{ name: "Summer Cruise · Summer Bay Travels & Tours Sdn. Bhd." }],
+    creator: "Summer Cruise",
+    publisher: "Summer Bay Travels & Tours Sdn. Bhd.",
+    robots: { index: true, follow: true },
     icons: {
       icon: [
         { url: "/favicon.png", sizes: "192x192", type: "image/png" },
         { url: "/favicon.ico" },
       ],
       apple: [{ url: "/favicon.png", sizes: "192x192", type: "image/png" }],
+    },
+    openGraph: {
+      type: "website",
+      siteName: "Summer Cruise — Lake Kenyir",
+      title: t("title"),
+      description: t("description"),
+      images: [{ url: "/images/vessels/sc-hero.webp", width: 1200, height: 630, alt: "Summer Cruise Lake Kenyir" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: ["/images/vessels/sc-hero.webp"],
+    },
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: "black-translucent",
+      title: "Summer Cruise",
+    },
+    formatDetection: {
+      telephone: false, // Prevent UC/QQ auto-linking phone numbers as blue links
     },
   };
 }

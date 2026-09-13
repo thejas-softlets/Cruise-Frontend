@@ -17,6 +17,17 @@
 /scripts/
 /summer-cruise-master-build-plan.md
 
+# OCR / scraping tooling outputs
+/eng.traineddata
+/scraped/
+/scraped_data/
+/scratch/
+
+# local debug / audit pages (never ship)
+/public/test-map.html
+/public/image-audit.html
+/public/gh-hotspot-check.html
+
 # misc
 .DS_Store
 *.pem
@@ -49,7 +60,3 @@ next-env.d.ts
 
 # turbo
 .turbo/
-/media/
-/scratch/
-/scraped/
-/scraped_data/
