@@ -34,6 +34,46 @@ const TILE_PROVIDERS: Record<LayerMode, { url: string; attribution: string; labe
   },
 };
 
+/**
+ * Catmull-Rom spline interpolation so the route drawn between hand-plotted
+ * fairway waypoints reads as a single continuous curve hugging the water
+ * rather than a jagged dot-to-dot line. `segments` points are inserted
+ * between every pair of source points; the original points are preserved.
+ */
+function smoothPolyline(points: [number, number][], segments = 10): [number, number][] {
+  if (points.length < 3) return points;
+  const out: [number, number][] = [];
+  const get = (i: number) => points[Math.min(Math.max(i, 0), points.length - 1)];
+
+  for (let i = 0; i < points.length - 1; i++) {
+    const p0 = get(i - 1);
+    const p1 = get(i);
+    const p2 = get(i + 1);
+    const p3 = get(i + 2);
+
+    for (let s = 0; s < segments; s++) {
+      const t = s / segments;
+      const t2 = t * t;
+      const t3 = t2 * t;
+      const lat =
+        0.5 *
+        (2 * p1[0] +
+          (-p0[0] + p2[0]) * t +
+          (2 * p0[0] - 5 * p1[0] + 4 * p2[0] - p3[0]) * t2 +
+          (-p0[0] + 3 * p1[0] - 3 * p2[0] + p3[0]) * t3);
+      const lng =
+        0.5 *
+        (2 * p1[1] +
+          (-p0[1] + p2[1]) * t +
+          (2 * p0[1] - 5 * p1[1] + 4 * p2[1] - p3[1]) * t2 +
+          (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1]) * t3);
+      out.push([lat, lng]);
+    }
+  }
+  out.push(points[points.length - 1]);
+  return out;
+}
+
 export default function RealCruiseMap({
   waypoints,
   activeWaypointIndex,
@@ -122,11 +162,14 @@ export default function RealCruiseMap({
       routePolylineRef.current = null;
     }
 
-    // 3. Draw Water Navigation Polyline (following lake water channels)
-    const polylineCoords: [number, number][] =
+    // 3. Draw Water Navigation Polyline (following lake water channels),
+    // smoothed into a continuous curve so it reads as one flowing route
+    // rather than dot-to-dot segments between the plotted fairway points.
+    const rawCoords: [number, number][] =
       navigationPath && navigationPath.length > 0
         ? navigationPath
         : waypoints.map((wp) => [wp.lat, wp.lng]);
+    const polylineCoords = smoothPolyline(rawCoords);
 
     if (polylineCoords.length > 1) {
       // Glow underlayer
@@ -144,6 +187,13 @@ export default function RealCruiseMap({
         dashArray: "6, 8",
         lineCap: "round",
       }).addTo(map);
+
+      // Subtle marching-dash animation so the route reads as a direction of
+      // travel rather than a static line — a common nautical-chart touch.
+      const pathEl = polyline.getElement();
+      if (pathEl) {
+        pathEl.classList.add("cruise-route-flow");
+      }
 
       routePolylineRef.current = polyline;
     }
@@ -225,6 +275,23 @@ export default function RealCruiseMap({
 
   return (
     <div className={cn("relative size-full overflow-hidden", className)}>
+      {/* Marching-dash route animation (respects reduced-motion) */}
+      <style jsx global>{`
+        .cruise-route-flow {
+          animation: cruise-route-dash 1.4s linear infinite;
+        }
+        @keyframes cruise-route-dash {
+          to {
+            stroke-dashoffset: -28;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .cruise-route-flow {
+            animation: none;
+          }
+        }
+      `}</style>
+
       {/* Real Map Leaflet Container */}
       <div ref={mapContainerRef} className="size-full z-0 bg-[#c9e1e8]" />
 

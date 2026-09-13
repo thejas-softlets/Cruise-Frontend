@@ -13,12 +13,11 @@ import { Button } from "@/components/ui/Button";
 import { PlaceholderMedia } from "@/components/ui/PlaceholderMedia";
 import { ReviewCard } from "@/components/cards/ReviewCard";
 import { DynamicCruiseMap } from "@/components/booking/DynamicCruiseMap";
-import { AquaBookingFlow } from "@/components/booking/AquaBookingFlow";
 import { getAllPackages, getPackageBySlug } from "@/lib/api/packages";
 import { getRoomsByIds } from "@/lib/api/rooms";
 import { getExperiencesBySlugs } from "@/lib/api/experiences";
 import { getReviewsByPackage } from "@/lib/api/reviews";
-import { getWaypointsForPackage, getCabinDeckSlots } from "@/lib/api/booking";
+import { getWaypointsForPackage } from "@/lib/api/booking";
 import { getTranslations } from "next-intl/server";
 import { formatPrice } from "@/lib/format";
 
@@ -40,12 +39,11 @@ export default async function PackageDetailPage({
   const t = await getTranslations("packages");
   const tc = await getTranslations("common");
 
-  const [rooms, experiences, reviews, waypoints, cabinSlots] = await Promise.all([
+  const [rooms, experiences, reviews, waypoints] = await Promise.all([
     getRoomsByIds(pkg.roomCategoryIds),
     getExperiencesBySlugs(pkg.experienceSlugs),
     getReviewsByPackage(pkg.slug),
     getWaypointsForPackage(pkg.slug),
-    getCabinDeckSlots(),
   ]);
 
   const crumbs = await buildCrumbs(["packages", slug], { [`/packages/${slug}`]: pkg.title });
@@ -179,7 +177,7 @@ export default async function PackageDetailPage({
           </div>
         </section>
 
-        {/* 4-Step Interactive Stateroom & Cabin Reservation (Directly adapted from Aqua Expeditions) */}
+        {/* Book Your Stateroom — deep-links into the unified booking wizard */}
         <section id="book-cabins" className="scroll-mt-28 pt-20">
           <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
             <div>
@@ -191,17 +189,25 @@ export default async function PackageDetailPage({
               </h2>
             </div>
             <p className="max-w-md text-xs leading-relaxed text-text-muted">
-              Select available staterooms on Upper, Main, or Lower decks with transparent pricing and flexible 30% deposit terms.
+              Pick your exact stateroom on the real deck plan, choose a departure date, and confirm — takes under two minutes.
             </p>
           </div>
 
           <FadeIn>
-            <AquaBookingFlow
-              pkg={pkg}
-              availableCabins={cabinSlots}
-            />
+            <div className="flex flex-col items-start gap-5 rounded-3xl border border-ink/8 bg-[#FAFAF8] p-8 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-sm font-semibold text-ink">{pkg.title}</p>
+                <p className="mt-1 text-xs text-text-muted">
+                  {pkg.durationLabel} aboard {pkg.vesselId === "green-horizon" ? "Green Horizon" : "Summer Cruise"} — staterooms from {formatPrice(rooms[0]?.indicativePriceMYR ?? pkg.fromPriceMYR)}/night
+                </p>
+              </div>
+              <Button href={`/book?vessel=${pkg.vesselId}&mode=cabin`} size="lg">
+                Choose My Stateroom →
+              </Button>
+            </div>
           </FadeIn>
         </section>
+
 
         {/* Included / not included */}
         <section id="included" className="scroll-mt-28 pt-20">

@@ -39,10 +39,10 @@ export const MOCK_WAYPOINTS: Record<string, MapWaypoint[]> = {
       id: "kelah",
       name: "Petang River Kelah Sanctuary",
       dayNumber: 2,
-      lat: 5.0110,
-      lng: 102.7380,
+      lat: 4.9300,
+      lng: 102.7800,
       x: 35,
-      y: 55,
+      y: 68,
       type: "sanctuary",
       title: "Natural Kelah Fish Spa",
       shortDesc: "Wade into the mountain waters of Petang River where schools of wild Malaysian Mahseer (Kelah) gather for a gentle fish spa in untouched current.",
@@ -154,23 +154,20 @@ export const WATER_NAVIGATION_CHANNELS: Record<string, [number, number][]> = {
     [4.9850, 102.8480],
     [4.9650, 102.8420], // Lasir Waterfall
 
-    // Leg 2: Lasir Waterfall -> Central Basin Junction -> Petang River Kelah Sanctuary
-    [4.9850, 102.8480],
-    [5.0150, 102.8530],
-    [5.0450, 102.8580],
-    [5.0520, 102.8320],
-    [5.0480, 102.8050],
-    [5.0380, 102.7750],
-    [5.0250, 102.7520],
-    [5.0110, 102.7380], // Kelah Sanctuary
+    // Leg 2: Lasir Waterfall -> direct southwest fairway -> Petang River Kelah Sanctuary
+    [4.9650, 102.8420], // Lasir Waterfall
+    [4.9580, 102.8220],
+    [4.9480, 102.8050],
+    [4.9380, 102.7900],
+    [4.9300, 102.7800], // Kelah Sanctuary
 
-    // Leg 3: Kelah Sanctuary -> Return via Central West fairway to Pengkalan Gawi
-    [5.0250, 102.7520],
-    [5.0380, 102.7750],
-    [5.0580, 102.8020],
-    [5.0780, 102.8250],
-    [5.1050, 102.8320],
-    [5.1210, 102.8350],
+    // Leg 3: Kelah Sanctuary -> Return north via Central West fairway to Pengkalan Gawi
+    [4.9300, 102.7800], // Kelah Sanctuary
+    [4.9450, 102.7950],
+    [4.9700, 102.8100],
+    [5.0100, 102.8200],
+    [5.0600, 102.8280],
+    [5.1000, 102.8330],
     [5.1325, 102.8385], // Return to Gawi
   ],
   "4d3n-kenyir-grand-voyage": [
