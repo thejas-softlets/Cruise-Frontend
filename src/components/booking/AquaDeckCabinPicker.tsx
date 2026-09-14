@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Check, Users, Maximize2, Bed, Bath } from "lucide-react";
 import type { DeckCabinSpot } from "@/lib/vessel-deck-plan";
 import { SC_CABIN_SPOTS } from "@/lib/sc-deck-plan";
@@ -9,9 +9,9 @@ import { formatPrice } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 interface AquaDeckCabinPickerProps {
-  vesselId: "summer-cruise" | "green-horizon";
+  vesselId?: "summer-cruise" | "green-horizon";
   selectedSpotId: string | null;
-  onSelectSpot: (spotId: string) => void;
+  onSelectSpot: (spotId: string, vesselId: "summer-cruise" | "green-horizon") => void;
   /** Spot IDs already claimed by OTHER cabin slots in this booking */
   otherSelectedSpotIds: string[];
   /** Guest count for this specific cabin (adults + children) */
@@ -71,14 +71,23 @@ const ROOM_PHOTOS: Record<string, string> = {
 };
 
 export function AquaDeckCabinPicker({
-  vesselId,
+  vesselId: propVesselId = "summer-cruise",
   selectedSpotId,
   onSelectSpot,
   otherSelectedSpotIds,
   currentCabinPax,
   cabinIndex,
 }: AquaDeckCabinPickerProps) {
-  const allSpots = vesselId === "summer-cruise" ? SC_CABIN_SPOTS : GH_CABIN_SPOTS;
+  // Auto-detect vessel from spot ID if already selected, else prop
+  const initialVessel = selectedSpotId?.startsWith("gh-")
+    ? "green-horizon"
+    : selectedSpotId?.startsWith("sc-")
+    ? "summer-cruise"
+    : propVesselId;
+
+  const [activeVessel, setActiveVessel] = useState<"summer-cruise" | "green-horizon">(initialVessel);
+
+  const allSpots = activeVessel === "summer-cruise" ? SC_CABIN_SPOTS : GH_CABIN_SPOTS;
   const bookableCabins = useMemo(() => allSpots.filter((s) => s.kind === "cabin"), [allSpots]);
 
   const selectedSpot = bookableCabins.find((s) => s.id === selectedSpotId) ?? null;
@@ -86,11 +95,11 @@ export function AquaDeckCabinPicker({
 
   // Group cabins into decks
   const decks = useMemo(() => {
-    if (vesselId === "summer-cruise") {
+    if (activeVessel === "summer-cruise") {
       return [
         {
           id: "first-deck",
-          name: "Accommodation Deck (Level 1)",
+          name: "Accommodation Deck (12 Luxury Staterooms)",
           bow: "right" as const,
           topRow: [
             bookableCabins.find((s) => s.id === "sc-1-1101"),
@@ -114,7 +123,7 @@ export function AquaDeckCabinPicker({
       return [
         {
           id: "first-deck",
-          name: "Accommodation Deck (1st Floor · 12 Staterooms)",
+          name: "Accommodation Deck (1st Floor · 12 Private Balconies)",
           bow: "left" as const,
           topRow: [
             bookableCabins.find((s) => s.id === "gh-1-1201"),
@@ -133,9 +142,21 @@ export function AquaDeckCabinPicker({
             bookableCabins.find((s) => s.id === "gh-1-1212"),
           ].filter(Boolean) as DeckCabinSpot[],
         },
+        {
+          id: "second-deck",
+          name: "Panorama Deck (2nd Floor · 3 Suites)",
+          bow: "left" as const,
+          topRow: [
+            bookableCabins.find((s) => s.id === "gh-2-1215"),
+            bookableCabins.find((s) => s.id === "gh-2-1213"),
+          ].filter(Boolean) as DeckCabinSpot[],
+          bottomRow: [
+            bookableCabins.find((s) => s.id === "gh-2-1214"),
+          ].filter(Boolean) as DeckCabinSpot[],
+        },
       ];
     }
-  }, [vesselId, bookableCabins]);
+  }, [activeVessel, bookableCabins]);
 
   function isCabinDisabled(spot: DeckCabinSpot): { disabled: boolean; reason?: string } {
     // 1. Static booked/unavailable status
@@ -199,7 +220,7 @@ export function AquaDeckCabinPicker({
                           key={spot.id}
                           type="button"
                           disabled={disabled}
-                          onClick={() => onSelectSpot(spot.id)}
+                          onClick={() => onSelectSpot(spot.id, activeVessel)}
                           className={cn(
                             "relative flex h-14 flex-1 flex-col items-center justify-center rounded-lg border-2 p-1 text-xs font-bold transition-all shadow-sm",
                             isSelected
@@ -262,7 +283,7 @@ export function AquaDeckCabinPicker({
                           key={spot.id}
                           type="button"
                           disabled={disabled}
-                          onClick={() => onSelectSpot(spot.id)}
+                          onClick={() => onSelectSpot(spot.id, activeVessel)}
                           className={cn(
                             "relative flex h-14 flex-1 flex-col items-center justify-center rounded-lg border-2 p-1 text-xs font-bold transition-all shadow-sm",
                             isSelected
@@ -328,7 +349,7 @@ export function AquaDeckCabinPicker({
           Category Legend
         </span>
         <div className="flex flex-wrap gap-4 text-xs font-medium text-ink/80">
-          {vesselId === "summer-cruise" ? (
+          {activeVessel === "summer-cruise" ? (
             <>
               <div className="flex items-center gap-2">
                 <span className="size-4 rounded border border-[#2A4250] bg-[#355263]" />

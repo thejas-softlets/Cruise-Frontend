@@ -1,18 +1,43 @@
 import { NextResponse } from "next/server";
-import { SC_CABIN_SPOTS } from "@/lib/sc-deck-plan";
-import { GH_CABIN_SPOTS } from "@/lib/gh-deck-plan";
+import {
+  quoteMultiCabinBooking,
+  checkIsMalaysian,
+  type CabinBookingInput,
+  type GuestConfig,
+} from "@/lib/booking-pricing";
 
-interface CabinInput {
-  adults: number;
-  children: number;
-  spotId: string | null;
+interface RawGuestInput {
+  category?: "adult" | "child" | "toddler" | "infant";
+  name?: string;
+  country?: string;
+  dob?: { day: string; month: string; year: string };
+  email?: string;
+  phone?: string;
+}
+
+interface RawCabinInput {
+  id?: string;
+  cabinId?: string;
+  adults?: number;
+  adultsCount?: number;
+  children?: number;
+  childrenCount?: number;
+  toddlers?: number;
+  toddlersCount?: number;
+  infants?: number;
+  infantsCount?: number;
+  spotId?: string | null;
+  spotName?: string;
+  roomCategoryName?: string;
+  guests?: RawGuestInput[];
 }
 
 interface QuoteRequestBody {
   packageSlug: string;
   vesselId?: "summer-cruise" | "green-horizon";
   departureDateIso: string;
-  cabins?: CabinInput[];
+  cabins?: RawCabinInput[];
+  agencyCommissionPercent?: number;
   mode?: "cabin" | "charter";
   charterPax?: number;
   nonMalaysianPax?: number;
@@ -21,27 +46,34 @@ interface QuoteRequestBody {
 export async function POST(request: Request) {
   try {
     const body: QuoteRequestBody = await request.json();
-    const { packageSlug, vesselId: rawVesselId, departureDateIso, cabins = [], mode = "cabin", charterPax = 16, nonMalaysianPax = 0 } = body;
+    const {
+      packageSlug,
+      departureDateIso,
+      cabins: rawCabins = [],
+      agencyCommissionPercent = 10,
+      mode = "cabin",
+      charterPax = 16,
+      nonMalaysianPax = 0,
+      vesselId: rawVesselId,
+    } = body;
 
     const is4D3N = packageSlug ? packageSlug.includes("4d3n") : false;
     const nights = is4D3N ? 3 : 2;
-    const vesselId = rawVesselId === "green-horizon" || rawVesselId === "summer-cruise"
-      ? rawVesselId
-      : (is4D3N ? "green-horizon" : "summer-cruise");
-    const allSpots = vesselId === "green-horizon" ? GH_CABIN_SPOTS : SC_CABIN_SPOTS;
-
-    // Check if departure qualifies for early bird
-    const depDate = new Date(departureDateIso || "2026-11-01");
-    const isEarlyBird = [1, 2, 5, 9, 10, 11].includes(depDate.getMonth() + 1);
+    const vesselId =
+      rawVesselId === "green-horizon" || rawVesselId === "summer-cruise"
+        ? rawVesselId
+        : is4D3N
+        ? "green-horizon"
+        : "summer-cruise";
 
     // ================== CHARTER MODE ==================
     if (mode === "charter") {
       const baseCharterRate = is4D3N
-        ? (vesselId === "green-horizon" ? 26000 : 22000)
-        : (vesselId === "green-horizon" ? 20000 : 18000);
+        ? vesselId === "green-horizon" ? 26000 : 22000
+        : vesselId === "green-horizon" ? 20000 : 18000;
       const maxPax = vesselId === "green-horizon" ? 30 : 24;
       const actualPax = Math.min(maxPax, Math.max(1, charterPax));
-      
+
       const jettyFeePerPax = 10;
       const entranceTicketsPerPax = is4D3N ? 70 : 40;
       const insurancePerPax = 7.5;
@@ -52,24 +84,30 @@ export async function POST(request: Request) {
       const insuranceTotal = Math.round(actualPax * insurancePerPax);
       const tourismTaxTotal = nonMalaysianPax * tourismTaxPerNonMalaysian;
 
-      const earlyBirdDiscount = isEarlyBird ? Math.round(baseCharterRate * 0.05) : 0;
-      const grandTotalMYR = baseCharterRate - earlyBirdDiscount + ticketsTotal + jettyTotal + insuranceTotal + tourismTaxTotal;
+      // Agency commission / early bird discount strictly on base charter fare
+      const commissionDiscount = Math.round(baseCharterRate * (agencyCommissionPercent / 100));
+      const grandTotalMYR =
+        baseCharterRate -
+        commissionDiscount +
+        ticketsTotal +
+        jettyTotal +
+        insuranceTotal +
+        tourismTaxTotal;
 
       return NextResponse.json({
         success: true,
         mode: "charter",
         vesselId,
         nights,
-        isEarlyBird,
         baseCharterRate,
-        earlyBirdDiscount,
+        agencyCommissionDiscountMYR: commissionDiscount,
         charterPax: actualPax,
         maxPax,
         ticketsTotal,
         jettyTotal,
         insuranceTotal,
         tourismTaxTotal,
-        subtotalMYR: baseCharterRate - earlyBirdDiscount,
+        subtotalMYR: baseCharterRate - commissionDiscount,
         grandTotalMYR,
         currency: "MYR",
         formattedGrandTotal: `RM ${grandTotalMYR.toLocaleString("en-MY")}`,
@@ -77,104 +115,74 @@ export async function POST(request: Request) {
       });
     }
 
-    // ================== CABIN MODE ==================
-    let totalAdults = 0;
-    let totalChildren = 0;
+    // ================== MULTI-CABIN EXPEDITION MODE ==================
+    const normalizedCabins: CabinBookingInput[] = (
+      rawCabins.length > 0
+        ? rawCabins
+        : [
+            {
+              id: "cabin-1",
+              adults: 2,
+              children: 0,
+              toddlers: 0,
+              infants: 0,
+              spotId: null,
+            },
+          ]
+    ).map((c, idx) => {
+      const adultsCount = c.adultsCount ?? c.adults ?? 2;
+      const childrenCount = c.childrenCount ?? c.children ?? 0;
+      const toddlersCount = c.toddlersCount ?? c.toddlers ?? 0;
+      const infantsCount = c.infantsCount ?? c.infants ?? 0;
 
-    const cabinQuotes = cabins.map((cabin, idx) => {
-      const spot = allSpots.find((s) => s.id === cabin.spotId);
-      // Base double-occupancy rate per adult: 3D2N = RM 1,450; 4D3N = RM 2,050
-      const basePerAdultDouble = spot?.basePriceMYR
-        ? spot.basePriceMYR * nights
-        : is4D3N ? 2050 : 1450;
-
-      // When 1 adult in cabin (solo occupancy): rate per adult is higher (solo supplement 25%)
-      // When 2 adults in cabin (double occupancy): rate per adult drops to base (e.g. 1450 vs 1800)
-      const isSolo = cabin.adults === 1 && cabin.children === 0;
-      const soloSurcharge = isSolo ? Math.round(basePerAdultDouble * 0.25) : 0;
-
-      const adultTotalGross = (cabin.adults * basePerAdultDouble) + soloSurcharge;
-      
-      // Children: 50% of adult base rate
-      const childRate = Math.round(basePerAdultDouble * 0.5);
-      const childrenTotal = cabin.children * childRate;
-
-      // Early bird discount: 5% off package fare
-      const grossFare = adultTotalGross + childrenTotal;
-      const earlyBirdDiscount = isEarlyBird ? Math.round(grossFare * 0.05) : 0;
-      const packageFareNet = grossFare - earlyBirdDiscount;
-
-      // Per-guest official fees matching PDF proforma invoice
-      const entranceTicketsPerGuest = is4D3N ? 70 : 40;
-      const jettyFeePerGuest = 10;
-      const insurancePerGuest = 7.5;
-      const totalGuestsInCabin = cabin.adults + cabin.children;
-
-      const entranceTicketsTotal = totalGuestsInCabin * entranceTicketsPerGuest;
-      const jettyFeesTotal = totalGuestsInCabin * jettyFeePerGuest;
-      const insuranceTotal = Math.round(totalGuestsInCabin * insurancePerGuest);
-      const tourismTaxTotal = 0; // standard domestic
-
-      const total = packageFareNet + entranceTicketsTotal + jettyFeesTotal + insuranceTotal + tourismTaxTotal;
-
-      totalAdults += cabin.adults;
-      totalChildren += cabin.children;
-
-      const ratePerAdult = cabin.adults > 0 ? Math.round(total / cabin.adults) : total;
+      const guests: GuestConfig[] = (c.guests || []).map((g, gIdx) => {
+        const country = g.country || "Malaysia";
+        return {
+          id: `c${idx + 1}-g${gIdx + 1}`,
+          category: g.category || (gIdx < adultsCount ? "adult" : "child"),
+          name: g.name || `Guest ${gIdx + 1}`,
+          country,
+          isMalaysian: checkIsMalaysian(country),
+          dob: g.dob,
+          email: g.email,
+          phone: g.phone,
+        };
+      });
 
       return {
-        cabinIndex: idx,
-        spotId: cabin.spotId,
-        spotName: spot?.name || `Cabin ${idx + 1}`,
-        planLabel: spot?.planLabel || "—",
-        adults: cabin.adults,
-        children: cabin.children,
-        basePerAdultDouble,
-        isSolo,
-        soloSurcharge,
-        ratePerAdult,
-        adultTotalGross,
-        childRate,
-        childrenTotal,
-        earlyBirdDiscount,
-        packageFareNet,
-        entranceTicketsTotal,
-        jettyFeesTotal,
-        insuranceTotal,
-        tourismTaxTotal,
-        total,
+        cabinId: c.cabinId || c.id || `cabin-${idx + 1}`,
+        spotId: c.spotId ?? null,
+        spotName: c.spotName,
+        roomCategoryName: c.roomCategoryName,
+        adultsCount,
+        childrenCount,
+        toddlersCount,
+        infantsCount,
+        guests,
       };
     });
 
-    const subtotalMYR = cabinQuotes.reduce((sum, c) => sum + c.packageFareNet, 0);
-    const feesTotalMYR = cabinQuotes.reduce(
-      (sum, c) => sum + c.entranceTicketsTotal + c.jettyFeesTotal + c.insuranceTotal + c.tourismTaxTotal,
-      0
+    const summary = quoteMultiCabinBooking(
+      packageSlug || "3d2n-kenyir-explorer",
+      departureDateIso || "2026-11-06",
+      normalizedCabins,
+      agencyCommissionPercent
     );
-    const grandTotalMYR = subtotalMYR + feesTotalMYR;
-    const overallRatePerAdult = totalAdults > 0 ? Math.round(grandTotalMYR / totalAdults) : grandTotalMYR;
 
     return NextResponse.json({
       success: true,
       mode: "cabin",
-      vesselId,
-      nights,
-      isEarlyBird,
-      totalAdults,
-      totalChildren,
-      cabins: cabinQuotes,
-      subtotalMYR,
-      feesTotalMYR,
-      grandTotalMYR,
-      overallRatePerAdult,
-      currency: "MYR",
-      formattedGrandTotal: `RM ${grandTotalMYR.toLocaleString("en-MY")}`,
+      ...summary,
+      // Backwards compatibility mappings for older summary displays
+      subtotalMYR: summary.subtotalGrossMYR,
+      feesTotalMYR: summary.totalPassThroughFeesMYR + summary.totalTourismTaxMYR,
+      grandTotalMYR: summary.grandTotalNetMYR,
+      overallRatePerAdult: summary.averageRatePerAdultMYR,
+      formattedGrandTotal: `RM ${summary.grandTotalNetMYR.toLocaleString("en-MY")}`,
     });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Failed to calculate quote";
-    return NextResponse.json(
-      { success: false, error: message },
-      { status: 400 }
-    );
+    return NextResponse.json({ success: false, error: message }, { status: 400 });
   }
 }
+

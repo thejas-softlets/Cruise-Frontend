@@ -52,16 +52,16 @@ export function CharterConfigurator({
             onPaxChange(next);
             if (nonMalaysianPax > next) onNonMalaysianPaxChange(next);
           }}
-          className="mt-3 w-full accent-teal-deep"
+          className="mt-3 w-full max-w-md accent-teal-deep"
         />
-        <div className="mt-1 flex justify-between text-[11px] text-text-muted">
+        <div className="mt-1 flex max-w-md justify-between text-[11px] text-text-muted">
           <span>{CHARTER_MIN_PAX} min</span>
           <span>{CHARTER_ROOMS_TOTAL} rooms, quad-sharing</span>
           <span>{CHARTER_MAX_PAX} max</span>
         </div>
 
         <div className="mt-5 border-t border-ink/8 pt-4">
-          <label htmlFor="charter-nonmy" className="flex items-center justify-between text-sm text-ink">
+          <label htmlFor="charter-nonmy" className="flex max-w-md items-center justify-between text-sm text-ink">
             <span>Non-Malaysian guests</span>
             <span className="font-semibold">{nonMalaysianPax}</span>
           </label>
@@ -72,7 +72,7 @@ export function CharterConfigurator({
             max={pax}
             value={nonMalaysianPax}
             onChange={(e) => onNonMalaysianPaxChange(Number(e.target.value))}
-            className="mt-3 w-full accent-teal-deep"
+            className="mt-3 w-full max-w-md accent-teal-deep"
           />
           <p className="mt-1 text-[11px] text-text-muted">
             Attraction tickets and tourism tax differ by nationality — set the split for an accurate quote.

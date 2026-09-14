@@ -35,8 +35,11 @@ export interface ProformaInvoiceData {
   specialRequests?: string;
   subtotal: number;
   discount: number;
+  discountLabel?: string;
+  discountPercent?: number;
   grandTotal: number;
   depositAmount: number;
+  depositPercent?: number;
   balanceDue: number;
   isCharter?: boolean;
 }
@@ -236,7 +239,7 @@ export function ProformaInvoiceView({ data }: { data: ProformaInvoiceData }) {
 
           {data.discount > 0 && (
             <div className="flex justify-between text-emerald-700 font-medium">
-              <span>Early Bird Discount (5%):</span>
+              <span>{data.discountLabel || `Travel Agency Commission (${data.discountPercent ?? 10}%):`}</span>
               <span>-{formatPrice(data.discount)}</span>
             </div>
           )}
@@ -247,7 +250,7 @@ export function ProformaInvoiceView({ data }: { data: ProformaInvoiceData }) {
           </div>
 
           <div className="flex justify-between border-t border-ink/10 pt-2 text-text-muted">
-            <span>Security Deposit Due (50%):</span>
+            <span>Security Deposit Due ({data.depositPercent ?? 30}%):</span>
             <span className="font-semibold text-ink">{formatPrice(data.depositAmount)}</span>
           </div>
 
