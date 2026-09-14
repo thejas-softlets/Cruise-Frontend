@@ -5,7 +5,7 @@ import { media } from "./media";
 export const MOCK_PACKAGES: Package[] = [
   {
     slug: "3d2n-kenyir-explorer",
-    title: "The Whispering Canopy Passage",
+    title: "3D2N Kenyir Explorer",
     vesselId: "summer-cruise",
     durationNights: 2,
     durationLabel: "3 Days · 2 Nights",
@@ -56,13 +56,13 @@ export const MOCK_PACKAGES: Package[] = [
       "Cellar & reserve beverages",
       "Crew gratuities (discretionary)",
     ],
-    roomCategoryIds: ["sc-master", "sc-deluxe-double", "sc-family"],
+    roomCategoryIds: ["sc-master", "sc-deluxe-double", "sc-family", "gh-panorama", "gh-twin", "gh-family"],
     experienceSlugs: ["lasir-waterfall", "kelah-sanctuary", "kayaking-rafting"],
     isPlaceholder: true,
   },
   {
     slug: "4d3n-kenyir-grand-voyage",
-    title: "The Ancient Basin & Canyon Odyssey",
+    title: "4D3N Kenyir Grand Voyage",
     vesselId: "green-horizon",
     durationNights: 3,
     durationLabel: "4 Days · 3 Nights",
@@ -120,7 +120,7 @@ export const MOCK_PACKAGES: Package[] = [
       "Cellar & reserve beverages",
       "Crew gratuities (discretionary)",
     ],
-    roomCategoryIds: ["gh-panorama", "gh-twin", "gh-family"],
+    roomCategoryIds: ["sc-master", "sc-deluxe-double", "sc-family", "gh-panorama", "gh-twin", "gh-family"],
     experienceSlugs: ["bewah-cave", "melunak-trail", "kayaking-rafting"],
     isPlaceholder: true,
   },

@@ -129,6 +129,17 @@ const ADULT_YEARS = Array.from({ length: 75 }, (_, i) => `${2012 - i}`);
 const CHILD_YEARS = Array.from({ length: 7 }, (_, i) => `${2021 - i}`);
 const DAYS_LIST = Array.from({ length: 31 }, (_, i) => `${i + 1}`);
 
+const SC_SPOTS = [
+  "sc-1-1101", "sc-1-1105", "sc-1-1107", "sc-1-1103",
+  "sc-1-1111", "sc-1-1109", "sc-1-1102", "sc-1-1106",
+  "sc-1-1108", "sc-1-1112", "sc-1-1110",
+];
+const GH_SPOTS = [
+  "gh-1-1201", "gh-1-1205", "gh-1-1207", "gh-1-1209",
+  "gh-2-1214", "gh-2-1215", "gh-1-1211", "gh-1-1202",
+  "gh-1-1206", "gh-1-1208", "gh-1-1210", "gh-1-1212",
+];
+
 interface BookingWizardProps {
   vessels: Vessel[];
   packages: Package[];
@@ -145,7 +156,7 @@ export function BookingWizard({
   initialMode,
 }: BookingWizardProps) {
   // Wizard steps:
-  // 0: Package & Date Selection (Initial simplified step asking package 1st)
+  // 0: Vessel, Package & Date Selection (Both cruises offer both packages)
   // 1: Cabin Selection (Aqua Step 1 with bus-seat deck plan)
   // 2: Personal Details (Aqua Step 2 with per-cabin guests)
   // 3: Summary (Aqua Step 3 with edit links)
@@ -153,7 +164,8 @@ export function BookingWizard({
   const [step, setStep] = useState<number>(0);
   const [mode, setMode] = useState<BookingMode>(initialMode ?? "cabin");
 
-  // Step 0 Package & Date state: 1st thing we ask is package (3d2n vs 4d3n)
+  // Step 0 State: Independent Vessel & Package selection
+  const [selectedVesselId, setSelectedVesselId] = useState<VesselId>(initialVesselId ?? "summer-cruise");
   const [selectedPackageSlug, setSelectedPackageSlug] = useState<string>("3d2n-kenyir-explorer");
   const [selectedDateIso, setSelectedDateIso] = useState<string>(DEPARTURES[0]?.iso ?? "");
   const [initialAdults, setInitialAdults] = useState<number>(2);
@@ -170,24 +182,24 @@ export function BookingWizard({
   // Charter vessel selection state (Summer Cruise vs Green Horizon)
   const [charterVesselId, setCharterVesselId] = useState<VesselId>(initialVesselId ?? "summer-cruise");
 
-  // Active selected package
+  // Active vessel ID for deck plans and calendar
+  const activeVesselId: VesselId =
+    mode === "charter" ? charterVesselId : selectedVesselId;
+
+  // Active selected vessel (decoupled from package)
+  const selectedVessel = useMemo(() => {
+    return vessels.find((v) => v.id === activeVesselId) ?? vessels[0];
+  }, [vessels, activeVesselId]);
+
+  // Active selected package (both vessels support both packages)
   const selectedPkg = useMemo(() => {
     return packages.find((p) => p.slug === selectedPackageSlug) ?? packages[0];
   }, [packages, selectedPackageSlug]);
-
-  // Active selected vessel
-  const selectedVessel = useMemo(() => {
-    return vessels.find((v) => v.id === selectedPkg?.vesselId) ?? vessels[0];
-  }, [vessels, selectedPkg]);
 
   // Active selected departure
   const selectedDate = useMemo(() => {
     return departures.find((d) => d.iso === selectedDateIso) ?? departures[0];
   }, [departures, selectedDateIso]);
-
-  // Active vessel ID for deck plans
-  const activeVesselId: VesselId =
-    (selectedVessel?.id as VesselId) === "green-horizon" ? "green-horizon" : "summer-cruise";
 
   const allCabinSpots = activeVesselId === "summer-cruise" ? SC_CABIN_SPOTS : GH_CABIN_SPOTS;
 
@@ -199,10 +211,24 @@ export function BookingWizard({
       adults: 2,
       children: 0,
       childBirthDates: [],
-      selectedSpotId: "sc-1-1101",
+      selectedSpotId: (initialVesselId ?? "summer-cruise") === "green-horizon" ? "gh-1-1201" : "sc-1-1101",
       isOpen: true,
     },
   ]);
+
+  function handleSelectVessel(vesselId: VesselId) {
+    setSelectedVesselId(vesselId);
+    setCharterVesselId(vesselId);
+    // Switch cabin slots to default spots of newly selected vessel
+    const defaultSpot = vesselId === "green-horizon" ? "gh-1-1201" : "sc-1-1101";
+    const pool = vesselId === "green-horizon" ? GH_SPOTS : SC_SPOTS;
+    setCabinSlots((prev) =>
+      prev.map((slot, i) => ({
+        ...slot,
+        selectedSpotId: pool[i] ?? defaultSpot,
+      }))
+    );
+  }
 
   // Dynamic server-fetched quote state
   const [serverQuote, setServerQuote] = useState<ServerQuoteResponse | null>(null);
@@ -310,6 +336,7 @@ export function BookingWizard({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             packageSlug: selectedPackageSlug,
+            vesselId: activeVesselId,
             departureDateIso: selectedDateIso,
             cabins: cabinSlots.map((c) => ({
               adults: c.adults,
@@ -337,7 +364,7 @@ export function BookingWizard({
     return () => {
       isMounted = false;
     };
-  }, [selectedPackageSlug, selectedDateIso, cabinSlots]);
+  }, [selectedPackageSlug, activeVesselId, selectedDateIso, cabinSlots]);
 
   // Charter calculation
   const charterQuote = useMemo(() => {
@@ -448,7 +475,7 @@ export function BookingWizard({
         year: "numeric",
       }),
       vesselName: selectedVessel?.name ?? "Summer Cruise",
-      packageTitle: selectedPkg?.title ?? "The Whispering Canopy Passage",
+      packageTitle: selectedPkg?.title ?? "3D2N Kenyir Explorer",
       durationNights,
       datesLabel: selectedDate?.label ?? "17 Apr – 19 Apr 2026",
       leadGuest: {
@@ -608,7 +635,7 @@ export function BookingWizard({
         </div>
       )}
 
-      {/* ── STEP 0: CABIN BOOKING MODE (PACKAGE FIRST!) ── */}
+      {/* ── STEP 0: CABIN BOOKING MODE (VESSEL & PACKAGE INDEPENDENT) ── */}
       {step === 0 && mode === "cabin" && (
         <div className="space-y-12 animate-fade-in">
           {/* Header */}
@@ -617,30 +644,158 @@ export function BookingWizard({
               Tasik Kenyir Luxury Expeditions
             </span>
             <h2 className="mt-2 font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl">
-              Choose Your Cruise Package
+              Book Your Kenyir Cruise
             </h2>
             <p className="mt-2 text-sm text-text-muted">
-              Select between our signature 3-day and 4-day rainforest passages, then pick your departure date.
+              Choose your cruise ship and package duration, select your departure date, and reserve your stateroom.
             </p>
           </div>
 
-          {/* 1ST THING WE ASK: THE 2 PACKAGES (3D2N vs 4D3N) WITH PER-ADULT PRICING */}
+          {/* 1ST THING WE ASK: SELECT CRUISE VESSEL (BOTH CRUISES HAVE BOTH PACKAGES) */}
           <div>
             <div className="mb-4 flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-ink">
-                1. Select Expedition Package
+                1. Select Cruise Vessel
               </span>
               <span className="text-xs text-text-muted">
-                All departures sail from Pengkalan Gawi Jetty · Both vessels single accommodation deck (12 staterooms)
+                Both vessels offer both 3D2N and 4D3N expeditions
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              {/* Summer Cruise */}
+              <button
+                type="button"
+                onClick={() => handleSelectVessel("summer-cruise")}
+                className={cn(
+                  "relative flex flex-col justify-between overflow-hidden rounded-3xl border-2 p-6 text-left transition-all duration-300 shadow-sm sm:p-8",
+                  selectedVesselId === "summer-cruise"
+                    ? "border-teal-deep bg-teal-soft/10 ring-4 ring-teal-deep/15 shadow-lg scale-[1.01]"
+                    : "border-ink/10 bg-white hover:border-ink/30"
+                )}
+              >
+                {selectedVesselId === "summer-cruise" && (
+                  <span className="absolute right-4 top-4 flex size-7 items-center justify-center rounded-full bg-teal-deep text-white shadow">
+                    <Check className="size-4 stroke-[3]" />
+                  </span>
+                )}
+
+                <div>
+                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-teal-deep">
+                    <Ship className="size-3.5 text-teal-deep" />
+                    Flagship Luxury Houseboat
+                  </div>
+                  <h3 className="mt-1 font-display text-2xl font-medium text-ink">
+                    Summer Cruise
+                  </h3>
+                  <p className="mt-1 text-xs font-medium text-text-muted">
+                    12 Luxury Lakeview Staterooms · Single Accommodation Deck · Max 34 Guests
+                  </p>
+
+                  <p className="mt-4 text-xs leading-relaxed text-text-muted">
+                    Our intimate, handcrafted flagship luxury houseboat on Lake Kenyir. Quiet, personal, and loved for peaceful rainforest cruising with 10 dedicated crew members.
+                  </p>
+
+                  <div className="mt-5 space-y-1.5 text-xs text-ink/80">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="size-3.5 text-gold-bright shrink-0" />
+                      <span>Dedicated accommodation deck with 12 handcrafted staterooms</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="size-3.5 text-gold-bright shrink-0" />
+                      <span>Waterline dining saloon & open teak observation sundeck</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="size-3.5 text-gold-bright shrink-0" />
+                      <span>Both 3D2N and 4D3N packages available on board</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex items-center justify-between border-t border-ink/10 pt-4 text-xs">
+                  <span className="font-semibold text-teal-deep">
+                    {selectedVesselId === "summer-cruise" ? "✓ Currently Selected Vessel" : "Click to select Summer Cruise"}
+                  </span>
+                  <span className="text-text-muted">10 Dedicated Crew</span>
+                </div>
+              </button>
+
+              {/* Green Horizon */}
+              <button
+                type="button"
+                onClick={() => handleSelectVessel("green-horizon")}
+                className={cn(
+                  "relative flex flex-col justify-between overflow-hidden rounded-3xl border-2 p-6 text-left transition-all duration-300 shadow-sm sm:p-8",
+                  selectedVesselId === "green-horizon"
+                    ? "border-teal-deep bg-teal-soft/10 ring-4 ring-teal-deep/15 shadow-lg scale-[1.01]"
+                    : "border-ink/10 bg-white hover:border-ink/30"
+                )}
+              >
+                {selectedVesselId === "green-horizon" && (
+                  <span className="absolute right-4 top-4 flex size-7 items-center justify-center rounded-full bg-teal-deep text-white shadow">
+                    <Check className="size-4 stroke-[3]" />
+                  </span>
+                )}
+
+                <div>
+                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-teal-deep">
+                    <Ship className="size-3.5 text-teal-deep" />
+                    Luxury Grand Houseboat
+                  </div>
+                  <h3 className="mt-1 font-display text-2xl font-medium text-ink">
+                    Green Horizon
+                  </h3>
+                  <p className="mt-1 text-xs font-medium text-text-muted">
+                    12 Private Balcony Suites (15 Rooms) · Single Deck Staterooms + Panorama · Max 60 Guests
+                  </p>
+
+                  <p className="mt-4 text-xs leading-relaxed text-text-muted">
+                    Newly launched grand luxury houseboat engineered for panoramic gatherings. Expansive social spaces, private stateroom balconies, and modern amenities with 10 dedicated crew.
+                  </p>
+
+                  <div className="mt-5 space-y-1.5 text-xs text-ink/80">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="size-3.5 text-gold-bright shrink-0" />
+                      <span>Private balconies on every 1st-floor stateroom with lake views</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="size-3.5 text-gold-bright shrink-0" />
+                      <span>Level 3 Panorama suites, roof deck & entertainment lounge</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="size-3.5 text-gold-bright shrink-0" />
+                      <span>Both 3D2N and 4D3N packages available on board</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex items-center justify-between border-t border-ink/10 pt-4 text-xs">
+                  <span className="font-semibold text-teal-deep">
+                    {selectedVesselId === "green-horizon" ? "✓ Currently Selected Vessel" : "Click to select Green Horizon"}
+                  </span>
+                  <span className="text-text-muted">10 Dedicated Crew</span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          {/* 2ND THING WE ASK: THE 2 PACKAGES (3D2N vs 4D3N) WITHOUT FANCY NAMES */}
+          <div>
+            <div className="mb-4 flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-ink">
+                2. Select Expedition Package
+              </span>
+              <span className="text-xs text-text-muted">
+                All departures sail from Pengkalan Gawi Jetty · Sailing aboard <strong className="text-ink">{selectedVessel.name}</strong>
               </span>
             </div>
 
             {/* Dynamic per-adult rates based on current initialAdults */}
             {(() => {
-              const scRate = initialAdults === 1 ? 1800 : 1450;
-              const scGross = initialAdults * scRate + (initialChildren * Math.round(1450 * 0.5));
-              const ghRate = initialAdults === 1 ? 2550 : 2050;
-              const ghGross = initialAdults * ghRate + (initialChildren * Math.round(2050 * 0.5));
+              const p3Rate = initialAdults === 1 ? 1800 : 1450;
+              const p3Gross = initialAdults * p3Rate + (initialChildren * Math.round(1450 * 0.5));
+              const p4Rate = initialAdults === 1 ? 2550 : 2050;
+              const p4Gross = initialAdults * p4Rate + (initialChildren * Math.round(2050 * 0.5));
 
               return (
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -667,14 +822,14 @@ export function BookingWizard({
                         3 Days · 2 Nights (Fri–Sun)
                       </div>
                       <h3 className="mt-1 font-display text-2xl font-medium text-ink">
-                        The Whispering Canopy Passage
+                        3D2N Kenyir Explorer
                       </h3>
                       <p className="mt-1 text-xs text-text-muted">
-                        Vessel: <strong className="text-ink">Summer Cruise</strong> (12 Luxury Staterooms · 1 Single Deck)
+                        Weekend Voyage aboard <strong className="text-ink">{selectedVessel.name}</strong>
                       </p>
 
                       <p className="mt-4 text-xs leading-relaxed text-text-muted">
-                        An unhurried passage through Kenyir&apos;s emerald bays. Two peaceful nights beneath ancient rainforest canopies, swimming in secluded waterfall lagoons at Lasir, and twilight deck dining.
+                        An unhurried weekend voyage through Kenyir&apos;s emerald bays. Two peaceful nights beneath ancient rainforest canopies, swimming in secluded waterfall lagoons at Lasir, and twilight deck dining.
                       </p>
 
                       <div className="mt-5 space-y-1.5 text-xs text-ink/80">
@@ -697,13 +852,13 @@ export function BookingWizard({
                       <div>
                         <span className="text-[11px] text-text-muted">Amount per adult:</span>
                         <div className="font-display text-2xl font-bold text-obsidian">
-                          RM {scRate.toLocaleString()}{" "}
+                          RM {p3Rate.toLocaleString()}{" "}
                           <span className="text-xs font-normal text-text-muted">/ adult</span>
                         </div>
                         <span className="text-[11px] text-teal-deep font-medium">
                           {initialAdults === 1
                             ? "Solo Stateroom Rate"
-                            : `RM ${scGross.toLocaleString()} total for ${initialAdults} adult${initialAdults > 1 ? "s" : ""}${initialChildren > 0 ? ` + ${initialChildren} child` : ""}`}
+                            : `RM ${p3Gross.toLocaleString()} total for ${initialAdults} adult${initialAdults > 1 ? "s" : ""}${initialChildren > 0 ? ` + ${initialChildren} child` : ""}`}
                         </span>
                       </div>
                       <span className="text-xs font-semibold text-teal-deep">
@@ -735,14 +890,14 @@ export function BookingWizard({
                         4 Days · 3 Nights (Mon–Fri)
                       </div>
                       <h3 className="mt-1 font-display text-2xl font-medium text-ink">
-                        The Ancient Basin & Canyon Odyssey
+                        4D3N Kenyir Grand Voyage
                       </h3>
                       <p className="mt-1 text-xs text-text-muted">
-                        Vessel: <strong className="text-ink">Green Horizon</strong> (12 Balcony Suites · 1 Single Deck)
+                        Midweek Expedition aboard <strong className="text-ink">{selectedVessel.name}</strong>
                       </p>
 
                       <p className="mt-4 text-xs leading-relaxed text-text-muted">
-                        An immersive expedition into Kenyir&apos;s untamed remote reaches — prehistoric limestone caverns at Bewah, dramatic Tembat river canyon drifts, and starlit open-air roof deck dining.
+                        An immersive four-day expedition into Kenyir&apos;s untamed remote reaches — prehistoric limestone caverns at Bewah, dramatic Tembat river canyon drifts, and starlit open-air roof deck dining.
                       </p>
 
                       <div className="mt-5 space-y-1.5 text-xs text-ink/80">
@@ -756,7 +911,7 @@ export function BookingWizard({
                         </div>
                         <div className="flex items-center gap-2">
                           <Sparkles className="size-3.5 text-gold-bright shrink-0" />
-                          <span>Suites with private balconies & panorama glass</span>
+                          <span>Thousand-year Melunak giant rainforest trail & suspension bridge</span>
                         </div>
                       </div>
                     </div>
@@ -765,13 +920,13 @@ export function BookingWizard({
                       <div>
                         <span className="text-[11px] text-text-muted">Amount per adult:</span>
                         <div className="font-display text-2xl font-bold text-obsidian">
-                          RM {ghRate.toLocaleString()}{" "}
+                          RM {p4Rate.toLocaleString()}{" "}
                           <span className="text-xs font-normal text-text-muted">/ adult</span>
                         </div>
                         <span className="text-[11px] text-teal-deep font-medium">
                           {initialAdults === 1
                             ? "Solo Stateroom Rate"
-                            : `RM ${ghGross.toLocaleString()} total for ${initialAdults} adult${initialAdults > 1 ? "s" : ""}${initialChildren > 0 ? ` + ${initialChildren} child` : ""}`}
+                            : `RM ${p4Gross.toLocaleString()} total for ${initialAdults} adult${initialAdults > 1 ? "s" : ""}${initialChildren > 0 ? ` + ${initialChildren} child` : ""}`}
                         </span>
                       </div>
                       <span className="text-xs font-semibold text-teal-deep">
@@ -784,10 +939,10 @@ export function BookingWizard({
             })()}
           </div>
 
-          {/* 2ND THING WE ASK: GRAPHICAL DATE SELECTOR WITH AQUA COLOR COMBOS */}
+          {/* 3RD THING WE ASK: GRAPHICAL DATE SELECTOR WITH AQUA COLOR COMBOS */}
           <div>
             <div className="mb-4 text-xs font-bold uppercase tracking-wider text-ink">
-              2. Choose Departure Date
+              3. Choose Departure Date
             </div>
 
             <GraphicalDateSelector
@@ -795,15 +950,17 @@ export function BookingWizard({
               selectedDateIso={selectedDateIso}
               onSelectDateIso={setSelectedDateIso}
               vesselId={activeVesselId}
+              packageSlug={selectedPackageSlug}
+              durationNights={selectedPkg?.durationNights}
               isCharterMode={false}
               onOpenItineraryModal={() => setShowItineraryModal(true)}
             />
           </div>
 
-          {/* 3RD THING WE ASK: GUEST PARTY SIZE */}
+          {/* 4TH THING WE ASK: GUEST PARTY SIZE */}
           <div className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm sm:p-8">
             <div className="mb-2 text-xs font-bold uppercase tracking-wider text-ink">
-              3. Guest Count
+              4. Guest Count
             </div>
             <p className="text-xs text-text-muted mb-6">
               Pricing dynamically reflects occupancy: Solo travelers enjoy dedicated private stateroom; rates per adult adjust for double occupancy.
@@ -870,7 +1027,7 @@ export function BookingWizard({
               <div>
                 <span className="text-xs text-text-muted">Selected Voyage</span>
                 <div className="font-semibold text-ink">
-                  {selectedPkg?.title} · {selectedDate?.label}
+                  {selectedVessel.name} · {selectedPkg?.title} · {selectedDate?.label}
                 </div>
                 <div className="text-xs text-teal-deep font-medium mt-0.5">
                   Amount per adult: RM {(initialAdults === 1 ? (selectedPkg?.durationNights === 3 ? 2550 : 1800) : (selectedPkg?.durationNights === 3 ? 2050 : 1450)).toLocaleString()} / adult
@@ -891,17 +1048,6 @@ export function BookingWizard({
                   const adultsPerCabin = Math.floor(initialAdults / suggestedCabinCount);
                   const extraAdult = initialAdults % suggestedCabinCount; // goes in cabin 1
 
-                  // Pre-ordered cabin spots per vessel (available cabins in priority order)
-                  const SC_SPOTS = [
-                    "sc-1-1101", "sc-1-1105", "sc-1-1107", "sc-1-1103",
-                    "sc-1-1111", "sc-1-1109", "sc-1-1102", "sc-1-1106",
-                    "sc-1-1108", "sc-1-1112", "sc-1-1110",
-                  ];
-                  const GH_SPOTS = [
-                    "gh-1-1201", "gh-1-1205", "gh-1-1207", "gh-1-1209",
-                    "gh-2-1214", "gh-2-1215", "gh-1-1211", "gh-1-1202",
-                    "gh-1-1206", "gh-1-1208", "gh-1-1210", "gh-1-1212",
-                  ];
                   const spotPool = activeVesselId === "summer-cruise" ? SC_SPOTS : GH_SPOTS;
 
                   const slots: CabinSlot[] = Array.from({ length: suggestedCabinCount }, (_, i) => {
@@ -959,7 +1105,6 @@ export function BookingWizard({
               type="button"
               onClick={() => {
                 setCharterVesselId("summer-cruise");
-                setSelectedPackageSlug("3d2n-kenyir-explorer");
               }}
               className={cn(
                 "flex items-center gap-2 rounded-2xl border px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all",
@@ -969,14 +1114,13 @@ export function BookingWizard({
               )}
             >
               <Ship className="size-4" />
-              <span>Summer Cruise (3D2N · 12 Staterooms)</span>
+              <span>Summer Cruise (12 Lakeview Staterooms)</span>
             </button>
 
             <button
               type="button"
               onClick={() => {
                 setCharterVesselId("green-horizon");
-                setSelectedPackageSlug("4d3n-kenyir-grand-voyage");
               }}
               className={cn(
                 "flex items-center gap-2 rounded-2xl border px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all",
@@ -986,7 +1130,7 @@ export function BookingWizard({
               )}
             >
               <Ship className="size-4" />
-              <span>Green Horizon (4D3N · 12 Balcony Suites)</span>
+              <span>Green Horizon (12 Balcony Suites / 15 Rooms)</span>
             </button>
           </div>
 
@@ -1001,6 +1145,8 @@ export function BookingWizard({
               selectedDateIso={selectedDateIso}
               onSelectDateIso={setSelectedDateIso}
               vesselId={charterVesselId}
+              packageSlug={selectedPackageSlug}
+              durationNights={selectedPkg?.durationNights}
               isCharterMode={true}
               onOpenItineraryModal={() => setShowItineraryModal(true)}
             />
@@ -1048,7 +1194,7 @@ export function BookingWizard({
                               <Crown className="size-3.5 fill-amber-600 text-amber-600" />
                               100% Unreserved · 12 Cabins Open
                             </span>
-                            <span className="text-xs font-bold text-teal-deep">3D2N Expedition</span>
+                            <span className="text-xs font-bold text-teal-deep">Full Vessel Charter</span>
                           </div>
 
                           <h3 className="mt-3 font-display text-2xl font-medium text-ink">
@@ -1071,30 +1217,50 @@ export function BookingWizard({
                               <Check className="size-4 text-emerald-600 shrink-0" />
                               <span>Customizable anchorage schedule & tender water excursions</span>
                             </li>
+                            <li className="flex items-center gap-2">
+                              <Check className="size-4 text-emerald-600 shrink-0" />
+                              <span>Both 3D2N and 4D3N charter durations available</span>
+                            </li>
                           </ul>
                         </div>
 
-                        <div className="mt-8 border-t border-ink/10 pt-5 flex items-baseline justify-between">
-                          <div>
-                            <span className="text-[10px] uppercase font-bold text-text-muted">Fixed Vessel Buyout</span>
-                            <div className="font-display text-2xl font-bold text-ink">
-                              RM 18,000 <span className="text-xs font-normal text-text-muted">/ voyage</span>
-                            </div>
-                            <span className="text-[11px] text-text-muted">Approx. RM 750 / person for 24 guests</span>
+                        <div className="mt-8 border-t border-ink/10 pt-5 space-y-3">
+                          <div className="flex items-center justify-between text-xs font-semibold text-text-muted">
+                            <span>Select Voyage Duration:</span>
+                            <span>Max 24 Guests</span>
                           </div>
 
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setSelectedPackageSlug("3d2n-kenyir-explorer");
-                              setMode("charter");
-                              setStep(2);
-                              window.scrollTo({ top: 250, behavior: "smooth" });
-                            }}
-                            className="rounded-xl bg-obsidian px-6 py-3 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-teal-deep shadow-md"
-                          >
-                            Book Summer Cruise Charter &rarr;
-                          </button>
+                          <div className="flex flex-col sm:flex-row gap-3">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCharterVesselId("summer-cruise");
+                                setSelectedPackageSlug("3d2n-kenyir-explorer");
+                                setMode("charter");
+                                setStep(2);
+                                window.scrollTo({ top: 250, behavior: "smooth" });
+                              }}
+                              className="flex-1 rounded-xl bg-obsidian px-4 py-3 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-teal-deep shadow-md flex flex-col items-center justify-center text-center gap-0.5"
+                            >
+                              <span>Book 3D2N Charter &rarr;</span>
+                              <span className="text-[11px] font-normal text-amber-200">RM 18,000 / voyage</span>
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCharterVesselId("summer-cruise");
+                                setSelectedPackageSlug("4d3n-kenyir-grand-voyage");
+                                setMode("charter");
+                                setStep(2);
+                                window.scrollTo({ top: 250, behavior: "smooth" });
+                              }}
+                              className="flex-1 rounded-xl border-2 border-obsidian bg-white px-4 py-3 text-xs font-bold uppercase tracking-wider text-obsidian transition hover:bg-obsidian hover:text-white shadow-md flex flex-col items-center justify-center text-center gap-0.5"
+                            >
+                              <span>Book 4D3N Charter &rarr;</span>
+                              <span className="text-[11px] font-normal text-teal-deep">RM 22,000 / voyage</span>
+                            </button>
+                          </div>
                         </div>
                       </div>
                     )}
@@ -1108,7 +1274,7 @@ export function BookingWizard({
                               <Crown className="size-3.5 fill-amber-600 text-amber-600" />
                               100% Unreserved · 12 Balcony Suites Open
                             </span>
-                            <span className="text-xs font-bold text-teal-deep">4D3N Odyssey</span>
+                            <span className="text-xs font-bold text-teal-deep">Full Vessel Charter</span>
                           </div>
 
                           <h3 className="mt-3 font-display text-2xl font-medium text-ink">
@@ -1131,30 +1297,50 @@ export function BookingWizard({
                               <Check className="size-4 text-emerald-600 shrink-0" />
                               <span>Custom expedition deep south to Bewah prehistoric caves</span>
                             </li>
+                            <li className="flex items-center gap-2">
+                              <Check className="size-4 text-emerald-600 shrink-0" />
+                              <span>Both 3D2N and 4D3N charter durations available</span>
+                            </li>
                           </ul>
                         </div>
 
-                        <div className="mt-8 border-t border-ink/10 pt-5 flex items-baseline justify-between">
-                          <div>
-                            <span className="text-[10px] uppercase font-bold text-text-muted">Fixed Vessel Buyout</span>
-                            <div className="font-display text-2xl font-bold text-ink">
-                              RM 26,000 <span className="text-xs font-normal text-text-muted">/ voyage</span>
-                            </div>
-                            <span className="text-[11px] text-text-muted">Approx. RM 866 / person for 30 guests</span>
+                        <div className="mt-8 border-t border-ink/10 pt-5 space-y-3">
+                          <div className="flex items-center justify-between text-xs font-semibold text-text-muted">
+                            <span>Select Voyage Duration:</span>
+                            <span>Max 30 Guests</span>
                           </div>
 
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setSelectedPackageSlug("4d3n-kenyir-grand-voyage");
-                              setMode("charter");
-                              setStep(2);
-                              window.scrollTo({ top: 250, behavior: "smooth" });
-                            }}
-                            className="rounded-xl bg-obsidian px-6 py-3 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-teal-deep shadow-md"
-                          >
-                            Book Green Horizon Charter &rarr;
-                          </button>
+                          <div className="flex flex-col sm:flex-row gap-3">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCharterVesselId("green-horizon");
+                                setSelectedPackageSlug("3d2n-kenyir-explorer");
+                                setMode("charter");
+                                setStep(2);
+                                window.scrollTo({ top: 250, behavior: "smooth" });
+                              }}
+                              className="flex-1 rounded-xl border-2 border-obsidian bg-white px-4 py-3 text-xs font-bold uppercase tracking-wider text-obsidian transition hover:bg-obsidian hover:text-white shadow-md flex flex-col items-center justify-center text-center gap-0.5"
+                            >
+                              <span>Book 3D2N Charter &rarr;</span>
+                              <span className="text-[11px] font-normal text-teal-deep">RM 20,000 / voyage</span>
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCharterVesselId("green-horizon");
+                                setSelectedPackageSlug("4d3n-kenyir-grand-voyage");
+                                setMode("charter");
+                                setStep(2);
+                                window.scrollTo({ top: 250, behavior: "smooth" });
+                              }}
+                              className="flex-1 rounded-xl bg-obsidian px-4 py-3 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-teal-deep shadow-md flex flex-col items-center justify-center text-center gap-0.5"
+                            >
+                              <span>Book 4D3N Charter &rarr;</span>
+                              <span className="text-[11px] font-normal text-amber-200">RM 26,000 / voyage</span>
+                            </button>
+                          </div>
                         </div>
                       </div>
                     )}

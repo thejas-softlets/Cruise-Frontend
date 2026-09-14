@@ -10,6 +10,7 @@ interface CabinInput {
 
 interface QuoteRequestBody {
   packageSlug: string;
+  vesselId?: "summer-cruise" | "green-horizon";
   departureDateIso: string;
   cabins?: CabinInput[];
   mode?: "cabin" | "charter";
@@ -20,11 +21,13 @@ interface QuoteRequestBody {
 export async function POST(request: Request) {
   try {
     const body: QuoteRequestBody = await request.json();
-    const { packageSlug, departureDateIso, cabins = [], mode = "cabin", charterPax = 16, nonMalaysianPax = 0 } = body;
+    const { packageSlug, vesselId: rawVesselId, departureDateIso, cabins = [], mode = "cabin", charterPax = 16, nonMalaysianPax = 0 } = body;
 
-    const is4D3N = packageSlug.includes("4d3n");
+    const is4D3N = packageSlug ? packageSlug.includes("4d3n") : false;
     const nights = is4D3N ? 3 : 2;
-    const vesselId = is4D3N ? "green-horizon" : "summer-cruise";
+    const vesselId = rawVesselId === "green-horizon" || rawVesselId === "summer-cruise"
+      ? rawVesselId
+      : (is4D3N ? "green-horizon" : "summer-cruise");
     const allSpots = vesselId === "green-horizon" ? GH_CABIN_SPOTS : SC_CABIN_SPOTS;
 
     // Check if departure qualifies for early bird
@@ -33,8 +36,10 @@ export async function POST(request: Request) {
 
     // ================== CHARTER MODE ==================
     if (mode === "charter") {
-      const baseCharterRate = is4D3N ? 26000 : 18000;
-      const maxPax = is4D3N ? 30 : 24;
+      const baseCharterRate = is4D3N
+        ? (vesselId === "green-horizon" ? 26000 : 22000)
+        : (vesselId === "green-horizon" ? 20000 : 18000);
+      const maxPax = vesselId === "green-horizon" ? 30 : 24;
       const actualPax = Math.min(maxPax, Math.max(1, charterPax));
       
       const jettyFeePerPax = 10;

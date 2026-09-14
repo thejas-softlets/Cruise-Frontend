@@ -198,10 +198,10 @@ export default async function PackageDetailPage({
               <div>
                 <p className="text-sm font-semibold text-ink">{pkg.title}</p>
                 <p className="mt-1 text-xs text-text-muted">
-                  {pkg.durationLabel} aboard {pkg.vesselId === "green-horizon" ? "Green Horizon" : "Summer Cruise"} — staterooms from {formatPrice(rooms[0]?.indicativePriceMYR ?? pkg.fromPriceMYR)}/night
+                  {pkg.durationLabel} aboard Summer Cruise or Green Horizon — staterooms from {formatPrice(rooms[0]?.indicativePriceMYR ?? pkg.fromPriceMYR)}/night
                 </p>
               </div>
-              <Button href={`/book?vessel=${pkg.vesselId}&mode=cabin`} size="lg">
+              <Button href="/book?mode=cabin" size="lg">
                 Choose My Stateroom →
               </Button>
             </div>

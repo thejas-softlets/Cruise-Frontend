@@ -10,6 +10,8 @@ interface GraphicalDateSelectorProps {
   selectedDateIso: string;
   onSelectDateIso: (iso: string) => void;
   vesselId: "summer-cruise" | "green-horizon";
+  packageSlug?: string;
+  durationNights?: number;
   isCharterMode?: boolean;
   onOpenItineraryModal?: () => void;
 }
@@ -24,6 +26,8 @@ export function GraphicalDateSelector({
   selectedDateIso,
   onSelectDateIso,
   vesselId,
+  packageSlug,
+  durationNights,
   isCharterMode = false,
   onOpenItineraryModal,
 }: GraphicalDateSelectorProps) {
@@ -73,10 +77,11 @@ export function GraphicalDateSelector({
     }
   }
 
-  // Base per-adult rate indicator
-  const baseRatePerAdult = vesselId === "green-horizon" ? 2050 : 1450;
+  // Duration & Base per-adult rate indicator
+  const is4D3N = durationNights === 3 || (packageSlug ? packageSlug.includes("4d3n") : false);
+  const baseRatePerAdult = is4D3N ? 2050 : 1450;
   const vesselName = vesselId === "green-horizon" ? "Green Horizon" : "Summer Cruise";
-  const durationText = vesselId === "green-horizon" ? "4D3N (Mon-Fri)" : "3D2N (Fri-Sun)";
+  const durationText = is4D3N ? "4D3N (Mon–Thu/Fri)" : "3D2N (Fri–Sun)";
 
   return (
     <div className="rounded-3xl border border-ink/10 bg-white p-6 sm:p-8 shadow-sm">
@@ -316,7 +321,9 @@ export function GraphicalDateSelector({
                           isSelected ? "text-white" : "text-ink"
                         )}
                       >
-                        {vesselId === "green-horizon" ? "RM 26,000" : "RM 18,000"}{" "}
+                        {is4D3N
+                          ? (vesselId === "green-horizon" ? "RM 26,000" : "RM 22,000")
+                          : (vesselId === "green-horizon" ? "RM 20,000" : "RM 18,000")}{" "}
                         <span className="text-[11px] font-normal opacity-80">/ voyage</span>
                       </div>
                     </div>

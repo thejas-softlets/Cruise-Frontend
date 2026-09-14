@@ -35,7 +35,7 @@ export default async function VesselDetailPage({
   const [rooms, reviews, packages] = await Promise.all([
     getRoomsByVessel(vessel.id),
     getReviewsByVessel(vessel.id),
-    getAllPackages().then((all) => all.filter((p) => p.vesselId === vessel.id)),
+    getAllPackages().then((all) => all.filter((p) => vessel.packageSlugs.includes(p.slug))),
   ]);
 
   const crumbs = await buildCrumbs(["vessels", id], { [`/vessels/${id}`]: vessel.name });
