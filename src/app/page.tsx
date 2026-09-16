@@ -21,6 +21,7 @@ import {
 } from "@/components/home/ExperiencesInfiniteMarquee";
 
 import { PartnerPromotionsBanner } from "@/components/home/PartnerPromotionsBanner";
+import { MytqaAccreditationCard } from "@/components/home/MytqaAccreditationCard";
 import { getAllArticles } from "@/lib/api/journal";
 import { getAllReviews } from "@/lib/api/reviews";
 import { getAllOffers } from "@/lib/api/offers";
@@ -248,10 +249,13 @@ export default async function HomePage() {
       {/* 9 ── Partner Promotions (M Hotels · Island Resorts · Travel agents) */}
       <PartnerPromotionsBanner />
 
-      {/* 10 ── RECOGNITION — awards band */}
-      <section className="bg-[#f7fafb] py-12 sm:py-16">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <StaggerGrid className="grid items-center gap-10 sm:grid-cols-3">
+      {/* 10 ── RECOGNITION & ACCREDITATION — awards band */}
+      <section className="bg-[#f7fafb] py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 space-y-10">
+          {/* Official Ministry of Tourism Platinum Accreditation Card */}
+          <MytqaAccreditationCard />
+
+          <StaggerGrid className="grid items-center gap-10 sm:grid-cols-3 border-t border-ink/8 pt-10">
             <div className="flex flex-col items-center gap-3 text-center">
               <GoogleG className="size-8 text-teal-deep" />
               <p className="font-display text-3xl font-medium text-ink">5.0</p>

@@ -7,6 +7,7 @@ import { Link } from "@/lib/i18n/navigation";
 import { ROUTE_GROUPS } from "@/lib/routes";
 import { SITE } from "@/lib/site";
 import { whatsappLink, WHATSAPP_NUMBER } from "@/lib/utils";
+import { MytqaFooterBadge } from "@/components/layout/MytqaFooterBadge";
 
 /** Light footer on cream — soft borders, gold hover accents. */
 export async function Footer() {
@@ -165,8 +166,9 @@ export async function Footer() {
             </div>
           </nav>
 
-          <div>
+          <div className="space-y-6">
             <NewsletterForm tone="dark" />
+            <MytqaFooterBadge />
           </div>
         </div>
 
