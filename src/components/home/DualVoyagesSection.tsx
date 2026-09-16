@@ -1,71 +1,80 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "@/lib/i18n/navigation";
+import { Check } from "lucide-react";
 
-interface CruisePackageInfo {
+import type { Package } from "@/types";
+import { Link } from "@/lib/i18n/navigation";
+import { formatPrice } from "@/lib/format";
+
+interface VesselInfo {
   id: "summer-cruise" | "green-horizon";
   name: "Summer Cruise" | "Green Horizon";
-  subtitle: string;
-  description: string;
   image: string;
   alt: string;
-  packageSlug: string;
   meetingPoint: string;
   boardingPoint: string;
-  checkIn: string;
-  checkOut3D2N: string;
-  checkOut4D3N: string;
 }
 
-const CRUISE_DATA: Record<"summer-cruise" | "green-horizon", CruisePackageInfo> = {
+type PackageSlug = "3d2n-kenyir-explorer" | "4d3n-kenyir-grand-voyage";
+type VesselId = "summer-cruise" | "green-horizon";
+
+const VESSEL_DATA: Record<VesselId, VesselInfo> = {
   "summer-cruise": {
     id: "summer-cruise",
     name: "Summer Cruise",
-    subtitle: "Explore Kenyir Lake with Summercruise",
-    description:
-      "Admire the breathtaking views of kenyir lake and take advantage of a range of water activities during your visit.",
     image: "/images/page-heroes/hero-packages.webp",
     alt: "Summer Cruise navigating through emerald bays of Tasik Kenyir",
-    packageSlug: "/packages/3d2n-kenyir-explorer",
     meetingPoint:
-      "We provide Land transfer from TGG Airport, MBKT Bus station, Ming Paragon Hotels & Sri Malaysia Hotel, Kampung Cina.",
+      "We provide Land transfer from TGG Airport, MBKT Bus station, Ming Paragon Hotel & Sri Malaysia Hotel, Kampung Cina.",
     boardingPoint: "Gawi Jetty, Pangkalan Gawi",
-    checkIn: "12:00PM (Friday / Monday)",
-    checkOut3D2N: "04:00PM(Sunday / Wednesday)",
-    checkOut4D3N: "11:00AM(Monday / Thursday)",
   },
   "green-horizon": {
     id: "green-horizon",
     name: "Green Horizon",
-    subtitle: "Explore Kenyir Lake with Green Horizon",
-    description:
-      "Admire the breathtaking views of kenyir lake and take advantage of a range of water activities during your visit.",
     image: "/images/real/about-1-Green-Horizon_summer-cruise.webp",
     alt: "Green Horizon luxury houseboat on Kenyir Lake",
-    packageSlug: "/packages/4d3n-kenyir-grand-voyage",
     meetingPoint:
-      "We provide Land transfer from TGG Aiport, MBKT Bus Station, Ming Paragon Hotel",
+      "We provide Land transfer from TGG Airport, MBKT Bus Station, Ming Paragon Hotel",
     boardingPoint: "Gawi Jetty, Pangkalan Gawi",
-    checkIn: "12:00PM (Friday / Monday)",
-    checkOut3D2N: "01:00PM(Sunday / Wednesday)",
-    checkOut4D3N: "11:00AM(Monday / Thursday)",
   },
 };
 
-export function DualVoyagesSection() {
-  const [activeTab, setActiveTab] = useState<"summer-cruise" | "green-horizon">("summer-cruise");
+const DURATION_PILLS: { slug: PackageSlug; label: string }[] = [
+  { slug: "3d2n-kenyir-explorer", label: "3D2N" },
+  { slug: "4d3n-kenyir-grand-voyage", label: "4D3N" },
+];
+
+export function DualVoyagesSection({ packages }: { packages: Package[] }) {
+  const [activePackageSlug, setActivePackageSlug] =
+    useState<PackageSlug>("3d2n-kenyir-explorer");
+  const [activeVesselId, setActiveVesselId] =
+    useState<VesselId>("summer-cruise");
   const [showMapModal, setShowMapModal] = useState(false);
 
-  const activeCruise = CRUISE_DATA[activeTab];
+  const activePackage = packages.find((p) => p.slug === activePackageSlug);
+  const activeVessel = VESSEL_DATA[activeVesselId];
+
+  useEffect(() => {
+    if (!showMapModal) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setShowMapModal(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [showMapModal]);
+
+  if (!activePackage) return null;
 
   return (
     <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
       {/* Section Header */}
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">03 — Packages &amp; Charters</p>
+          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">
+            03 — Packages &amp; Charters
+          </p>
           <h2 className="font-display mt-4 max-w-3xl text-4xl font-medium leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-6xl">
             Unforgettable Kenyir Lake Cruise Packages.
           </h2>
@@ -78,52 +87,43 @@ export function DualVoyagesSection() {
         </Link>
       </div>
 
-      {/* Segmented Vessel Switcher */}
+      {/* PRIMARY — Segmented Package Switcher (both cruises share every package) */}
       <div className="mt-10 flex justify-center">
         <div className="inline-flex rounded-2xl border border-black/5 bg-black/[0.04] p-1.5 shadow-inner">
-          <button
-            type="button"
-            onClick={() => setActiveTab("summer-cruise")}
-            className={`relative rounded-xl px-7 py-3 text-sm sm:text-base font-medium transition-all duration-300 ${
-              activeTab === "summer-cruise"
-                ? "bg-obsidian text-white shadow-md shadow-obsidian/20"
-                : "text-ink/75 hover:bg-white/60 hover:text-ink"
-            }`}
-          >
-            Summer Cruise
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab("green-horizon")}
-            className={`relative rounded-xl px-7 py-3 text-sm sm:text-base font-medium transition-all duration-300 ${
-              activeTab === "green-horizon"
-                ? "bg-obsidian text-white shadow-md shadow-obsidian/20"
-                : "text-ink/75 hover:bg-white/60 hover:text-ink"
-            }`}
-          >
-            Green Horizon
-          </button>
+          {packages.map((p) => (
+            <button
+              key={p.slug}
+              type="button"
+              onClick={() => setActivePackageSlug(p.slug as PackageSlug)}
+              className={`rounded-xl px-5 py-3 text-sm sm:px-7 sm:text-base font-medium transition-all duration-300 ${
+                activePackageSlug === p.slug
+                  ? "bg-obsidian text-white shadow-md shadow-obsidian/20"
+                  : "text-ink/75 hover:bg-white/60 hover:text-ink"
+              }`}
+            >
+              {p.title}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Main Luxury Package Card */}
+      {/* Main Luxury Package Card — the package is the hero, vessel is secondary */}
       <div className="mt-8 overflow-hidden rounded-3xl sm:rounded-[2.5rem] border border-black/5 bg-white p-6 sm:p-8 lg:p-10 shadow-xl shadow-obsidian/5">
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeTab}
+            key={activePackageSlug}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.35, ease: "easeInOut" }}
-            className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12"
+            className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-stretch lg:gap-12"
           >
-            {/* Left Column: Unified Media & Amenities Card */}
+            {/* Left Column: Selected Vessel Image + Amenities */}
             <div className="overflow-hidden rounded-2xl sm:rounded-3xl border border-black/10 bg-[#0e1d22] shadow-lg lg:col-span-6 flex flex-col">
-              {/* Photo Showcase Container */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden group">
+              <div className="relative w-full overflow-hidden group aspect-[16/10] lg:aspect-auto lg:flex-1 lg:min-h-[340px]">
                 <img
-                  src={activeCruise.image}
-                  alt={activeCruise.alt}
+                  src={activeVessel.image}
+                  alt={activeVessel.alt}
                   className="size-full object-cover object-center transition-transform duration-[2.5s] ease-out group-hover:scale-105"
                   loading="lazy"
                 />
@@ -132,15 +132,19 @@ export function DualVoyagesSection() {
                   className="absolute inset-0 bg-gradient-to-t from-[#0e1d22]/40 via-transparent to-black/10 pointer-events-none"
                 />
 
-                {/* Vessel Badge without dot */}
                 <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4">
                   <span className="inline-flex items-center rounded-full bg-obsidian/85 px-3.5 py-1.5 text-[0.65rem] sm:text-xs font-semibold tracking-wide text-white backdrop-blur-md border border-white/15 shadow-sm">
-                    {activeCruise.name}
+                    {activePackage.title}
+                  </span>
+                </div>
+                <div className="absolute bottom-3.5 right-3.5 sm:bottom-4 sm:right-4">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-black/45 px-3.5 py-1.5 text-[0.65rem] sm:text-xs font-medium tracking-wide text-white backdrop-blur-md border border-white/15 shadow-sm">
+                    aboard {activeVessel.name}
                   </span>
                 </div>
               </div>
 
-              {/* Luxury Amenities & Scenery Highlights Bar (Seamlessly Attached) */}
+              {/* Amenities Highlights Bar */}
               <div className="p-4 sm:p-5 text-white">
                 <div className="grid grid-cols-5 gap-1.5 text-center">
                   <div className="flex flex-col items-center">
@@ -180,96 +184,107 @@ export function DualVoyagesSection() {
               </div>
             </div>
 
-            {/* Right Information & Schedule Panel */}
+            {/* Right Panel: Package Content */}
             <div className="flex flex-col justify-between lg:col-span-6">
               <div>
-                {/* Header Title + Duration Pills */}
+                {/* Eyebrow + Duration Pills */}
                 <div className="flex flex-wrap items-start justify-between gap-3">
-                  <h3 className="font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl lg:text-5xl">
-                    Leisure Package
-                  </h3>
+                  <div>
+                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.26em] text-teal-deep">
+                      The Package
+                    </p>
+                    <h3 className="font-display mt-2 text-3xl font-medium tracking-tight text-ink sm:text-4xl lg:text-5xl">
+                      {activePackage.title}
+                    </h3>
+                  </div>
                   <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-ink/20 px-3 py-1 text-xs font-semibold text-ink">
-                      <MoonIcon className="size-3.5 fill-current text-ink/70" />
-                      3D2N
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-ink/20 px-3 py-1 text-xs font-semibold text-ink">
-                      <MoonIcon className="size-3.5 fill-current text-ink/70" />
-                      4D3N
-                    </span>
+                    {DURATION_PILLS.map((pill) => (
+                      <button
+                        key={pill.slug}
+                        type="button"
+                        onClick={() => setActivePackageSlug(pill.slug)}
+                        aria-pressed={activePackageSlug === pill.slug}
+                        className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold transition-all duration-300 ${
+                          activePackageSlug === pill.slug
+                            ? "border-obsidian bg-obsidian text-white"
+                            : "border-ink/20 text-ink hover:border-obsidian hover:text-obsidian"
+                        }`}
+                      >
+                        <MoonIcon className="size-3.5 fill-current opacity-70" />
+                        {pill.label}
+                      </button>
+                    ))}
                   </div>
                 </div>
 
-                {/* Subtitle */}
-                <p className="mt-2 text-base font-semibold text-teal-deep sm:text-lg">
-                  {activeCruise.subtitle}
+                {/* Price + Duration */}
+                <p className="mt-3 text-sm font-semibold text-ink sm:text-base">
+                  {activePackage.durationLabel} · from{" "}
+                  <span className="text-teal-deep">
+                    {formatPrice(activePackage.fromPriceMYR)}
+                  </span>{" "}
+                  per guest (full board)
                 </p>
 
-                {/* Description */}
-                <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                  {activeCruise.description}
-                </p>
+                {/* Highlights */}
+                <ul className="mt-4 space-y-2">
+                  {activePackage.highlights.slice(0, 4).map((h) => (
+                    <li key={h} className="flex items-start gap-2.5 text-sm leading-relaxed text-text-muted">
+                      <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-teal-deep" />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
 
-                {/* Logistics Items */}
-                <div className="mt-6 space-y-4">
-                  {/* Meeting Point */}
-                  <div className="flex items-start gap-3.5">
-                    <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-obsidian text-white">
-                      <MeetingIcon className="size-5" />
-                    </div>
-                    <div>
-                      <h4 className="text-xs sm:text-sm font-semibold text-ink">Meeting Point</h4>
-                      <p className="mt-0.5 text-xs sm:text-sm leading-relaxed text-text-muted">
-                        {activeCruise.meetingPoint}
-                      </p>
-                    </div>
+                {/* Secondary — Choose your cruise */}
+                <div className="mt-5 rounded-2xl border border-gray-200/80 bg-[#f8fafc] p-4 sm:p-5">
+                  <p className="text-xs sm:text-sm font-semibold text-ink">
+                    Choose your cruise — {activePackage.title} sails on both vessels
+                  </p>
+                  <div className="mt-2.5 grid grid-cols-2 gap-2">
+                    {(Object.keys(VESSEL_DATA) as VesselId[]).map((vid) => (
+                      <button
+                        key={vid}
+                        type="button"
+                        onClick={() => setActiveVesselId(vid)}
+                        aria-pressed={activeVesselId === vid}
+                        className={`inline-flex items-center justify-center gap-2 rounded-xl border px-3 py-2 text-xs sm:text-sm font-medium transition-all duration-300 ${
+                          activeVesselId === vid
+                            ? "border-obsidian bg-obsidian text-white shadow-md shadow-obsidian/20"
+                            : "border-black/10 bg-white text-ink/80 hover:border-obsidian hover:text-obsidian"
+                        }`}
+                      >
+                        <ShipIcon className="size-4 shrink-0" />
+                        {VESSEL_DATA[vid].name}
+                      </button>
+                    ))}
                   </div>
+                </div>
 
-                  {/* Boarding Point */}
-                  <div className="flex items-start gap-3.5">
-                    <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-obsidian text-white">
-                      <PinIcon className="size-5" />
-                    </div>
-                    <div>
-                      <h4 className="text-xs sm:text-sm font-semibold text-ink">Boarding / De-boarding Point</h4>
-                      <p className="mt-0.5 text-xs sm:text-sm text-text-muted">
-                        {activeCruise.boardingPoint}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Check-in / Check-out Matrix */}
-                  <div className="flex items-start gap-3.5 rounded-2xl border border-gray-200/80 bg-[#f8fafc] p-4 sm:p-5">
-                    <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-obsidian text-white">
-                      <CheckCircleIcon className="size-5" />
-                    </div>
-                    <div className="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-2">
-                      <div>
-                        <h4 className="text-xs sm:text-sm font-semibold text-ink">Check-in</h4>
-                        <p className="mt-1 text-xs sm:text-sm text-text-muted">
-                          {activeCruise.checkIn}
-                        </p>
+                {/* Logistics (vessel-specific) */}
+                <div className="mt-5 rounded-2xl border border-gray-200/80 bg-[#f8fafc] p-4 sm:p-5">
+                  <div className="space-y-3.5">
+                    <div className="flex items-start gap-3.5">
+                      <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-obsidian text-white">
+                        <MeetingIcon className="size-4" />
                       </div>
                       <div>
-                        <h4 className="text-xs sm:text-sm font-semibold text-ink">Check-out</h4>
-                        <div className="mt-1.5 space-y-1.5">
-                          <div className="flex items-center gap-2">
-                            <span className="inline-block rounded-full border border-teal-deep/30 bg-teal/10 px-2 py-0.5 text-[0.65rem] font-bold text-teal-deep">
-                              3D2N
-                            </span>
-                            <span className="text-xs sm:text-sm text-text-muted">
-                              {activeCruise.checkOut3D2N}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <span className="inline-block rounded-full border border-teal-deep/30 bg-teal/10 px-2 py-0.5 text-[0.65rem] font-bold text-teal-deep">
-                              4D3N
-                            </span>
-                            <span className="text-xs sm:text-sm text-text-muted">
-                              {activeCruise.checkOut4D3N}
-                            </span>
-                          </div>
-                        </div>
+                        <h4 className="text-xs sm:text-sm font-semibold text-ink">Meeting Point</h4>
+                        <p className="mt-0.5 text-xs sm:text-sm leading-relaxed text-text-muted">
+                          {activeVessel.meetingPoint}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3.5 border-t border-gray-200/70 pt-3.5">
+                      <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-obsidian text-white">
+                        <PinIcon className="size-4" />
+                      </div>
+                      <div>
+                        <h4 className="text-xs sm:text-sm font-semibold text-ink">Boarding / De-boarding Point</h4>
+                        <p className="mt-0.5 text-xs sm:text-sm text-text-muted">
+                          {activeVessel.boardingPoint}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -277,19 +292,19 @@ export function DualVoyagesSection() {
               </div>
 
               {/* Bottom Actions */}
-              <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-gray-100 pt-6">
+              <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-gray-100 pt-5">
                 <button
                   type="button"
                   onClick={() => setShowMapModal(true)}
-                  className="group inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-ink transition-colors hover:text-teal-deep"
+                  className="group inline-flex min-h-9 items-center gap-2 text-xs sm:text-sm font-medium text-ink transition-colors hover:text-teal-deep"
                 >
                   <PinIcon className="size-4 text-teal-deep transition-transform duration-300 group-hover:scale-110" />
                   <span>Voyage Map</span>
                 </button>
 
                 <Link
-                  href={activeCruise.packageSlug}
-                  className="inline-flex items-center gap-2 rounded-xl bg-obsidian px-6 py-3.5 text-xs sm:text-sm font-semibold tracking-wide text-white shadow-md transition-all duration-300 hover:bg-teal hover:shadow-lg hover:scale-[1.02]"
+                  href={`/packages/${activePackage.slug}`}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-obsidian px-6 py-3.5 text-xs sm:w-auto sm:text-sm font-semibold tracking-wide text-white shadow-md transition-all duration-300 hover:bg-teal hover:shadow-lg hover:scale-[1.02]"
                 >
                   <span>Explore Package</span>
                   <span aria-hidden className="text-base leading-none">↗</span>
@@ -317,7 +332,7 @@ export function DualVoyagesSection() {
               <div className="flex items-center justify-between border-b border-gray-100 pb-4">
                 <div>
                   <h3 className="font-display text-2xl font-medium text-ink">
-                    {activeCruise.name} — Voyage Route
+                    {activePackage.title} — Voyage Route
                   </h3>
                   <p className="text-xs text-text-muted mt-0.5">
                     Tasik Kenyir Navigation Chart & Primary Anchorages
@@ -338,7 +353,6 @@ export function DualVoyagesSection() {
                   <img
                     src="/images/lake/kenyir-map-render.webp"
                     onError={(e) => {
-                      // Fallback if specific render isn't there
                       (e.currentTarget as HTMLImageElement).src = "/images/lake/kenyir-shoreline.webp";
                     }}
                     alt="Tasik Kenyir Navigation Route Map"
@@ -368,7 +382,7 @@ export function DualVoyagesSection() {
 
                 <div className="flex justify-end pt-2">
                   <Link
-                    href={activeCruise.packageSlug}
+                    href={`/packages/${activePackage.slug}`}
                     className="inline-flex items-center gap-2 rounded-xl bg-obsidian px-5 py-2.5 text-xs font-semibold text-white hover:bg-teal"
                   >
                     View Detailed Itinerary ↗
@@ -457,11 +471,11 @@ function PinIcon({ className }: { className?: string }) {
   );
 }
 
-function CheckCircleIcon({ className }: { className?: string }) {
+function ShipIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} aria-hidden>
-      <circle cx="12" cy="12" r="10" />
-      <path d="m9 12 2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className={className} aria-hidden>
+      <path d="M2 20c1.5 1 3 1 4.5 0s3-1 4.5 0 3 1 4.5 0 3-1 4.5 0" strokeLinecap="round" />
+      <path d="M4 16l1.2-7h8.6L15 16M7 9V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v4M6 13h12" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

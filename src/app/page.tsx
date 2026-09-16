@@ -24,6 +24,7 @@ import { PartnerPromotionsBanner } from "@/components/home/PartnerPromotionsBann
 import { getAllArticles } from "@/lib/api/journal";
 import { getAllReviews } from "@/lib/api/reviews";
 import { getAllOffers } from "@/lib/api/offers";
+import { getAllPackages } from "@/lib/api/packages";
 import { getExperiencesByKind } from "@/lib/api/experiences";
 import { Link } from "@/lib/i18n/navigation";
 import { GoogleG, StarRow } from "@/components/layout/BrandBadges";
@@ -31,11 +32,12 @@ import { GoogleG, StarRow } from "@/components/layout/BrandBadges";
 export default async function HomePage() {
   const t = await getTranslations("home");
   const tc = await getTranslations("common");
-  const [articles, reviews, offers, experiences] = await Promise.all([
+  const [articles, reviews, offers, experiences, packages] = await Promise.all([
     getAllArticles(),
     getAllReviews(),
     getAllOffers(),
     getExperiencesByKind("excursions"),
+    getAllPackages(),
   ]);
   const offer = offers[0];
 
@@ -78,7 +80,7 @@ export default async function HomePage() {
       <FleetSection />
 
       {/* 3 ── UNFORGETTABLE KENYIR LAKE CRUISE PACKAGES */}
-      <DualVoyagesSection />
+      <DualVoyagesSection packages={packages} />
 
       {/* Current offer — single ribbon, low text density */}
       {offer && (
