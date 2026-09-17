@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Award, ShieldCheck, X } from "lucide-react";
 
@@ -13,6 +13,15 @@ interface MytqaFooterBadgeProps {
  */
 export function MytqaFooterBadge({ className = "" }: MytqaFooterBadgeProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, [isOpen]);
 
   return (
     <>
@@ -52,11 +61,11 @@ export function MytqaFooterBadge({ className = "" }: MytqaFooterBadgeProps) {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md animate-fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md animate-fade-in overflow-y-auto overscroll-contain"
           onClick={() => setIsOpen(false)}
         >
           <div
-            className="relative max-w-lg w-full overflow-hidden rounded-3xl border border-gold/40 bg-[#0C2B33] p-6 shadow-2xl text-white sm:p-8"
+            className="relative max-w-lg w-full overflow-hidden rounded-3xl bg-[#0C2B33] p-6 shadow-2xl text-white sm:p-8"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -91,7 +100,7 @@ export function MytqaFooterBadge({ className = "" }: MytqaFooterBadgeProps) {
               />
             </div>
 
-            <div className="mt-5 rounded-xl bg-white/5 p-3.5 text-center text-xs text-white/80 border border-white/10">
+            <div className="mt-5 rounded-xl bg-white/5 p-3.5 text-center text-xs text-white/80">
               <p className="font-semibold text-gold-bright">
                 Accreditation Ref: Platinum · Summer Cruise
               </p>
