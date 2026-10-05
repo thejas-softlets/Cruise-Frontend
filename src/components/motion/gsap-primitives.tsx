@@ -568,22 +568,21 @@ export function SplitDoors({
         defaults: { ease: "none" },
         scrollTrigger: {
           trigger: ref.current,
-          start: "top top", // fires only once the hero is fully out of screen
-          end: "+=130%",
+          start: "top top",
+          end: "+=40%", // Fast, responsive 1-scroll door reveal (eliminated 7x drag)
           pin: true,
-          scrub: 1.2,
+          scrub: 0.5,
         },
       })
-        // 0–0.07: doors hold closed for a beat after the hero fully clears
-        .to(left.current, { xPercent: -102, duration: 0.93 }, 0.07)
-        .to(right.current, { xPercent: 102, duration: 0.93 }, 0.07)
-        .to("[data-door-word]", { opacity: 0, duration: 0.2 }, 0.07)
-        .fromTo("[data-reveal-content]", { scale: 1.14 }, { scale: 1, duration: 0.93 }, 0.07)
+        .to(left.current, { xPercent: -102, duration: 0.95 }, 0.02)
+        .to(right.current, { xPercent: 102, duration: 0.95 }, 0.02)
+        .to("[data-door-word]", { opacity: 0, duration: 0.2 }, 0.02)
+        .fromTo("[data-reveal-content]", { scale: 1.05 }, { scale: 1, duration: 0.95 }, 0.02)
         .fromTo(
           "[data-reveal-rise]",
-          { y: 46, opacity: 0 },
+          { y: 32, opacity: 0 },
           { y: 0, opacity: 1, duration: 0.45, stagger: 0.08, ease: EASE },
-          0.4
+          0.3
         );
     }, ref);
     return () => ctx.revert();
@@ -605,7 +604,7 @@ export function SplitDoors({
           <div ref={left} className={cn(doorBase, "left-0")}>
             <span
               data-door-word
-              className="font-display absolute inset-y-0 right-0 flex items-center pr-[3vw] text-[13vw] font-medium leading-none tracking-tight text-white/95 select-none"
+              className="font-display absolute inset-y-0 right-0 flex items-center pr-[4vw] text-[clamp(2.5rem,6.5vw,5.5rem)] font-medium leading-none tracking-tight text-white/95 select-none"
             >
               {leftWord}
             </span>
@@ -613,7 +612,7 @@ export function SplitDoors({
           <div ref={right} className={cn(doorBase, "right-0")}>
             <span
               data-door-word
-              className="font-display absolute inset-y-0 left-0 flex items-center pl-[3vw] text-[13vw] font-medium leading-none tracking-tight text-white/95 select-none"
+              className="font-display absolute inset-y-0 left-0 flex items-center pl-[4vw] text-[clamp(2.5rem,6.5vw,5.5rem)] font-medium leading-none tracking-tight text-white/95 select-none"
             >
               {rightWord}
             </span>

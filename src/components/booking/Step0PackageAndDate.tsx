@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Check,
   Bookmark,
@@ -12,6 +12,7 @@ import {
   X,
   Users,
 } from "lucide-react";
+import { Portal } from "@/components/ui/Portal";
 import type { Package, Vessel } from "@/types";
 import { cn } from "@/lib/utils";
 import { GraphicalDateSelector } from "./GraphicalDateSelector";
@@ -77,6 +78,20 @@ export function Step0PackageAndDate({
   vessels,
 }: Step0PackageAndDateProps) {
   const [showItineraryModal, setShowItineraryModal] = useState(false);
+
+  useEffect(() => {
+    if (!showItineraryModal) return;
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setShowItineraryModal(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = original;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [showItineraryModal]);
 
   // Active selected package
   const selectedPkg = packages.find((p) => p.slug === selectedPackageSlug) || packages[0];
@@ -470,48 +485,50 @@ export function Step0PackageAndDate({
         </div>
       )}
 
-      {/* Route Map Itinerary Modal */}
+      {/* Route Map Itinerary Modal rendered via Portal */}
       {showItineraryModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm sm:p-6 animate-fade-in">
-          <div className="relative flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl">
-            <div className="flex items-center justify-between border-b border-ink/10 px-6 py-4">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-teal-deep">
-                  Lake Kenyir Route &amp; Waypoints
-                </span>
-                <h3 className="font-display text-xl font-medium text-ink">
-                  {selectedPkg?.title} · {selectedPkg?.durationLabel}
-                </h3>
+        <Portal>
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm sm:p-6 animate-fade-in w-screen h-screen overflow-y-auto">
+            <div className="relative flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl my-auto">
+              <div className="flex items-center justify-between border-b border-ink/10 px-6 py-4">
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-wider text-teal-deep">
+                    Lake Kenyir Route &amp; Waypoints
+                  </span>
+                  <h3 className="font-display text-xl font-medium text-ink">
+                    {selectedPkg?.title} · {selectedPkg?.durationLabel}
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowItineraryModal(false)}
+                  className="flex size-9 items-center justify-center rounded-full bg-ink/5 text-ink transition hover:bg-ink/15"
+                >
+                  <X className="size-5" />
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={() => setShowItineraryModal(false)}
-                className="flex size-9 items-center justify-center rounded-full bg-ink/5 text-ink transition hover:bg-ink/15"
-              >
-                <X className="size-5" />
-              </button>
-            </div>
 
-            <div className="overflow-y-auto p-4 sm:p-6">
-              <DynamicCruiseMap
-                waypoints={MOCK_WAYPOINTS[selectedPkg?.slug] || MOCK_WAYPOINTS["3d2n-kenyir-explorer"]}
-                packageSlug={selectedPkg?.slug}
-                packageTitle={selectedPkg?.title}
-                durationLabel={selectedPkg?.durationLabel}
-              />
-            </div>
+              <div className="overflow-y-auto p-4 sm:p-6">
+                <DynamicCruiseMap
+                  waypoints={MOCK_WAYPOINTS[selectedPkg?.slug] || MOCK_WAYPOINTS["3d2n-kenyir-explorer"]}
+                  packageSlug={selectedPkg?.slug}
+                  packageTitle={selectedPkg?.title}
+                  durationLabel={selectedPkg?.durationLabel}
+                />
+              </div>
 
-            <div className="flex justify-end border-t border-ink/10 bg-[#FAFAF8] px-6 py-3">
-              <button
-                type="button"
-                onClick={() => setShowItineraryModal(false)}
-                className="rounded-xl bg-teal-deep px-5 py-2 text-xs font-bold uppercase tracking-wider text-white"
-              >
-                Close Map
-              </button>
+              <div className="flex justify-end border-t border-ink/10 bg-[#FAFAF8] px-6 py-3">
+                <button
+                  type="button"
+                  onClick={() => setShowItineraryModal(false)}
+                  className="rounded-xl bg-teal-deep px-5 py-2 text-xs font-bold uppercase tracking-wider text-white"
+                >
+                  Close Map
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </Portal>
       )}
     </div>
   );

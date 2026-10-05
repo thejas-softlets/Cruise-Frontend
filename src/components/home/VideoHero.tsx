@@ -72,7 +72,7 @@ export function VideoHero() {
   return (
     <section
       ref={root}
-      className="relative flex min-h-screen-safe flex-col justify-end overflow-hidden bg-obsidian text-white"
+      className="relative flex min-h-[58vh] min-h-[58dvh] sm:min-h-[66vh] lg:min-h-[72vh] max-h-[820px] flex-col justify-end overflow-hidden bg-obsidian text-white"
     >
       {/* ── Media layer ── */}
       <div data-hero-media className="absolute inset-0 will-change-transform">
@@ -93,10 +93,10 @@ export function VideoHero() {
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_10%,transparent_45%,rgba(12,43,51,0.45)_100%)]" />
       </div>
 
-      {/* ── Content (Bottom-left aligned editorial text) ── */}
+      {/* ── Content (Bottom-left aligned editorial text, minimized & refined) ── */}
       <div
         ref={content}
-        className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pb-28 pt-28 sm:px-8 sm:pb-24 sm:pt-36 lg:pb-28 lg:pt-40"
+        className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pb-12 pt-24 sm:px-8 sm:pb-16 sm:pt-32 lg:pb-16 lg:pt-36"
       >
         <p
           data-hero-eyebrow
@@ -105,7 +105,7 @@ export function VideoHero() {
           Tasik Kenyir · Terengganu · Malaysia
         </p>
 
-        <h1 className="font-display mt-3 text-[clamp(3.3rem,13.5vw,4.5rem)] font-medium leading-[0.96] tracking-tight text-white sm:mt-4 sm:whitespace-nowrap sm:text-[clamp(2.2rem,6.5vw,6.5rem)] sm:leading-[1.02] lg:text-[clamp(2.6rem,7.5vw,7.5rem)] drop-shadow-[0_4px_30px_rgba(0,0,0,0.7)]">
+        <h1 className="font-display mt-2 text-[clamp(2.1rem,5vw,4.5rem)] font-medium leading-[1.02] tracking-tight text-white sm:mt-3 sm:whitespace-nowrap drop-shadow-[0_4px_30px_rgba(0,0,0,0.7)]">
           <span aria-label="Kenyir Lake Cruises" className="sr-only">
             Kenyir Lake Cruises
           </span>
@@ -121,17 +121,17 @@ export function VideoHero() {
       </div>
 
       {/* Bottom video play/pause toggle button */}
-      <div data-hero-cue className="absolute bottom-5 left-1/2 z-20 -translate-x-1/2">
+      <div data-hero-cue className="absolute bottom-3.5 left-1/2 z-20 -translate-x-1/2">
         <button
           type="button"
           onClick={togglePlay}
           aria-label={isPlaying ? "Pause background video" : "Play background video"}
-          className="flex size-10 items-center justify-center text-white/70 transition-colors duration-300 hover:text-white"
+          className="flex size-9 items-center justify-center text-white/70 transition-colors duration-300 hover:text-white"
         >
           {isPlaying ? (
-            <Pause className="size-5 stroke-[1.5]" aria-hidden />
+            <Pause className="size-4 stroke-[1.5]" aria-hidden />
           ) : (
-            <Play className="size-5 stroke-[1.5] translate-x-0.5" aria-hidden />
+            <Play className="size-4 stroke-[1.5] translate-x-0.5" aria-hidden />
           )}
         </button>
       </div>

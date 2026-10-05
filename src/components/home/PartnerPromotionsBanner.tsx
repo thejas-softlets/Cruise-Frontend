@@ -61,7 +61,7 @@ const PARTNER_DESTINATIONS: PartnerDestination[] = [
 
 export function PartnerPromotionsBanner() {
   return (
-    <section className="bg-[#faf9f6] py-14 sm:py-20 border-t border-b border-ink/5">
+    <section className="bg-[#faf9f6] pt-8 pb-12 sm:pt-10 sm:pb-14 border-t border-b border-ink/5">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <FadeIn>
           <div className="flex flex-wrap items-end justify-between gap-4">
@@ -79,7 +79,7 @@ export function PartnerPromotionsBanner() {
           </div>
         </FadeIn>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-6 sm:mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {PARTNER_DESTINATIONS.map((dest, i) => (
             <FadeIn key={dest.title} delay={i * 0.08}>
               <a

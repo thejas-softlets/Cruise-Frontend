@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sparkles, Bookmark, Ship, ChevronDown, ChevronUp, X, ArrowRight } from "lucide-react";
+import { Portal } from "@/components/ui/Portal";
 import type { Package, Vessel } from "@/types";
 import { formatPrice } from "@/lib/format";
 import { getDepartureDates, type DepartureDate } from "@/lib/departure-dates";
@@ -56,6 +57,20 @@ export function AvailableCruisesList({
 }: AvailableCruisesListProps) {
   const [itineraryModalPkg, setItineraryModalPkg] = useState<Package | null>(null);
   const [expandedDatesPkg, setExpandedDatesPkg] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!itineraryModalPkg) return;
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setItineraryModalPkg(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = original;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [itineraryModalPkg]);
 
   // Generate departure dates
   const allDepartures = getDepartureDates({ limit: 16 });
@@ -262,64 +277,66 @@ export function AvailableCruisesList({
         );
       })}
 
-      {/* Itinerary Map Modal (Aqua Expeditions style View Itinerary screen) */}
+      {/* Itinerary Map Modal rendered via Portal */}
       {itineraryModalPkg && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm sm:p-6 animate-fade-in">
-          <div className="relative flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl">
-            {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-ink/10 px-6 py-4">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-teal-deep">
-                  Expedition Route & Daily Waypoints
-                </span>
-                <h3 className="font-display text-xl font-medium text-ink">
-                  {itineraryModalPkg.title} · {itineraryModalPkg.durationLabel}
-                </h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setItineraryModalPkg(null)}
-                className="flex size-9 items-center justify-center rounded-full bg-ink/5 text-ink transition hover:bg-ink/15"
-              >
-                <X className="size-5" />
-              </button>
-            </div>
-
-            {/* Modal Map & Itinerary Content */}
-            <div className="overflow-y-auto p-4 sm:p-6">
-              <DynamicCruiseMap
-                waypoints={MOCK_WAYPOINTS[itineraryModalPkg.slug] || MOCK_WAYPOINTS["3d2n-kenyir-explorer"]}
-                packageSlug={itineraryModalPkg.slug}
-                packageTitle={itineraryModalPkg.title}
-                durationLabel={itineraryModalPkg.durationLabel}
-              />
-            </div>
-
-            {/* Modal Footer */}
-            <div className="flex items-center justify-end gap-3 border-t border-ink/10 bg-[#FAFAF8] px-6 py-3">
-              <button
-                type="button"
-                onClick={() => setItineraryModalPkg(null)}
-                className="rounded-xl px-4 py-2 text-xs font-semibold text-text-muted hover:text-ink"
-              >
-                Close
-              </button>
-              {filteredDepartures[0] && (
+        <Portal>
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm sm:p-6 animate-fade-in w-screen h-screen overflow-y-auto">
+            <div className="relative flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl my-auto">
+              {/* Modal Header */}
+              <div className="flex items-center justify-between border-b border-ink/10 px-6 py-4">
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-wider text-teal-deep">
+                    Expedition Route &amp; Daily Waypoints
+                  </span>
+                  <h3 className="font-display text-xl font-medium text-ink">
+                    {itineraryModalPkg.title} · {itineraryModalPkg.durationLabel}
+                  </h3>
+                </div>
                 <button
                   type="button"
-                  onClick={() => {
-                    const vessel = vessels.find((v) => v.id === itineraryModalPkg.vesselId) ?? vessels[0];
-                    onSelectSailing(itineraryModalPkg, vessel, filteredDepartures[0]);
-                    setItineraryModalPkg(null);
-                  }}
-                  className="rounded-xl bg-teal-deep px-5 py-2 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-obsidian shadow"
+                  onClick={() => setItineraryModalPkg(null)}
+                  className="flex size-9 items-center justify-center rounded-full bg-ink/5 text-ink transition hover:bg-ink/15"
                 >
-                  Book This Expedition
+                  <X className="size-5" />
                 </button>
-              )}
+              </div>
+
+              {/* Modal Map & Itinerary Content */}
+              <div className="overflow-y-auto p-4 sm:p-6">
+                <DynamicCruiseMap
+                  waypoints={MOCK_WAYPOINTS[itineraryModalPkg.slug] || MOCK_WAYPOINTS["3d2n-kenyir-explorer"]}
+                  packageSlug={itineraryModalPkg.slug}
+                  packageTitle={itineraryModalPkg.title}
+                  durationLabel={itineraryModalPkg.durationLabel}
+                />
+              </div>
+
+              {/* Modal Footer */}
+              <div className="flex items-center justify-end gap-3 border-t border-ink/10 bg-[#FAFAF8] px-6 py-3">
+                <button
+                  type="button"
+                  onClick={() => setItineraryModalPkg(null)}
+                  className="rounded-xl px-4 py-2 text-xs font-semibold text-text-muted hover:text-ink"
+                >
+                  Close
+                </button>
+                {filteredDepartures[0] && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const vessel = vessels.find((v) => v.id === itineraryModalPkg.vesselId) ?? vessels[0];
+                      onSelectSailing(itineraryModalPkg, vessel, filteredDepartures[0]);
+                      setItineraryModalPkg(null);
+                    }}
+                    className="rounded-xl bg-teal-deep px-5 py-2 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-obsidian shadow"
+                  >
+                    Book This Expedition
+                  </button>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        </Portal>
       )}
     </div>
   );

@@ -7,7 +7,7 @@ export const MOCK_VESSELS: Vessel[] = [
     id: "summer-cruise",
     name: "Summer Cruise",
     tagline: "Our flagship luxury houseboat — intimate, handcrafted, and quietly loved on Lake Kenyir.",
-    heroImage: media("Summer Cruise luxury houseboat aerial view on Kenyir Lake", "/images/real/DJI_0061.webp", 1920, 1080),
+    heroImage: media("Summer Cruise luxury flagship houseboat on Kenyir Lake", "/images/vessels/sc-hero.webp", 1920, 1440),
     gallery: [
       media("Summer Cruise panoramic bedroom with lake view", "/images/real/sc-superior-bedroom.webp", 1920, 1440),
       media("Houseboat deck dining lounge", "/images/real/DSC01523-min-scaled.webp", 1920, 1280),
@@ -35,7 +35,7 @@ export const MOCK_VESSELS: Vessel[] = [
     id: "green-horizon",
     name: "Green Horizon",
     tagline: "Newly launched luxury grand houseboat — grand proportions, modern elegance, built for gathering.",
-    heroImage: media("Green Horizon luxury houseboat front profile at Tasik Kenyir", "/images/real/about-1-Green-Horizon_summer-cruise.webp", 1920, 1080),
+    heroImage: media("Green Horizon luxury grand houseboat on Kenyir Lake", "/images/vessels/gh-hero.webp", 1920, 1440),
     gallery: [
       media("Green Horizon side profile on water", "/images/real/about-2-Green-Horizon_summer-cruise.webp", 1920, 1080),
       media("Green Horizon aerial view with lush rainforest backdrop", "/images/real/DJI_20240629102555_0058_D-min.webp", 2048, 1536),

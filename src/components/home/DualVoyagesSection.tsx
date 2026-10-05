@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
+import { Portal } from "@/components/ui/Portal";
 
 import type { Package } from "@/types";
 import { Link } from "@/lib/i18n/navigation";
@@ -58,37 +59,42 @@ export function DualVoyagesSection({ packages }: { packages: Package[] }) {
 
   useEffect(() => {
     if (!showMapModal) return;
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setShowMapModal(false);
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = original;
+      window.removeEventListener("keydown", onKey);
+    };
   }, [showMapModal]);
 
   if (!activePackage) return null;
 
   return (
-    <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
+    <section className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14">
       {/* Section Header */}
-      <div className="flex flex-wrap items-end justify-between gap-6">
-        <div>
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center justify-between gap-4">
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">
             03 — Packages &amp; Charters
           </p>
-          <h2 className="font-display mt-4 max-w-3xl text-4xl font-medium leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-6xl">
-            Unforgettable Kenyir Lake Cruise Packages.
-          </h2>
+          <Link
+            href="/packages"
+            className="inline-flex min-h-9 items-center gap-2 rounded-full border border-teal-deep/25 bg-teal-deep/5 px-5 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-teal-deep transition-all duration-300 hover:bg-teal-deep hover:text-white shadow-xs"
+          >
+            Packages Detailed Page →
+          </Link>
         </div>
-        <Link
-          href="/packages"
-          className="inline-flex min-h-11 items-center gap-2 rounded-full border border-teal-deep/25 bg-teal-deep/5 px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-teal-deep transition-all duration-300 hover:bg-teal-deep hover:text-white shadow-xs"
-        >
-          Packages Detailed Page →
-        </Link>
+        <h2 className="font-display mt-1 w-full max-w-none text-[clamp(1.6rem,3.2vw,3.2rem)] font-medium leading-tight tracking-tight text-ink whitespace-normal lg:whitespace-nowrap">
+          Unforgettable Kenyir Lake Cruise Packages.
+        </h2>
       </div>
 
       {/* PRIMARY — Segmented Package Switcher (both cruises share every package) */}
-      <div className="mt-10 flex justify-center">
+      <div className="mt-7 flex justify-center">
         <div className="inline-flex rounded-2xl border border-black/5 bg-black/[0.04] p-1.5 shadow-inner">
           {packages.map((p) => (
             <button
@@ -315,20 +321,21 @@ export function DualVoyagesSection({ packages }: { packages: Package[] }) {
         </AnimatePresence>
       </div>
 
-      {/* Voyage Map Modal Lightbox */}
+      {/* Voyage Map Modal Lightbox rendered via Portal */}
       <AnimatePresence>
         {showMapModal && (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-obsidian/75 p-4 backdrop-blur-sm"
-            onClick={() => setShowMapModal(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative max-h-[90vh] w-full max-w-3xl overflow-hidden rounded-3xl bg-white p-6 sm:p-8 shadow-2xl"
+          <Portal>
+            <div
+              className="fixed inset-0 z-[9999] flex items-center justify-center bg-obsidian/85 p-4 backdrop-blur-sm w-screen h-screen overflow-y-auto"
+              onClick={() => setShowMapModal(false)}
             >
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative max-h-[90vh] w-full max-w-3xl overflow-hidden rounded-3xl bg-white p-6 sm:p-8 shadow-2xl my-auto"
+              >
               <div className="flex items-center justify-between border-b border-gray-100 pb-4">
                 <div>
                   <h3 className="font-display text-2xl font-medium text-ink">
@@ -391,7 +398,8 @@ export function DualVoyagesSection({ packages }: { packages: Package[] }) {
               </div>
             </motion.div>
           </div>
-        )}
+        </Portal>
+      )}
       </AnimatePresence>
     </section>
   );

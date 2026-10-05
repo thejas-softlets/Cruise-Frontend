@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Award, ShieldCheck, X } from "lucide-react";
+import { Portal } from "@/components/ui/Portal";
 
 interface MytqaFooterBadgeProps {
   className?: string;
@@ -18,8 +19,13 @@ export function MytqaFooterBadge({ className = "" }: MytqaFooterBadgeProps) {
     if (!isOpen) return;
     const original = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = original;
+      window.removeEventListener("keydown", onKey);
     };
   }, [isOpen]);
 
@@ -56,70 +62,72 @@ export function MytqaFooterBadge({ className = "" }: MytqaFooterBadgeProps) {
         </div>
       </button>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox Modal rendered via Portal to cover full viewport */}
       {isOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md animate-fade-in overflow-y-auto overscroll-contain"
-          onClick={() => setIsOpen(false)}
-        >
+        <Portal>
           <div
-            className="relative max-w-lg w-full overflow-hidden rounded-3xl bg-[#0C2B33] p-6 shadow-2xl text-white sm:p-8"
-            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md animate-fade-in w-screen h-screen overflow-y-auto overscroll-contain"
+            onClick={() => setIsOpen(false)}
           >
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="absolute right-4 top-4 flex size-9 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
-              aria-label="Close modal"
+            <div
+              className="relative max-w-lg w-full overflow-hidden rounded-3xl bg-[#0C2B33] p-6 shadow-2xl text-white sm:p-8 my-auto"
+              onClick={(e) => e.stopPropagation()}
             >
-              <X className="size-5" />
-            </button>
-
-            <div className="text-center mb-5">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/15 px-3 py-0.5 text-[0.65rem] font-bold uppercase tracking-widest text-gold-bright">
-                MOTAC Official Plaque
-              </span>
-              <h4 className="font-display mt-2 text-2xl font-medium tracking-tight text-white">
-                Malaysia Tourism Quality Assurance
-              </h4>
-              <p className="mt-1 text-xs text-white/70">
-                Ministry of Tourism, Arts and Culture · Summer Cruise Platinum Plaque
-              </p>
-            </div>
-
-            <div className="relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-2xl border-2 border-gold/60 shadow-2xl">
-              <Image
-                src="/mytqa.jpeg"
-                alt="Full MyTQA Platinum Accreditation Plaque"
-                fill
-                sizes="(max-width: 640px) 90vw, 400px"
-                className="object-contain"
-                priority
-              />
-            </div>
-
-            <div className="mt-5 rounded-xl bg-white/5 p-3.5 text-center text-xs text-white/80">
-              <p className="font-semibold text-gold-bright">
-                Accreditation Ref: Platinum · Summer Cruise
-              </p>
-              <p className="mt-0.5 text-[11px] text-white/60">
-                Certified Tenure: 7 August 2025 – 6 August 2028 · Tasik Kenyir, Terengganu
-              </p>
-            </div>
-
-            <div className="mt-4 flex justify-center">
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="rounded-full bg-gold px-6 py-2 text-xs font-bold uppercase tracking-wider text-obsidian transition hover:bg-gold-bright shadow-md"
+                className="absolute right-4 top-4 flex size-9 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+                aria-label="Close modal"
               >
-                Close View
+                <X className="size-5" />
               </button>
+
+              <div className="text-center mb-5">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/15 px-3 py-0.5 text-[0.65rem] font-bold uppercase tracking-widest text-gold-bright">
+                  MOTAC Official Plaque
+                </span>
+                <h4 className="font-display mt-2 text-2xl font-medium tracking-tight text-white">
+                  Malaysia Tourism Quality Assurance
+                </h4>
+                <p className="mt-1 text-xs text-white/70">
+                  Ministry of Tourism, Arts and Culture · Summer Cruise Platinum Plaque
+                </p>
+              </div>
+
+              <div className="relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-2xl border-2 border-gold/60 shadow-2xl">
+                <Image
+                  src="/mytqa.jpeg"
+                  alt="Full MyTQA Platinum Accreditation Plaque"
+                  fill
+                  sizes="(max-width: 640px) 90vw, 400px"
+                  className="object-contain"
+                  priority
+                />
+              </div>
+
+              <div className="mt-5 rounded-xl bg-white/5 p-3.5 text-center text-xs text-white/80">
+                <p className="font-semibold text-gold-bright">
+                  Accreditation Ref: Platinum · Summer Cruise
+                </p>
+                <p className="mt-0.5 text-[11px] text-white/60">
+                  Certified Tenure: 7 August 2025 – 6 August 2028 · Tasik Kenyir, Terengganu
+                </p>
+              </div>
+
+              <div className="mt-4 flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => setIsOpen(false)}
+                  className="rounded-full bg-gold px-6 py-2 text-xs font-bold uppercase tracking-wider text-obsidian transition hover:bg-gold-bright shadow-md"
+                >
+                  Close View
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </Portal>
       )}
     </>
   );

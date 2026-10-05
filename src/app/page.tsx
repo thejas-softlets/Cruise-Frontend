@@ -117,7 +117,7 @@ export default async function HomePage() {
             <p data-reveal-rise className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-soft">
               04 — The Lake
             </p>
-            <h2 data-reveal-rise className="font-display mt-5 text-4xl font-medium leading-[1.05] tracking-tight text-balance sm:text-6xl">
+            <h2 data-reveal-rise className="font-display mt-4 text-3xl font-medium leading-[1.1] tracking-tight text-balance sm:text-4xl md:text-5xl">
               130 million years of rainforest, one mirror-still lake
             </h2>
             <p data-reveal-rise className="mt-6 max-w-lg text-base leading-relaxed text-white/85">
@@ -137,14 +137,14 @@ export default async function HomePage() {
       </SplitDoors>
 
       {/* 5 ── WHAT GUESTS SAY */}
-      <section className="bg-[#f7fafb] py-16 sm:py-24">
+      <section className="bg-[#f7fafb] py-10 sm:py-14">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">05 — Guest Words</p>
               <SplitHeadline
                 text="What guests say"
-                className="font-display mt-4 text-4xl font-medium tracking-tight text-ink sm:text-6xl"
+                className="font-display mt-3 text-3xl font-medium tracking-tight text-ink sm:text-5xl"
               />
             </div>
             <Rise delay={0.2}>
@@ -153,7 +153,7 @@ export default async function HomePage() {
               </span>
             </Rise>
           </div>
-          <StaggerGrid className="mt-10 grid gap-6 lg:grid-cols-3">
+          <StaggerGrid className="mt-6 sm:mt-8 grid gap-6 lg:grid-cols-3">
             {reviews.slice(0, 3).map((r) => (
               <figure
                 key={r.id}
@@ -174,35 +174,35 @@ export default async function HomePage() {
       </section>
 
       {/* 6 ── KENYIR LAKE EXPERIENCES & EXCURSIONS: Combined Infinite Marquee & Horizontal Drag */}
-      <section className="bg-bg-base py-16 sm:py-24">
+      <section className="bg-bg-base py-10 sm:py-14">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between gap-4">
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">
                 06 — Experiences &amp; Excursions
               </p>
-              <SplitHeadline
-                text="Discover Kenyir Lake Experiences &amp; Excursions"
-                className="font-display mt-4 max-w-3xl text-3xl font-medium leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-6xl"
-              />
-              <p className="mt-3 max-w-2xl text-base text-text-muted">
-                From ancient limestone caves and roaring waterfalls to misty bamboo rafting — discover every signature Kenyir encounter.
-              </p>
+              <Link
+                href="/experiences"
+                className="font-secondary inline-flex min-h-9 items-center gap-2 rounded-full border border-ink/15 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-ink shadow-xs transition-all duration-300 hover:border-teal hover:bg-teal hover:text-white"
+              >
+                All Experiences →
+              </Link>
             </div>
-            <Link
-              href="/experiences"
-              className="font-secondary inline-flex min-h-10 items-center gap-2 rounded-full border border-ink/15 bg-white px-5 text-xs font-semibold uppercase tracking-[0.14em] text-ink shadow-xs transition-all duration-300 hover:border-teal hover:bg-teal hover:text-white"
-            >
-              All Experiences →
-            </Link>
+            <SplitHeadline
+              text="Discover Kenyir Lake Experiences &amp; Excursions"
+              className="font-display mt-1 w-full max-w-none text-[clamp(1.6rem,3.2vw,3.2rem)] font-medium leading-tight tracking-tight text-ink whitespace-normal lg:whitespace-nowrap"
+            />
+            <p className="mt-2 w-full max-w-none text-base text-text-muted">
+              From ancient limestone caves and roaring waterfalls to misty bamboo rafting — discover every signature Kenyir encounter.
+            </p>
           </div>
         </div>
 
-        <ExperiencesInfiniteMarquee items={allExperienceItems} className="mt-8" />
+        <ExperiencesInfiniteMarquee items={allExperienceItems} className="mt-6" />
       </section>
 
       {/* 7 ── PANORAMIC INTERLUDE — pinned slow parallax quote */}
-      <section className="relative overflow-hidden bg-obsidian py-28 text-center text-white sm:py-40">
+      <section className="relative overflow-hidden bg-obsidian py-16 text-center text-white sm:py-22">
         <ParallaxLayer speed={0.22} className="absolute inset-0 -top-[15%] h-[130%]">
           <img src="/images/real/DJI_0117-min-scaled.webp" alt="" className="size-full object-cover" loading="lazy" />
         </ParallaxLayer>
@@ -219,7 +219,7 @@ export default async function HomePage() {
       </section>
 
       {/* 8 ── JOURNAL — travel guide cards */}
-      <section id="travel-guide" className="scroll-mt-20 bg-bg-base py-16 sm:py-24">
+      <section id="travel-guide" className="scroll-mt-20 bg-bg-base pt-10 pb-8 sm:pt-14 sm:pb-10">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <FadeIn>
             <div className="flex flex-wrap items-end justify-between gap-6">
@@ -227,7 +227,7 @@ export default async function HomePage() {
                 <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">08 — Journal</p>
                 <SplitHeadline
                   text="Notes from the lake"
-                  className="font-display mt-4 text-4xl font-medium tracking-tight text-ink sm:text-5xl"
+                  className="font-display mt-3 text-3xl font-medium tracking-tight text-ink sm:text-5xl"
                 />
               </div>
               <Magnetic>
@@ -238,7 +238,7 @@ export default async function HomePage() {
             </div>
           </FadeIn>
 
-          <StaggerGrid className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" duration={0.85} stagger={0.08} y={40}>
+          <StaggerGrid className="mt-6 sm:mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" duration={0.85} stagger={0.08} y={40}>
             {articles.slice(0, 3).map((article) => (
               <ArticleCard key={article.slug} article={article} />
             ))}
@@ -250,8 +250,8 @@ export default async function HomePage() {
       <PartnerPromotionsBanner />
 
       {/* 10 ── RECOGNITION & ACCREDITATION — awards band */}
-      <section className="bg-[#f7fafb] py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8 space-y-10">
+      <section className="bg-[#f7fafb] py-10 sm:py-14">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 space-y-7">
           {/* Official Ministry of Tourism Platinum Accreditation Card */}
           <MytqaAccreditationCard />
 
@@ -279,7 +279,7 @@ export default async function HomePage() {
       </section>
 
       {/* 11 ── CLOSING CTA — dusk lake, magnetic buttons */}
-      <section className="relative overflow-hidden bg-obsidian pb-28 pt-40 text-center text-white sm:pb-36 sm:pt-56">
+      <section className="relative overflow-hidden bg-obsidian pb-20 pt-28 text-center text-white sm:pb-28 sm:pt-36">
         <ParallaxLayer speed={0.16} className="absolute inset-0 -top-[12%] h-[124%]">
           <img src="/images/real/DJI_0123-min-scaled.webp" alt="" className="size-full object-cover" loading="lazy" />
         </ParallaxLayer>
@@ -328,21 +328,21 @@ function Sparkle() {
 /* ------------------------------------------------------------------ */
 function FleetSection() {
   return (
-    <section className="bg-bg-base pb-16 pt-12 sm:pb-24 sm:pt-16">
+    <section className="bg-bg-base pb-10 pt-8 sm:pb-14 sm:pt-10">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-teal-deep">
           02 — The Fleet &amp; Life On Board
         </p>
         <SplitHeadline
           text="Kenyir Lake’s Premier Luxury River Cruises."
-          className="font-display mt-4 max-w-4xl text-3xl font-medium leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-6xl"
+          className="font-display mt-2 w-full max-w-none text-[clamp(1.6rem,3.2vw,3.2rem)] font-medium leading-tight tracking-tight text-ink whitespace-normal lg:whitespace-nowrap"
         />
-        <p className="mt-4 max-w-3xl text-base leading-relaxed text-text-muted sm:text-lg">
+        <p className="mt-2 w-full max-w-none text-base leading-relaxed text-text-muted sm:text-lg">
           Discover the beauty of Kenyir Lake through the exceptional experiences of SummerCruise and Green Horizon
         </p>
       </div>
 
-      <div className="mx-auto mt-10 max-w-7xl px-5 sm:px-8">
+      <div className="mx-auto mt-7 max-w-7xl px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {FLEET.map((v) => (
             <CurtainReveal key={v.id} className="w-full">
