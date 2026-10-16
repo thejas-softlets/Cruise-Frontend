@@ -36,7 +36,7 @@ export default async function AboutDetailPage({
   return (
     <div>
       <PageHero
-        asset={media("Life on board a Summer Cruise houseboat", "/images/page-heroes/hero-about-slug.webp")}
+        asset={media("Life on board a Summer Cruise Lake Cruise", "/images/page-heroes/hero-about-slug.webp")}
         title={t(`pages.${slug}.title` as const)}
         line={t(`pages.${slug}.intro` as const)}
         crumbs={crumbs}

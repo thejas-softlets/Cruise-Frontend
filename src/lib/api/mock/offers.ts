@@ -25,7 +25,7 @@ export const MOCK_OFFERS: Offer[] = [
     slug: "family-getaway",
     title: "Family Getaway",
     shortTag: "Kids stay 50% off",
-    heroImage: media("Family splashing off the houseboat deck", "/images/offers/offer-family.webp"),
+    heroImage: media("Family splashing off the cruise deck", "/images/offers/offer-family.webp"),
     eligibility: ["Families with children aged 4–12", "Minimum 2 adults"],
     discountSummary:
       "Children aged 4–12 receive 50% off the per-person rate in the Family Room. Cots and kids' life jackets included at no charge.",
@@ -41,7 +41,7 @@ export const MOCK_OFFERS: Offer[] = [
     slug: "honeymoon-and-romantic",
     title: "Honeymoon & Romantic",
     shortTag: "Complimentary couples' extras",
-    heroImage: media("Couple watching sunset from the houseboat deck", "/images/offers/offer-romantic.webp"),
+    heroImage: media("Couple watching sunset from the cruise deck", "/images/offers/offer-romantic.webp"),
     eligibility: ["Couples on any 2-night-or-longer cruise"],
     discountSummary:
       "Complimentary room upgrade (when available), floating lantern dinner on your final evening, and a late checkout on board.",
@@ -71,7 +71,7 @@ export const MOCK_OFFERS: Offer[] = [
     slug: "festive-and-school-holiday",
     title: "Festive & School Holiday Special",
     shortTag: "4th night free",
-    heroImage: media("Lanterns strung across the houseboat deck at night", "/images/offers/offer-festive.webp"),
+    heroImage: media("Lanterns strung across the cruise deck at night", "/images/offers/offer-festive.webp"),
     eligibility: ["Travel during gazetted Malaysian school holidays and festive periods"],
     discountSummary:
       "Book 4D3N and receive a complimentary 4th night on board, plus festive-themed meals and activities for the kids.",
@@ -87,7 +87,7 @@ export const MOCK_OFFERS: Offer[] = [
     slug: "local-resident-discount",
     title: "Local Resident Discount",
     shortTag: "20% with Malaysian IC",
-    heroImage: media("Guests waving from the deck of a houseboat", "/images/offers/offer-local.webp"),
+    heroImage: media("Guests waving from the deck of a cruise", "/images/offers/offer-local.webp"),
     eligibility: ["Malaysian IC holders"],
     discountSummary:
       "20% off any package for Malaysian citizens — our thanks to the neighbours who share this lake with us.",
@@ -103,7 +103,7 @@ export const MOCK_OFFERS: Offer[] = [
     slug: "group-booking-discount",
     title: "Group Booking Discount",
     shortTag: "1 free place per 10",
-    heroImage: media("Large group gathered on the houseboat deck", "/images/offers/offer-group.webp"),
+    heroImage: media("Large group gathered on the cruise deck", "/images/offers/offer-group.webp"),
     eligibility: ["Groups of 10 or more travelling together"],
     discountSummary:
       "One complimentary place for every 10 paying guests — the organiser cruises free.",

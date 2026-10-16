@@ -156,24 +156,27 @@ export default function RealCruiseMap({
     markersRef.current.forEach((m) => map.removeLayer(m));
     markersRef.current = [];
 
-    // 2. Remove previous route
+    // 2. Remove previous route layers (glow + dash)
     if (routePolylineRef.current) {
       map.removeLayer(routePolylineRef.current);
       routePolylineRef.current = null;
     }
+    // Also remove any existing route flow lines
+    map.eachLayer((layer) => {
+      if (layer instanceof L.Polyline && !(layer instanceof L.Polygon)) {
+        map.removeLayer(layer);
+      }
+    });
 
-    // 3. Draw Water Navigation Polyline (following lake water channels),
-    // smoothed into a continuous curve so it reads as one flowing route
-    // rather than dot-to-dot segments between the plotted fairway points.
-    const rawCoords: [number, number][] =
+    // 3. Draw Water Navigation Polyline (following lake water channels strictly)
+    const polylineCoords: [number, number][] =
       navigationPath && navigationPath.length > 0
         ? navigationPath
-        : waypoints.map((wp) => [wp.lat, wp.lng]);
-    const polylineCoords = smoothPolyline(rawCoords);
+        : smoothPolyline(waypoints.map((wp) => [wp.lat, wp.lng]));
 
     if (polylineCoords.length > 1) {
       // Glow underlayer
-      L.polyline(polylineCoords, {
+      const glowLine = L.polyline(polylineCoords, {
         color: activeLayer === "satellite" ? "#38bdf8" : "#0e7490",
         weight: 6,
         opacity: 0.35,
@@ -188,8 +191,7 @@ export default function RealCruiseMap({
         lineCap: "round",
       }).addTo(map);
 
-      // Subtle marching-dash animation so the route reads as a direction of
-      // travel rather than a static line — a common nautical-chart touch.
+      // Marching-dash animation for water fairway navigation
       const pathEl = polyline.getElement();
       if (pathEl) {
         pathEl.classList.add("cruise-route-flow");

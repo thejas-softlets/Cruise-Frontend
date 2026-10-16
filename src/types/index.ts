@@ -52,6 +52,7 @@ export interface Package {
   durationNights: number;
   durationLabel: string;
   fromPriceMYR: number; // indicative until backend confirms (§8.3)
+  customPriceLabel?: string;
   heroImage: MediaAsset;
   overview: string;
   highlights: string[];

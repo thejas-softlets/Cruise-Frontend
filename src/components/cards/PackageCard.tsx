@@ -35,13 +35,21 @@ export function PackageCard({ pkg }: { pkg: Package }) {
         <h3 className="font-display max-w-sm text-3xl font-normal leading-tight text-[#F4F4F6] sm:text-4xl group-hover:text-white transition-colors duration-300">
           {pkg.title}
         </h3>
-        <p className="font-body mt-3 text-[0.8125rem] tracking-wide text-white/75">
-          {tc("from")}{" "}
-          <span className="font-secondary text-xl font-bold text-gold-bright">
-            {formatPrice(pkg.fromPriceMYR)}
-          </span>{" "}
-          {tc("perPax")}
-        </p>
+        {pkg.customPriceLabel ? (
+          <p className="font-body mt-3 text-[0.8125rem] tracking-wide text-white/90">
+            <span className="font-secondary text-sm font-bold text-gold-bright">
+              {pkg.customPriceLabel}
+            </span>
+          </p>
+        ) : (
+          <p className="font-body mt-3 text-[0.8125rem] tracking-wide text-white/75">
+            {tc("from")}{" "}
+            <span className="font-secondary text-xl font-bold text-gold-bright">
+              {formatPrice(pkg.fromPriceMYR)}
+            </span>{" "}
+            {tc("perPax")}
+          </p>
+        )}
       </div>
     </Link>
   );

@@ -4,7 +4,7 @@ import { media } from "./media";
 
 export const MOCK_LAKE: LakeInfo = {
   overview:
-    "Kenyir is one of the largest man-made lakes in Southeast Asia — 260,000 hectares of flooded rainforest dotted with more than 340 islands. What that means on a cruise: wide open water that suddenly narrows into river canyons, waterfalls you can hear before you see, and evenings where the only sounds are the forest and the water.",
+    "Kenyir is a large man-made in lake located in the state of Terengganu, Malaysia. It was created in the early 1980s as part of the Kenyir Hydroelectric Dam project and is now a popular tourist destination known for its natural beauty and outdoor activities.\n\nThe lake is surrounded by lush tropical rainforest and is home to a variety of wildlife, including elephants, tigers, and a diverse range of bird species. Visitors can go on jungle treks, bird-watching expeditions, and boat tours to explore the lake and its surroundings.\n\nKenyir is also a popular destination for fishing enthusiasts, with a wide variety of fish species, including giant snakeheads, hampala barb, bagrid catfish and mahseer. In addition to fishing, visitors can also participate in water sports such as kayaking.",
   bestTimeToVisit:
     "March to October is the drier, calmer window — best for swimming and first-time cruisers. November to February brings afternoon showers, quieter waters and the most dramatic skies. Every season has its own kind of perfect; tell us what you want from the trip and we'll suggest dates honestly.",
   gettingThere: {
@@ -18,7 +18,7 @@ export const MOCK_LAKE: LakeInfo = {
   heroGallery: [
     media("Aerial view of Kenyir Lake islands", "/images/lake/kenyir-aerial.webp"),
     media("Rainforest shoreline at first light", "/images/lake/kenyir-shoreline.webp"),
-    media("Houseboat dwarfed by the lake at dusk", "/images/lake/kenyir-dusk.webp"),
+    media("Lake Cruise dwarfed by the lake at dusk", "/images/lake/kenyir-dusk.webp"),
   ],
 };
 

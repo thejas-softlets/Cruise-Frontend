@@ -272,7 +272,7 @@ export default async function HomePage() {
                 <path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <p className="font-display text-3xl font-medium text-ink">No. 1</p>
-              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-text-muted">Houseboat Cruise · Tasik Kenyir</p>
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-text-muted">Lake Cruise · Tasik Kenyir</p>
             </div>
           </StaggerGrid>
         </div>
@@ -432,7 +432,7 @@ const FLEET = [
   {
     id: "summer-cruise",
     name: "Summer Cruise",
-    role: "Flagship Luxury Houseboat",
+    role: "Flagship Luxury Lake Cruise",
     meta: "34 guests · 12 rooms · 10 crew",
     image: "/images/vessels/sc-hero.webp",
     guests: 34,
@@ -442,7 +442,7 @@ const FLEET = [
   {
     id: "green-horizon",
     name: "Green Horizon",
-    role: "Newly Launched Grand Houseboat",
+    role: "Newly Launched Grand Lake Cruise",
     meta: "60 guests · 15 rooms · 10 crew",
     image: "/images/vessels/gh-hero.webp",
     guests: 60,
@@ -492,7 +492,7 @@ const EXCURSIONS = [
     tag: "On The Water",
     title: "Kayak & Bamboo Raft",
     image: "/images/real/DSC07926-min-1-scaled.webp",
-    description: "Glide silently across misty emerald inlets directly from the houseboat deck.",
+    description: "Glide silently across misty emerald inlets directly from the cruise deck.",
   },
   {
     id: "stargazing",

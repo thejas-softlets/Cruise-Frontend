@@ -6,11 +6,11 @@ export const MOCK_VESSELS: Vessel[] = [
   {
     id: "summer-cruise",
     name: "Summer Cruise",
-    tagline: "Our flagship luxury houseboat — intimate, handcrafted, and quietly loved on Lake Kenyir.",
-    heroImage: media("Summer Cruise luxury flagship houseboat on Kenyir Lake", "/images/vessels/sc-hero.webp", 1920, 1440),
+    tagline: "Our flagship luxury Lake Cruise — intimate, handcrafted, and quietly loved on Lake Kenyir.",
+    heroImage: media("Summer Cruise luxury flagship Lake Cruise on Kenyir Lake", "/images/vessels/sc-hero.webp", 1920, 1440),
     gallery: [
       media("Summer Cruise panoramic bedroom with lake view", "/images/real/sc-superior-bedroom.webp", 1920, 1440),
-      media("Houseboat deck dining lounge", "/images/real/DSC01523-min-scaled.webp", 1920, 1280),
+      media("Lake Cruise deck dining lounge", "/images/real/DSC01523-min-scaled.webp", 1920, 1280),
       media("Summer Cruise aerial cruising across Kenyir coves", "/images/real/DJI_0911-min-scaled.webp", 2048, 1536),
       media("Upper sun deck with loungers", "/images/real/6P3A8577-min-scaled.webp", 1920, 1280),
       media("Summer Cruise anchored in serene emerald bay", "/images/real/DJI_0123-min-scaled.webp", 1920, 1080),
@@ -34,8 +34,8 @@ export const MOCK_VESSELS: Vessel[] = [
   {
     id: "green-horizon",
     name: "Green Horizon",
-    tagline: "Newly launched luxury grand houseboat — grand proportions, modern elegance, built for gathering.",
-    heroImage: media("Green Horizon luxury grand houseboat on Kenyir Lake", "/images/vessels/gh-hero.webp", 1920, 1440),
+    tagline: "Newly launched luxury grand Lake Cruise — grand proportions, modern elegance, built for gathering.",
+    heroImage: media("Green Horizon luxury grand Lake Cruise on Kenyir Lake", "/images/vessels/gh-hero.webp", 1920, 1440),
     gallery: [
       media("Green Horizon side profile on water", "/images/real/about-2-Green-Horizon_summer-cruise.webp", 1920, 1080),
       media("Green Horizon aerial view with lush rainforest backdrop", "/images/real/DJI_20240629102555_0058_D-min.webp", 2048, 1536),

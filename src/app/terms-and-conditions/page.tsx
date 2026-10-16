@@ -13,7 +13,7 @@ export default async function TermsPage() {
   return (
     <>
       <PageHero
-        asset={media("Houseboat cruising past forested islands", "/images/page-heroes/hero-terms.webp")}
+        asset={media("Lake Cruise cruising past forested islands", "/images/page-heroes/hero-terms.webp")}
         title={t("title")}
         crumbs={crumbs}
       />

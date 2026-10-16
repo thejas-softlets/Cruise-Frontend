@@ -25,12 +25,27 @@ export default async function FaqsPage() {
       />
 
       <div className="mx-auto max-w-4xl px-5 pb-28 sm:px-8">
-        <div className="space-y-14 pt-16">
+        <div className="pt-12 pb-6 border-b border-ink/8 text-center sm:text-left">
+          <p className="font-secondary text-xs font-semibold uppercase tracking-widest text-gold-deep">
+            Tasik Kenyir · Terengganu · Malaysia
+          </p>
+          <h2 className="font-display mt-2 text-2xl sm:text-3xl font-medium text-ink">
+            Summer Cruise Kenyir Lake
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-text-muted">
+            Planning a trip to Tasik Kenyir with Summer Cruise? Find answers to the most common questions about our luxury Lake Cruise experience, packages, activities, accommodation, transportation, and travel tips.
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-text-muted">
+            Whether you are planning a family holiday, couple getaway, corporate retreat, or nature escape, this FAQ guide helps you prepare for your Kenyir Lake adventure.
+          </p>
+        </div>
+
+        <div className="space-y-14 pt-12">
           {categories.map((cat, i) => (
             <FadeIn key={cat.id} delay={i * 0.05}>
-              <section>
-                <h2 className="font-display text-3xl font-medium">
-                  {tRoot(`faqs.categories.${cat.id}`)}
+              <section id={cat.id} className="scroll-mt-28">
+                <h2 className="font-display text-2xl sm:text-3xl font-medium text-ink">
+                  {cat.title}
                 </h2>
                 <div className="mt-6">
                   <FaqAccordion items={cat.items} />

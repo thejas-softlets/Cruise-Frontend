@@ -35,7 +35,7 @@ const VESSEL_DATA: Record<VesselId, VesselInfo> = {
     id: "green-horizon",
     name: "Green Horizon",
     image: "/images/real/about-1-Green-Horizon_summer-cruise.webp",
-    alt: "Green Horizon luxury houseboat on Kenyir Lake",
+    alt: "Green Horizon luxury Lake Cruise on Kenyir Lake",
     meetingPoint:
       "We provide Land transfer from TGG Airport, MBKT Bus Station, Ming Paragon Hotel",
     boardingPoint: "Gawi Jetty, Pangkalan Gawi",
@@ -225,11 +225,17 @@ export function DualVoyagesSection({ packages }: { packages: Package[] }) {
 
                 {/* Price + Duration */}
                 <p className="mt-3 text-sm font-semibold text-ink sm:text-base">
-                  {activePackage.durationLabel} · from{" "}
-                  <span className="text-teal-deep">
-                    {formatPrice(activePackage.fromPriceMYR)}
-                  </span>{" "}
-                  per guest (full board)
+                  {activePackage.customPriceLabel ? (
+                    <span className="text-teal-deep">{activePackage.customPriceLabel}</span>
+                  ) : (
+                    <>
+                      {activePackage.durationLabel} · from{" "}
+                      <span className="text-teal-deep">
+                        {formatPrice(activePackage.fromPriceMYR)}
+                      </span>{" "}
+                      per guest (full board)
+                    </>
+                  )}
                 </p>
 
                 {/* Highlights */}

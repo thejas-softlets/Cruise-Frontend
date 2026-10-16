@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/Button";
 import { PlaceholderMedia } from "@/components/ui/PlaceholderMedia";
 import { ReviewCard } from "@/components/cards/ReviewCard";
 import { DynamicCruiseMap } from "@/components/booking/DynamicCruiseMap";
+import { SummerCruiseDeckPlan } from "@/components/vessels/SummerCruiseDeckPlan";
 import { getAllPackages, getPackageBySlug } from "@/lib/api/packages";
 import { getRoomsByIds } from "@/lib/api/rooms";
 import { getExperiencesBySlugs } from "@/lib/api/experiences";
@@ -53,6 +54,7 @@ export default async function PackageDetailPage({
     { id: "route-map", label: "Navigation Chart" },
     { id: "itinerary", label: t("itinerary") },
     { id: "rooms", label: t("rooms") },
+    { id: "deck-plan", label: "Deck Plan" },
     { id: "book-cabins", label: "Cabin Selection" },
     { id: "included", label: t("inclusions") },
     { id: "experiences", label: t("experiences") },
@@ -65,7 +67,11 @@ export default async function PackageDetailPage({
       <PageHero
         asset={pkg.heroImage}
         title={pkg.title}
-        line={`${tc("from")} ${formatPrice(pkg.fromPriceMYR)} ${tc("perPax")} · ${pkg.durationLabel}`}
+        line={
+          pkg.customPriceLabel
+            ? `${pkg.customPriceLabel} · ${pkg.durationLabel}`
+            : `${tc("from")} ${formatPrice(pkg.fromPriceMYR)} ${tc("perPax")} · ${pkg.durationLabel}`
+        }
         crumbs={crumbs}
         size="lg"
       />
@@ -78,7 +84,7 @@ export default async function PackageDetailPage({
           <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
             <div>
               <h2 className="font-display text-3xl font-medium">{t("overview")}</h2>
-              <p className="mt-4 text-lg leading-relaxed text-text-muted">{pkg.overview}</p>
+              <p className="mt-4 text-lg leading-relaxed text-text-muted whitespace-pre-line">{pkg.overview}</p>
               <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
                 {pkg.highlights.map((h) => (
                   <li key={h} className="flex items-start gap-2.5">
@@ -111,7 +117,7 @@ export default async function PackageDetailPage({
                 Expedition Navigation
               </span>
               <h2 className="font-display mt-1 text-3xl font-medium text-ink">
-                Kenyir Lake Passage Route Chart
+                Kenyir Lake Passenger Route Chart
               </h2>
             </div>
             <p className="max-w-md text-xs leading-relaxed text-text-muted">
@@ -176,6 +182,9 @@ export default async function PackageDetailPage({
             ))}
           </div>
         </section>
+
+        {/* Summer Cruise Floor Plan Attachment (Ground Floor, First Floor, Second Floor) */}
+        <SummerCruiseDeckPlan />
 
         {/* Book Your Stateroom — deep-links into the unified booking wizard */}
         <section id="book-cabins" className="scroll-mt-28 pt-20">

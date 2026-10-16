@@ -7,7 +7,7 @@ import { media } from "./media";
  * the category taxonomy matches GalleryItem.category for filtering.
  */
 export const MOCK_GALLERY: GalleryItem[] = [
-  { id: "g-01", category: "vessels", media: media("Summer Cruise houseboat underway", "/images/gallery/gallery-01-vessel-underway.webp"), caption: "Summer Cruise underway" },
+  { id: "g-01", category: "vessels", media: media("Summer Cruise Lake Cruise underway", "/images/gallery/gallery-01-vessel-underway.webp"), caption: "Summer Cruise underway" },
   { id: "g-02", category: "vessels", media: media("Green Horizon upper deck", "/images/gallery/gallery-02-gh-upper-deck.webp"), caption: "Green Horizon's upper deck" },
   { id: "g-03", category: "vessels", media: media("Crew casting off at Pengkalan Gawi jetty", "/images/gallery/gallery-03-casting-off.webp"), caption: "Casting off at Gawi" },
   { id: "g-04", category: "rooms", media: media("Master suite with lake view", "/images/gallery/gallery-04-master-suite.webp"), caption: "Master suite, Summer Cruise" },

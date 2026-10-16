@@ -14,7 +14,7 @@ export default async function VesselsHubPage() {
   return (
     <>
       <PageHero
-        asset={vessels[0]?.heroImage ?? media("Houseboat on Kenyir Lake", "/images/page-heroes/hero-vessels.webp")}
+        asset={vessels[0]?.heroImage ?? media("Lake Cruise on Kenyir Lake", "/images/page-heroes/hero-vessels.webp")}
         title={t("hubTitle")}
         line={t("hubLine")}
         crumbs={crumbs}

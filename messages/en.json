@@ -35,13 +35,13 @@
     "required": "Required"
   },
   "meta": {
-    "home": { "title": "Summer Cruise — Luxury Houseboat Cruises on Kenyir Lake", "description": "Private houseboat cruises on Kenyir Lake, Terengganu. Two vessels, curated packages, and a warm crew. Enquire online or via WhatsApp." },
-    "vessels": { "title": "Our Vessels", "description": "Meet Summer Cruise and Green Horizon — our two purpose-built houseboats on Kenyir Lake." },
+    "home": { "title": "Summer Cruise — Luxury Lake Cruises on Kenyir Lake", "description": "Private Lake Cruise on Kenyir Lake, Terengganu. Two vessels, curated packages, and a warm crew. Enquire online or via WhatsApp." },
+    "vessels": { "title": "Our Vessels", "description": "Meet Summer Cruise and Green Horizon — our two purpose-built Lake Cruises on Kenyir Lake." },
     "packages": { "title": "Cruise Packages", "description": "Browse 3D2N and 4D3N Kenyir Lake cruise packages with full board, excursions and activities included." },
     "offers": { "title": "Offers & Specials", "description": "Current offers — early bird savings, family getaways, honeymoons, group discounts and more." },
     "experiences": { "title": "Experiences", "description": "Excursions and activities on Kenyir Lake — waterfalls, caves, fishing, kayaking and more." },
-    "theLake": { "title": "The Lake — Kenyir, Terengganu", "description": "Everything to know about Kenyir Lake: when to visit and how to get there." },
-    "privateCharter": { "title": "Private Charter", "description": "Charter an entire houseboat for your group — weddings, corporate retreats, family reunions." },
+    "theLake": { "title": "Kenyir Lake (Tasik Kenyir)", "description": "Everything to know about Kenyir Lake (Tasik Kenyir): when to visit and how to get there." },
+    "privateCharter": { "title": "Private Charter", "description": "Charter an entire Lake Cruise for your group — weddings, corporate retreats, family reunions." },
     "gallery": { "title": "Gallery", "description": "Photos and videos of our vessels, rooms, the lake, experiences and our guests." },
     "about": { "title": "About Us", "description": "Our story, sustainability, safety and dining on board Summer Cruise." },
     "journal": { "title": "Journal", "description": "Stories, guides and travel tips for planning your Kenyir Lake trip." },
@@ -61,7 +61,7 @@
     "packages": "Packages",
     "offers": "Offers",
     "experiences": "Experiences",
-    "theLake": "The Lake",
+    "theLake": "Kenyir Lake (Tasik Kenyir)",
     "gallery": "Gallery",
     "about": "About",
     "journal": "Journal",
@@ -70,13 +70,13 @@
   },
   "home": {
     "heroScript": "welcome aboard",
-    "heroTitle": "Private Houseboat Expeditions",
-    "heroDesc": "Private houseboat cruises on Kenyir Lake, Terengganu. Two vessels, one quiet lake, and a crew that knows it by heart.",
+    "heroTitle": "Private Lake Cruise Expeditions",
+    "heroDesc": "Private Lake Cruise on Kenyir Lake, Terengganu. Two vessels, one quiet lake, and a crew that knows it by heart.",
     "finder": { "title": "Find your cruise", "destination": "Destination", "destinationValue": "Kenyir Lake, Terengganu", "vessel": "Vessel", "vesselAny": "Any vessel", "date": "Departure", "dateAny": "Flexible — ask us", "submit": "Search" },
     "destinationsScript": "the lake",
     "vesselsScript": "the fleet",
     "vesselsTitle": "Our vessels",
-    "vesselsLine": "Two houseboats, one quiet lake.",
+    "vesselsLine": "Two Lake Cruises, one quiet lake.",
     "capacityBadge": "Sleeps {count}",
     "packagesScript": "voyages",
     "packagesTitle": "Featured packages",
@@ -92,7 +92,7 @@
   },
   "vessels": {
     "hubTitle": "Our vessels",
-    "hubLine": "Two purpose-built houseboats, each with its own character.",
+    "hubLine": "Two purpose-built Lake Cruises, each with its own character.",
     "capacity": "{count} guests",
     "rooms": "{count} rooms",
     "detailCta": "See cruises on this vessel",
@@ -142,9 +142,9 @@
     "backToHub": "All experiences"
   },
   "lake": {
-    "title": "Kenyir Lake",
+    "title": "Kenyir Lake (Tasik Kenyir)",
     "subtitle": "One of the largest man-made lakes in Southeast Asia — 260,000 hectares of rainforest islands.",
-    "overviewTitle": "The lake",
+    "overviewTitle": "Kenyir Lake (Tasik Kenyir)",
     "bestTimeTitle": "Best time to visit",
     "gettingThereTitle": "Getting there",
     "byRoadTitle": "1. By road",
@@ -258,7 +258,7 @@
     "enquireLine": "Tell us the amount and who it's for — we'll handle the rest."
   },
   "privateCharterPage": {
-    "body": "Take a whole houseboat for your group — weddings, corporate retreats, family reunions, or simply everyone you love in one place. Full-boat charter means your dates, your route, your pace: the crew plans the days around what your group actually wants.",
+    "body": "Take a whole Lake Cruise for your group — weddings, corporate retreats, family reunions, or simply everyone you love in one place. Full-boat charter means your dates, your route, your pace: the crew plans the days around what your group actually wants.",
     "enquireTitle": "Enquire about a charter",
     "enquireLine": "Tell us your group size and rough dates — we'll reply with options."
   },
@@ -374,7 +374,7 @@
     "success": "Done — you're on the list."
   },
   "footer": {
-    "tagline": "Private houseboat cruises on Kenyir Lake, Terengganu.",
+    "tagline": "Private Lake Cruise on Kenyir Lake, Terengganu.",
     "explore": "Explore",
     "help": "Help & booking",
     "legal": "Legal",

@@ -4,8 +4,8 @@ export const SITE = {
   companyName: "Summer Cruise Sdn Bhd",
   companyNo: "200401007510 (646014-X)",
   tagline: {
-    en: "Luxury houseboat cruises on Kenyir Lake, Terengganu.",
-    ms: "Pelayaran houseboat mewah di Tasik Kenyir, Terengganu.",
+    en: "Luxury Lake Cruises on Kenyir Lake, Terengganu.",
+    ms: "Pelayaran Lake Cruise mewah di Tasik Kenyir, Terengganu.",
   },
   phone: "+6019-912 9966",
   phoneSecondary: "+60 17 981 9827",

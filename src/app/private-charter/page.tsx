@@ -15,7 +15,7 @@ export default async function PrivateCharterPage() {
   return (
     <>
       <PageHero
-        asset={vessels[0]?.heroImage ?? media("Houseboat anchored in a quiet cove", "/images/page-heroes/hero-private-charter.webp")}
+        asset={vessels[0]?.heroImage ?? media("Lake Cruise anchored in a quiet cove", "/images/page-heroes/hero-private-charter.webp")}
         title={t("enquireTitle")}
         line={t("body")}
         crumbs={crumbs}

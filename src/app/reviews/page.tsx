@@ -31,7 +31,7 @@ export default async function ReviewsPage({
   return (
     <>
       <PageHero
-        asset={media("Guests on the deck of a houseboat at sunset", "/images/page-heroes/hero-reviews.webp")}
+        asset={media("Guests on the deck of a Lake Cruise at sunset", "/images/page-heroes/hero-reviews.webp")}
         title={t("title")}
         line={t("subtitle")}
         crumbs={crumbs}

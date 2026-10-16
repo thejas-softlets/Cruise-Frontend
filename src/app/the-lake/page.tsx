@@ -32,7 +32,7 @@ export default async function TheLakePage() {
         <section className="grid gap-10 pt-16 lg:grid-cols-2">
           <FadeIn>
             <h2 className="font-display text-3xl font-medium">{t("overviewTitle")}</h2>
-            <p className="mt-4 text-lg leading-relaxed text-text-muted">{lake.overview}</p>
+            <p className="mt-4 text-lg leading-relaxed text-text-muted whitespace-pre-line">{lake.overview}</p>
           </FadeIn>
           <FadeIn delay={0.08}>
             <h2 className="font-display text-3xl font-medium">{t("bestTimeTitle")}</h2>
@@ -45,10 +45,10 @@ export default async function TheLakePage() {
           <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
             <div>
               <span className="font-secondary text-xs font-semibold uppercase tracking-widest text-gold-deep">
-                Lake Topography & Landmarks
+                Expedition Navigation
               </span>
               <h2 className="font-display mt-1 text-3xl font-medium text-ink">
-                Kenyir Lake Interactive Chart
+                Kenyir Lake Passenger Route Chart
               </h2>
             </div>
             <p className="max-w-md text-xs leading-relaxed text-text-muted">

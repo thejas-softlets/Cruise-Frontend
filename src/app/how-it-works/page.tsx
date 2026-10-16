@@ -28,7 +28,7 @@ export default async function HowItWorksPage() {
   return (
     <>
       <PageHero
-        asset={media("Houseboat deck set for group cruising", "/images/page-heroes/hero-how-it-works.webp")}
+        asset={media("Lake Cruise deck set for group cruising", "/images/page-heroes/hero-how-it-works.webp")}
         title={t("title")}
         line={t("subtitle")}
         crumbs={crumbs}
