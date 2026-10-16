@@ -182,34 +182,29 @@ export default async function PackageDetailPage({
                       )}
                     </div>
 
-                    {/* Timeline Schedule Body */}
+                    {/* Schedule Body */}
                     <div className="p-6 sm:p-8">
                       {scheduleItems.length > 0 ? (
-                        <div className="relative pl-6 sm:pl-8 before:absolute before:left-2 sm:before:left-2.5 before:top-3 before:bottom-3 before:w-px before:bg-ink/15">
-                          <div className="space-y-4">
-                            {scheduleItems.map((item, idx) => (
-                              <div
-                                key={idx}
-                                className="group relative flex flex-col sm:flex-row sm:items-baseline gap-1.5 sm:gap-6"
-                              >
-                                {/* Timeline marker node */}
-                                <span className="absolute -left-6 sm:-left-8 top-1.5 size-2 rounded-full bg-teal-deep ring-4 ring-teal-deep/15 transition-transform group-hover:scale-125" />
-
-                                {/* Time Slot Badge */}
-                                <div className="shrink-0 sm:w-48">
-                                  <span className="inline-flex items-center gap-1.5 rounded-md border border-teal-deep/10 bg-teal-deep/5 px-2.5 py-1 font-secondary text-xs font-bold uppercase tracking-wider text-teal-deep">
-                                    <Clock className="size-3" />
-                                    {item.time}
-                                  </span>
-                                </div>
-
-                                {/* Activity Description */}
-                                <p className="font-body text-sm font-normal text-ink/85 leading-relaxed">
-                                  {item.activity}
-                                </p>
+                        <div className="divide-y divide-ink/8">
+                          {scheduleItems.map((item, idx) => (
+                            <div
+                              key={idx}
+                              className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 py-3.5 first:pt-0 last:pb-0"
+                            >
+                              {/* Time Slot Badge */}
+                              <div className="shrink-0 sm:w-44">
+                                <span className="inline-flex items-center gap-1.5 rounded-lg border border-teal-deep/10 bg-teal-deep/5 px-2.5 py-1 font-secondary text-xs font-semibold tracking-wide text-teal-deep">
+                                  <Clock className="size-3 shrink-0" />
+                                  {item.time}
+                                </span>
                               </div>
-                            ))}
-                          </div>
+
+                              {/* Activity Description */}
+                              <p className="font-body text-sm font-normal text-ink/85 leading-relaxed">
+                                {item.activity}
+                              </p>
+                            </div>
+                          ))}
                         </div>
                       ) : (
                         <p className="font-body text-sm leading-relaxed text-text-muted">
