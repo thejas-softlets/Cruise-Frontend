@@ -38,11 +38,17 @@ export interface RoomCategory {
   image: MediaAsset;
 }
 
+export interface ItineraryScheduleItem {
+  time: string;
+  activity: string;
+}
+
 export interface ItineraryDay {
   day: number;
   title: string;
   description: string;
   meals: string[];
+  schedule?: ItineraryScheduleItem[];
 }
 
 export interface Package {

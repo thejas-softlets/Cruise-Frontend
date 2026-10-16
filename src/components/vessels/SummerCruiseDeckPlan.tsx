@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 interface FloorData {
   id: "ground" | "first" | "second";
   name: "Ground Floor" | "First Floor" | "Second Floor";
-  chineseName: string;
   tagline: string;
   image: string;
   features: { title: string; desc: string; icon: string }[];
@@ -18,7 +17,6 @@ const FLOORS: FloorData[] = [
   {
     id: "ground",
     name: "Ground Floor",
-    chineseName: "底楼",
     tagline: "Dining Saloon, Full Galley & Boarding Decks",
     image: "/images/deck/Ground-floor.webp",
     features: [
@@ -42,7 +40,6 @@ const FLOORS: FloorData[] = [
   {
     id: "first",
     name: "First Floor",
-    chineseName: "一楼",
     tagline: "12 Private Air-Conditioned Staterooms & Bridge",
     image: "/images/deck/1st-floor-scaled.webp",
     features: [
@@ -66,7 +63,6 @@ const FLOORS: FloorData[] = [
   {
     id: "second",
     name: "Second Floor",
-    chineseName: "二楼",
     tagline: "Multipurpose Hall, Karaoke KTV & Sun Deck",
     image: "/images/deck/2nd-floor-scaled.webp",
     features: [
@@ -128,15 +124,10 @@ export function SummerCruiseDeckPlan({ className }: { className?: string }) {
         </div>
 
         {/* Floor Details Header */}
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <span className="rounded-lg bg-obsidian px-3 py-1 font-display text-base font-semibold text-white">
-              {activeFloor.name} {activeFloor.chineseName}
-            </span>
-            <span className="text-xs font-medium text-text-muted">
-              {activeFloor.tagline}
-            </span>
-          </div>
+        <div className="mt-5 flex items-center justify-between">
+          <p className="text-sm font-medium text-text-muted">
+            {activeFloor.tagline}
+          </p>
         </div>
 
         {/* Interactive Floor Plan Grid: Diagram (Left) + Highlights (Right) */}

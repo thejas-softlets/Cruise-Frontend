@@ -1,7 +1,8 @@
-import { Check, X } from "lucide-react";
+import { Check, X, Clock } from "lucide-react";
 import { notFound } from "next/navigation";
 
 import { buildCrumbs } from "@/components/layout/Breadcrumbs";
+import { Link } from "@/lib/i18n/navigation";
 import { PageHero } from "@/components/layout/PageHero";
 import { FadeIn } from "@/components/motion";
 import { EnquiryForm } from "@/components/forms/EnquiryForm";
@@ -138,24 +139,88 @@ export default async function PackageDetailPage({
 
         {/* Itinerary */}
         <section id="itinerary" className="scroll-mt-28 pt-20">
+          <div className="mb-8">
+            <span className="font-secondary text-xs font-semibold uppercase tracking-widest text-gold-deep">
+              Voyage Schedule
+            </span>
+            <h2 className="font-display mt-1 text-3xl font-medium text-ink sm:text-4xl">
+              {t("itinerary")}
+            </h2>
+          </div>
 
-          <h2 className="font-display text-3xl font-medium">{t("itinerary")}</h2>
-          <ol className="mt-8 space-y-4">
-            {pkg.itinerary.map((day, i) => (
-              <FadeIn key={day.day} delay={i * 0.05}>
-                <li className="rounded-3xl border border-ink/8 bg-white p-6">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <h3 className="font-display text-xl font-medium">
-                      {t("day", { n: day.day })}: {day.title}
-                    </h3>
-                    <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-text-muted">
-                      {day.meals.join(" · ")}
-                    </span>
-                  </div>
-                  <p className="mt-2 leading-relaxed text-text-muted">{day.description}</p>
-                </li>
-              </FadeIn>
-            ))}
+          <ol className="space-y-6">
+            {pkg.itinerary.map((day, i) => {
+              const scheduleItems =
+                day.schedule && day.schedule.length > 0
+                  ? day.schedule
+                  : parseScheduleFromDescription(day.description);
+
+              return (
+                <FadeIn key={day.day} delay={i * 0.05}>
+                  <li className="overflow-hidden rounded-3xl border border-ink/8 bg-white shadow-sm transition-all duration-300 hover:border-ink/15 hover:shadow-md">
+                    {/* Header: Day Number + Day Title + Meals */}
+                    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-ink/6 bg-[#FAF9F6] px-6 py-4 sm:px-8">
+                      <div className="flex items-center gap-3">
+                        <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-teal-deep text-xs font-bold text-white shadow-sm">
+                          {day.day}
+                        </span>
+                        <h3 className="font-display text-xl font-medium text-ink sm:text-2xl">
+                          {t("day", { n: day.day })}: {day.title}
+                        </h3>
+                      </div>
+                      {day.meals.length > 0 && (
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          {day.meals.map((meal) => (
+                            <span
+                              key={meal}
+                              className="rounded-full bg-gold/10 px-3 py-1 font-secondary text-[0.6875rem] font-semibold uppercase tracking-wider text-gold-deep border border-gold/20"
+                            >
+                              {meal}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Timeline Schedule Body */}
+                    <div className="p-6 sm:p-8">
+                      {scheduleItems.length > 0 ? (
+                        <div className="relative pl-6 sm:pl-8 before:absolute before:left-2 sm:before:left-2.5 before:top-3 before:bottom-3 before:w-px before:bg-ink/15">
+                          <div className="space-y-4">
+                            {scheduleItems.map((item, idx) => (
+                              <div
+                                key={idx}
+                                className="group relative flex flex-col sm:flex-row sm:items-baseline gap-1.5 sm:gap-6"
+                              >
+                                {/* Timeline marker node */}
+                                <span className="absolute -left-6 sm:-left-8 top-1.5 size-2 rounded-full bg-teal-deep ring-4 ring-teal-deep/15 transition-transform group-hover:scale-125" />
+
+                                {/* Time Slot Badge */}
+                                <div className="shrink-0 sm:w-48">
+                                  <span className="inline-flex items-center gap-1.5 rounded-md border border-teal-deep/10 bg-teal-deep/5 px-2.5 py-1 font-secondary text-xs font-bold uppercase tracking-wider text-teal-deep">
+                                    <Clock className="size-3" />
+                                    {item.time}
+                                  </span>
+                                </div>
+
+                                {/* Activity Description */}
+                                <p className="font-body text-sm font-normal text-ink/85 leading-relaxed">
+                                  {item.activity}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <p className="font-body text-sm leading-relaxed text-text-muted">
+                          {day.description}
+                        </p>
+                      )}
+                    </div>
+                  </li>
+                </FadeIn>
+              );
+            })}
           </ol>
         </section>
 
@@ -290,17 +355,47 @@ export default async function PackageDetailPage({
         </section>
 
         {/* Other packages */}
-        <section className="pt-24">
-          <h2 className="font-display text-3xl font-medium">{tc("viewAll")}</h2>
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
+        <section className="pt-24 border-t border-ink/8">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <h2 className="font-display text-3xl font-medium">{tc("viewAll")}</h2>
+            <Link
+              href="/packages"
+              className="font-secondary text-xs font-semibold uppercase tracking-widest text-teal-deep hover:text-ink transition-colors"
+            >
+              All Packages &rarr;
+            </Link>
+          </div>
+          <div className="mt-8 flex flex-wrap gap-6">
             {(await getAllPackages())
               .filter((p) => p.slug !== pkg.slug)
               .map((other) => (
-                <PackageCard key={other.slug} pkg={other} />
+                <div key={other.slug} className="w-full max-w-[340px] sm:max-w-[360px]">
+                  <PackageCard pkg={other} />
+                </div>
               ))}
           </div>
         </section>
       </div>
     </div>
   );
+}
+
+function parseScheduleFromDescription(desc: string): { time: string; activity: string }[] {
+  if (!desc) return [];
+  const regex = /(\d{1,2}:\d{2}\s*(?:AM|PM)(?:\s*[–\-—]\s*\d{1,2}:\d{2}\s*(?:AM|PM))?)\s*:\s*/gi;
+  const matches = Array.from(desc.matchAll(regex));
+  if (matches.length === 0) return [];
+
+  const items: { time: string; activity: string }[] = [];
+  for (let i = 0; i < matches.length; i++) {
+    const time = matches[i][1].trim();
+    const startIndex = (matches[i].index ?? 0) + matches[i][0].length;
+    const endIndex =
+      i + 1 < matches.length
+        ? (matches[i + 1].index ?? desc.length)
+        : desc.length;
+    const activity = desc.slice(startIndex, endIndex).replace(/\.\s*$/, "").trim();
+    items.push({ time, activity });
+  }
+  return items;
 }
