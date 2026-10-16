@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { Portal } from "@/components/ui/Portal";
 
 import type { Package } from "@/types";
@@ -357,7 +357,7 @@ export function DualVoyagesSection({ packages }: { packages: Package[] }) {
                   className="flex size-8 items-center justify-center rounded-full bg-gray-100 text-ink hover:bg-gray-200"
                   aria-label="Close modal"
                 >
-                  ✕
+                  <X className="size-4" />
                 </button>
               </div>
 

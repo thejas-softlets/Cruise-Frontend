@@ -85,11 +85,13 @@ export default async function PackageDetailPage({
             <div>
               <h2 className="font-display text-3xl font-medium">{t("overview")}</h2>
               <p className="mt-4 text-lg leading-relaxed text-text-muted whitespace-pre-line">{pkg.overview}</p>
-              <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
+              <ul className="mt-6 grid gap-3 sm:grid-cols-2">
                 {pkg.highlights.map((h) => (
-                  <li key={h} className="flex items-start gap-2.5">
-                    <Check aria-hidden className="mt-1 size-4 shrink-0 text-gold-bright" />
-                    {h}
+                  <li key={h} className="flex items-start gap-3 rounded-2xl border border-ink/6 bg-white/70 p-3.5 shadow-sm">
+                    <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-teal-deep/10 text-teal-deep">
+                      <Check aria-hidden className="size-3.5 stroke-[2.5]" />
+                    </span>
+                    <span className="text-sm font-medium text-ink">{h}</span>
                   </li>
                 ))}
               </ul>

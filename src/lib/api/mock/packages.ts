@@ -13,10 +13,10 @@ export const MOCK_PACKAGES: Package[] = [
     customPriceLabel: "From RM1,698 per pax",
     heroImage: media("Summer Cruise cruising Kenyir Lake at golden hour", "/images/vessels/sc-hero.webp"),
     overview:
-      "Explore the stunning scenery of Kenyir Lake Enjoy various water activities Experience guided tours of the surrounding rainforest\n\n✅ Explore the stunning scenery of Kenyir Lake\n✅ Enjoy various water activities\n✅ Experience guided tours of the surrounding rainforest\n✅ Relax on the cruise with all-inclusive meals and accommodations",
+      "Explore the stunning scenery of Kenyir Lake, enjoy various water activities, and experience guided tours of the surrounding rainforest with all-inclusive meals and accommodations.",
     highlights: [
       "Explore the stunning scenery of Kenyir Lake",
-      "Enjoy various water activities (Kayaking & Paddleboarding)",
+      "Enjoy various water activities",
       "Experience guided tours of the surrounding rainforest",
       "Relax on the cruise with all-inclusive meals and accommodations",
     ],
@@ -77,7 +77,7 @@ export const MOCK_PACKAGES: Package[] = [
     customPriceLabel: "Only available for Charter Cruise | From RM 44,000 for 24 pax",
     heroImage: media("Green Horizon crossing the open lake at sunrise", "/images/vessels/gh-hero.webp"),
     overview:
-      "Explore the stunning scenery of Kenyir Lake Enjoy various water activities Experience guided tours of the surrounding rainforest\n\n✅ Extended exploration of Kenyir Lake’s natural beauty\n✅ Participate in additional water sports and activities\n✅ Take in more comprehensive guided tours of the rainforest\n✅ All-inclusive meals and accommodations for a relaxing and immersive experience",
+      "Explore the stunning scenery of Kenyir Lake, enjoy various water activities, and experience guided tours of the surrounding rainforest with full-charter privacy.",
     highlights: [
       "Extended exploration of Kenyir Lake’s natural beauty",
       "Participate in additional water sports and activities",
