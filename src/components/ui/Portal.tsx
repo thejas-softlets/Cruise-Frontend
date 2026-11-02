@@ -1,11 +1,15 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useSyncExternalStore, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 
 interface PortalProps {
   children: ReactNode;
 }
+
+const emptySubscribe = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
 
 /**
  * Renders modal overlays and lightboxes directly into document.body,
@@ -13,11 +17,7 @@ interface PortalProps {
  * ancestor CSS transforms, perspectives, or containing blocks.
  */
 export function Portal({ children }: PortalProps) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(emptySubscribe, getClientSnapshot, getServerSnapshot);
 
   if (!mounted || typeof document === "undefined") {
     return null;
