@@ -1,4 +1,4 @@
-import { Check, X, Clock } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { notFound } from "next/navigation";
 
 import { buildCrumbs } from "@/components/layout/Breadcrumbs";
@@ -15,6 +15,7 @@ import { PlaceholderMedia } from "@/components/ui/PlaceholderMedia";
 import { ReviewCard } from "@/components/cards/ReviewCard";
 import { DynamicCruiseMap } from "@/components/booking/DynamicCruiseMap";
 import { SummerCruiseDeckPlan } from "@/components/vessels/SummerCruiseDeckPlan";
+import { PackageItinerarySection } from "@/components/packages/PackageItinerarySection";
 import { getAllPackages, getPackageBySlug } from "@/lib/api/packages";
 import { getRoomsByIds } from "@/lib/api/rooms";
 import { getExperiencesBySlugs } from "@/lib/api/experiences";
@@ -138,86 +139,11 @@ export default async function PackageDetailPage({
         </section>
 
         {/* Itinerary */}
-        <section id="itinerary" className="scroll-mt-28 pt-20">
-          <div className="mb-8">
-            <span className="font-secondary text-xs font-semibold uppercase tracking-widest text-gold-deep">
-              Voyage Schedule
-            </span>
-            <h2 className="font-display mt-1 text-3xl font-medium text-ink sm:text-4xl">
-              {t("itinerary")}
-            </h2>
-          </div>
-
-          <ol className="space-y-6">
-            {pkg.itinerary.map((day, i) => {
-              const scheduleItems =
-                day.schedule && day.schedule.length > 0
-                  ? day.schedule
-                  : parseScheduleFromDescription(day.description);
-
-              return (
-                <FadeIn key={day.day} delay={i * 0.05}>
-                  <li className="overflow-hidden rounded-3xl border border-ink/8 bg-white shadow-sm transition-all duration-300 hover:border-ink/15 hover:shadow-md">
-                    {/* Header: Day Number + Day Title + Meals */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-ink/6 bg-[#FAF9F6] px-6 py-4 sm:px-8">
-                      <div className="flex items-center gap-3">
-                        <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-teal-deep text-xs font-bold text-white shadow-sm">
-                          {day.day}
-                        </span>
-                        <h3 className="font-display text-xl font-medium text-ink sm:text-2xl">
-                          {t("day", { n: day.day })}: {day.title}
-                        </h3>
-                      </div>
-                      {day.meals.length > 0 && (
-                        <div className="flex flex-wrap items-center gap-1.5">
-                          {day.meals.map((meal) => (
-                            <span
-                              key={meal}
-                              className="rounded-full bg-gold/10 px-3 py-1 font-secondary text-[0.6875rem] font-semibold uppercase tracking-wider text-gold-deep border border-gold/20"
-                            >
-                              {meal}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Schedule Body */}
-                    <div className="p-6 sm:p-8">
-                      {scheduleItems.length > 0 ? (
-                        <div className="divide-y divide-ink/8">
-                          {scheduleItems.map((item, idx) => (
-                            <div
-                              key={idx}
-                              className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 py-3.5 first:pt-0 last:pb-0"
-                            >
-                              {/* Time Slot Badge */}
-                              <div className="shrink-0 sm:w-44">
-                                <span className="inline-flex items-center gap-1.5 rounded-lg border border-teal-deep/10 bg-teal-deep/5 px-2.5 py-1 font-secondary text-xs font-semibold tracking-wide text-teal-deep">
-                                  <Clock className="size-3 shrink-0" />
-                                  {item.time}
-                                </span>
-                              </div>
-
-                              {/* Activity Description */}
-                              <p className="font-body text-sm font-normal text-ink/85 leading-relaxed">
-                                {item.activity}
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <p className="font-body text-sm leading-relaxed text-text-muted">
-                          {day.description}
-                        </p>
-                      )}
-                    </div>
-                  </li>
-                </FadeIn>
-              );
-            })}
-          </ol>
-        </section>
+        <PackageItinerarySection
+          itinerary={pkg.itinerary}
+          seasonalItineraries={pkg.seasonalItineraries}
+          pdfUrl={pkg.pdfUrl}
+        />
 
         {/* Rooms */}
         <section id="rooms" className="scroll-mt-28 pt-20">
@@ -282,26 +208,45 @@ export default async function PackageDetailPage({
 
         {/* Included / not included */}
         <section id="included" className="scroll-mt-28 pt-20">
+          <div className="mb-8">
+            <span className="font-secondary text-xs font-semibold uppercase tracking-widest text-gold-deep">
+              Voyage Provisions
+            </span>
+            <h2 className="font-display mt-1 text-3xl font-medium text-ink sm:text-4xl">
+              What&apos;s Included &amp; Not Included
+            </h2>
+          </div>
 
-          <h2 className="font-display text-3xl font-medium">{t("inclusions")}</h2>
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
-            <div className="rounded-3xl border border-ink/8 bg-white p-6">
-              <ul className="space-y-2.5">
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="rounded-3xl border border-ink/8 bg-white p-6 sm:p-8 shadow-sm">
+              <h3 className="font-display text-2xl font-medium text-ink flex items-center gap-3 pb-4 border-b border-ink/8">
+                <span className="flex size-7 items-center justify-center rounded-full bg-teal-soft/20 text-teal-deep">
+                  <Check className="size-4 stroke-[2.5]" />
+                </span>
+                {t("inclusions")}
+              </h3>
+              <ul className="mt-5 space-y-3">
                 {pkg.inclusions.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5">
-                    <Check aria-hidden className="mt-1 size-4 shrink-0 text-gold-bright" />
-                    {item}
+                  <li key={item} className="flex items-start gap-3 text-sm text-ink/90 leading-relaxed">
+                    <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-teal-deep" />
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="rounded-3xl border border-ink/8 bg-white p-6">
-              <h3 className="font-display text-lg font-medium">{t("exclusions")}</h3>
-              <ul className="mt-3 space-y-2.5">
+
+            <div className="rounded-3xl border border-ink/8 bg-white p-6 sm:p-8 shadow-sm">
+              <h3 className="font-display text-2xl font-medium text-ink flex items-center gap-3 pb-4 border-b border-ink/8">
+                <span className="flex size-7 items-center justify-center rounded-full bg-red-50 text-red-500">
+                  <X className="size-4 stroke-[2.5]" />
+                </span>
+                {t("exclusions")}
+              </h3>
+              <ul className="mt-5 space-y-3">
                 {pkg.exclusions.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-text-muted">
-                    <X aria-hidden className="mt-1 size-4 shrink-0 text-text-muted/60" />
-                    {item}
+                  <li key={item} className="flex items-start gap-3 text-sm text-text-muted leading-relaxed">
+                    <X aria-hidden className="mt-0.5 size-4 shrink-0 text-red-400/80" />
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>

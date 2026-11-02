@@ -51,30 +51,32 @@ export const CRUISE_SEASON_ROUTES: SeasonalRouteMeta[] = [
 
 const WP_GAWI: MapWaypoint = {
   id: "gawi",
-  name: "Pengkalan Gawi Jetty",
+  name: "Gawi Jetty",
   dayNumber: 1,
-  lat: 5.1375,
-  lng: 102.8025,
+  lat: 5.1396,
+  lng: 102.8019,
+  coordinatesText: "5°08'22.5\"N 102°48'07.0\"E",
   x: 72,
   y: 20,
   type: "embarkation",
   title: "Embarkation & Welcome",
-  shortDesc: "Board Summer Cruise at Pengkalan Gawi Jetty. Meet the dedicated crew and private host, enjoy arrival refreshments, and cast off toward sheltered lake waters.",
+  shortDesc: "Board Summer Cruise at Gawi Jetty. Meet the dedicated crew and private host, enjoy arrival refreshments, and cast off toward sheltered lake waters.",
   activities: ["Safety Orientation", "Welcome Drinks", "Cast Off"],
-  imageUrl: "/images/real/summercruise.webp",
+  imageUrl: "/images/real/gawi-jetty.webp",
 };
 
 const WP_ELEPHANT: MapWaypoint = {
   id: "elephant",
-  name: "Kenyir Elephant Conservation Village",
-  dayNumber: 1,
-  lat: 5.1496,
-  lng: 102.7960,
+  name: "Kenyir Elephant Cultural Village (KECV)",
+  dayNumber: 3,
+  lat: 5.1503,
+  lng: 102.7957,
+  coordinatesText: "5°09'00.9\"N 102°47'44.5\"E",
   x: 70,
   y: 15,
   type: "sanctuary",
-  title: "Elephant Conservation Village (October – March)",
-  shortDesc: "Tender boat landing at the protected northern sanctuary to observe rescued Malaysian elephants roaming in natural rainforest habitat.",
+  title: "Visit Kenyir Elephant Conservation Village (KECV)",
+  shortDesc: "Tender landing and excursion to the protected northern sanctuary to observe rescued Malaysian elephants in natural rainforest habitat.",
   activities: ["Elephant Encounter", "Rainforest Nature Walk", "Eco Education"],
   imageUrl: "/images/real/about-1-Green-Horizon_summer-cruise.webp",
 };
@@ -85,6 +87,7 @@ const WP_HERBA: MapWaypoint = {
   dayNumber: 1,
   lat: 5.0848,
   lng: 102.8000,
+  coordinatesText: "5°05'05.3\"N 102°48'00.0\"E",
   x: 55,
   y: 35,
   type: "sanctuary",
@@ -94,27 +97,31 @@ const WP_HERBA: MapWaypoint = {
   imageUrl: "/images/real/herbal-park.webp",
 };
 
-const WP_SAOK: MapWaypoint = {
-  id: "saok",
-  name: "Air Terjun Saok (Saok Falls)",
-  dayNumber: 2,
-  lat: 5.0805,
-  lng: 102.7745,
+const WP_SOAK: MapWaypoint = {
+  id: "soak",
+  name: "Soak Waterfall (Air Terjun Saok)",
+  dayNumber: 3,
+  lat: 5.0832,
+  lng: 102.7788,
+  coordinatesText: "5°04'59.4\"N 102°46'43.8\"E",
   x: 45,
   y: 38,
   type: "waterfall",
-  title: "Cascading Pools & Rocky Rapids",
-  shortDesc: "Cruise into the sheltered western cove of Sungai Sauk. Climb the easy boulders to swim in refreshing natural forest plunge pools beneath towering canopies.",
+  title: "Visit Soak Waterfall",
+  shortDesc: "Cruise into the sheltered western cove of Sungai Sauk. Natural plunge pools and cascading rapids surrounded by towering virgin rainforest.",
   activities: ["Cascade Swimming", "Boulder Scrambling", "Forest Plunge"],
   imageUrl: "/images/lake/kenyir-aerial.webp",
 };
+
+const WP_SAOK = WP_SOAK;
 
 const WP_KELAH: MapWaypoint = {
   id: "kelah",
   name: "Petang River Kelah Sanctuary",
   dayNumber: 2,
-  lat: 4.9272,
-  lng: 102.8041,
+  lat: 4.9220,
+  lng: 102.8031,
+  coordinatesText: "4°55'19.1\"N 102°48'11.1\"E",
   x: 50,
   y: 65,
   type: "sanctuary",
@@ -127,91 +134,96 @@ const WP_KELAH: MapWaypoint = {
 const WP_LASIR: MapWaypoint = {
   id: "lasir",
   name: "Air Terjun Lasir (Lasir Falls)",
-  dayNumber: 2,
-  lat: 4.9640,
-  lng: 102.8414,
+  dayNumber: 1,
+  lat: 4.9654,
+  lng: 102.8396,
+  coordinatesText: "4°57'55.6\"N 102°50'22.6\"E",
   x: 75,
   y: 75,
   type: "waterfall",
-  title: "Cascade Lagoons & Twilight Drift",
-  shortDesc: "Tender boat ride to the multi-tiered Lasir cascades. Swim in crystal natural rock pools surrounded by ancient dipterocarp forest, then enjoy twilight drift on deck.",
-  activities: ["Freshwater Swimming", "Rock Pools", "Sunset Tea"],
+  title: "Lasir Waterfall & Water Activities",
+  shortDesc: "Multi-tiered Lasir cascades plunging into crystal natural rock pools surrounded by ancient dipterocarp rainforest.",
+  activities: ["Freshwater Swimming", "Rock Pools", "Water Sports"],
   imageUrl: "/images/real/lasir-falls-2.webp",
 };
 
 const WP_MELUNAK: MapWaypoint = {
   id: "melunak",
   name: "Peninsular Malaysia's Largest Melunak Tree",
-  dayNumber: 3,
-  lat: 4.8650,
-  lng: 102.7290,
+  dayNumber: 2,
+  lat: 4.8491,
+  lng: 102.7173,
+  coordinatesText: "4°50'56.6\"N 102°43'02.1\"E",
   x: 35,
   y: 85,
   type: "trail",
-  title: "Peninsular Malaysia's Largest Melunak Tree",
-  shortDesc: "A guided gentle trek through virgin rainforest to stand in awe before Malaysia's largest recorded Melunak tree with suspension walkway crossings.",
+  title: "Jungle Trekking & Malaysia Largest Melunak Tree",
+  shortDesc: "A guided trek through virgin rainforest to stand in awe before Peninsular Malaysia's largest recorded Melunak tree.",
   activities: ["Forest Trek", "Suspension Bridge", "Canopy Ecology"],
   imageUrl: "/images/real/DSC07563-scaled.webp",
 };
 
 const WP_BEWAH: MapWaypoint = {
   id: "bewah",
-  name: "Visit Gua Bewah (Prehistoric Cave)",
-  dayNumber: 3,
-  lat: 4.8514,
-  lng: 102.7238,
+  name: "Gua Bewah (Home of Bewah Man)",
+  dayNumber: 2,
+  lat: 4.8526,
+  lng: 102.7232,
+  coordinatesText: "4°51'09.2\"N 102°43'23.6\"E",
   x: 28,
   y: 88,
   type: "cave",
-  title: "Visit Gua Bewah (Prehistoric Cave)",
-  shortDesc: "Ascend the safe boardwalk stairs into Bewah Cave, Southeast Asia's celebrated prehistoric archeological landmark dating back over 16,000 years.",
-  activities: ["Cave Boardwalk Walk", "Speleology", "Panoramic Lake View"],
+  title: "Visit Home of Bewah Man (Bewah Cave)",
+  shortDesc: "Ascend the boardwalk stairs into Bewah Cave, Southeast Asia's celebrated prehistoric archaeological site dating back over 16,000 years.",
+  activities: ["Cave Boardwalk Walk", "Speleology", "Prehistoric Heritage"],
   imageUrl: "/images/real/bewah-cave-card.webp",
 };
 
 const WP_DISEMBARK_D3: MapWaypoint = {
   id: "disembark",
-  name: "Pengkalan Gawi Return",
+  name: "Gawi Jetty Return",
   dayNumber: 3,
-  lat: 5.1375,
-  lng: 102.8025,
+  lat: 5.1396,
+  lng: 102.8019,
+  coordinatesText: "5°08'22.5\"N 102°48'07.0\"E",
   x: 72,
   y: 20,
   type: "disembarkation",
-  title: "Dawn Stillness & Homeward Waters",
+  title: "Homeward Cruise & Disembarkation",
   shortDesc: "Early brew on the observation deck as dawn mist rises off the mirror surface. Unhurried navigation back to port with memories of Kenyir.",
-  activities: ["Dawn Mist Tea", "Wildlife Spotting", "Disembarkation"],
-  imageUrl: "/images/real/DJI_0911-min-scaled.webp",
+  activities: ["Dawn Mist Tea", "Room Check-Out", "Disembarkation"],
+  imageUrl: "/images/real/gawi-jetty.webp",
 };
 
 const WP_DISEMBARK_D4: MapWaypoint = {
   id: "disembark",
-  name: "Pengkalan Gawi Return",
+  name: "Gawi Jetty Return",
   dayNumber: 4,
-  lat: 5.1375,
-  lng: 102.8025,
+  lat: 5.1396,
+  lng: 102.8019,
+  coordinatesText: "5°08'22.5\"N 102°48'07.0\"E",
   x: 72,
   y: 20,
   type: "disembarkation",
-  title: "Sunrise Farewell Cruise",
-  shortDesc: "Hearty breakfast on the top deck as the vessel returns across calm waters to Pengkalan Gawi Jetty.",
-  activities: ["Breakfast on Deck", "Farewell Souvenir", "Disembarkation"],
-  imageUrl: "/images/vessels/gh-hero.webp",
+  title: "Homeward Cruise & Disembarkation",
+  shortDesc: "Breakfast on deck as the vessel returns across calm waters to Gawi Jetty for disembarkation.",
+  activities: ["Breakfast on Deck", "Room Check-Out", "Disembarkation"],
+  imageUrl: "/images/real/gawi-jetty.webp",
 };
 
 export const MOCK_WAYPOINTS: Record<string, MapWaypoint[]> = {
-  // 1. Mar to Oct 3D2N (with Kelah Sanctuary)
-  "mar-oct-3d2n": [WP_GAWI, WP_HERBA, WP_SAOK, WP_LASIR, WP_KELAH, WP_DISEMBARK_D3],
-  // 2. Mar to Oct 4D3N (with Kelah + Melunak + Bewah)
-  "mar-oct-4d3n": [WP_GAWI, WP_HERBA, WP_SAOK, WP_LASIR, WP_KELAH, WP_MELUNAK, WP_BEWAH, WP_DISEMBARK_D4],
-  // 3. Oct to Mar 3D2N (with Elephant Conservation Village)
-  "oct-mar-3d2n": [WP_GAWI, WP_ELEPHANT, WP_HERBA, WP_SAOK, WP_LASIR, WP_DISEMBARK_D3],
-  // 4. Oct to Mar 4D3N (with Elephant Village + Melunak + Bewah)
-  "oct-mar-4d3n": [WP_GAWI, WP_ELEPHANT, WP_HERBA, WP_SAOK, WP_LASIR, WP_MELUNAK, WP_BEWAH, WP_DISEMBARK_D4],
+  // 1. Mar to Oct 3D2N (Day 1: Gawi -> Lasir. Day 2: Kelah -> Bewah. Day 3: Melunak -> Gawi)
+  "mar-oct-3d2n": [WP_GAWI, WP_LASIR, WP_KELAH, WP_BEWAH, WP_MELUNAK, WP_DISEMBARK_D3],
+  // 2. Mar to Oct 4D3N (Day 1: Gawi -> Lasir. Day 2: Kelah -> Bewah. Day 3: Melunak -> Soak. Day 4: Gawi)
+  "mar-oct-4d3n": [WP_GAWI, WP_LASIR, WP_KELAH, WP_BEWAH, WP_MELUNAK, WP_SOAK, WP_DISEMBARK_D4],
+  // 3. Oct to Mar 3D2N (Day 1: Gawi -> Bewah. Day 2: Melunak -> Lasir. Day 3: Gawi -> KECV)
+  "oct-mar-3d2n": [WP_GAWI, WP_BEWAH, WP_MELUNAK, WP_LASIR, WP_DISEMBARK_D3, WP_ELEPHANT],
+  // 4. Oct to Mar 4D3N (Day 1: Gawi -> Bewah. Day 2: Melunak -> Lasir. Day 3: Soak. Day 4: Gawi -> KECV)
+  "oct-mar-4d3n": [WP_GAWI, WP_BEWAH, WP_MELUNAK, WP_LASIR, WP_SOAK, WP_DISEMBARK_D4, WP_ELEPHANT],
 
   // Aliases for default package slugs
-  "3d2n-kenyir-explorer": [WP_GAWI, WP_HERBA, WP_SAOK, WP_LASIR, WP_KELAH, WP_DISEMBARK_D3],
-  "4d3n-kenyir-grand-voyage": [WP_GAWI, WP_HERBA, WP_SAOK, WP_LASIR, WP_KELAH, WP_MELUNAK, WP_BEWAH, WP_DISEMBARK_D4],
+  "3d2n-kenyir-explorer": [WP_GAWI, WP_LASIR, WP_KELAH, WP_BEWAH, WP_MELUNAK, WP_DISEMBARK_D3],
+  "4d3n-kenyir-grand-voyage": [WP_GAWI, WP_LASIR, WP_KELAH, WP_BEWAH, WP_MELUNAK, WP_SOAK, WP_DISEMBARK_D4],
 };
 
 /**
