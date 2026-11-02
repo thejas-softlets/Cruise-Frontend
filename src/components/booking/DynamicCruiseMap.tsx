@@ -218,9 +218,9 @@ export function DynamicCruiseMap({
                   <MapPin className="size-3.5" />
                   {activeWaypoint?.name}
                 </p>
-                {activeWaypoint?.lat && (
+                {(activeWaypoint?.coordinatesText || activeWaypoint?.lat) && (
                   <p className="text-[10px] text-text-muted mt-0.5">
-                    Coordinates: {activeWaypoint.lat.toFixed(4)}° N, {activeWaypoint.lng.toFixed(4)}° E
+                    Coordinates: {activeWaypoint.coordinatesText ?? `${activeWaypoint.lat.toFixed(4)}° N, ${activeWaypoint.lng.toFixed(4)}° E`}
                   </p>
                 )}
               </div>

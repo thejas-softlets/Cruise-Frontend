@@ -80,7 +80,7 @@ export function Step4Confirmation({
         </div>
         <div className="flex justify-between">
           <span className="text-text-muted">Berth &amp; Departure</span>
-          <span className="font-semibold text-ink">Pengkalan Gawi Jetty (12:00 PM)</span>
+          <span className="font-semibold text-ink">Gawi Jetty (12:00 PM)</span>
         </div>
         <div className="flex justify-between">
           <span className="text-text-muted">Party Manifest</span>

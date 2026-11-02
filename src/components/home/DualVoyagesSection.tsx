@@ -374,7 +374,7 @@ export function DualVoyagesSection({ packages }: { packages: Package[] }) {
                   <div className="absolute inset-0 bg-gradient-to-t from-obsidian/60 via-transparent to-transparent" />
                   <div className="absolute bottom-4 left-4 text-white">
                     <p className="text-xs font-semibold uppercase tracking-wider text-teal-soft">
-                      Departure: Pengkalan Gawi Jetty
+                      Departure: Gawi Jetty
                     </p>
                     <p className="text-sm font-light text-white/90">
                       Anchorages: Lasir Waterfall · Bewah Cave · Saok Falls · Kelah Sanctuary
@@ -385,7 +385,7 @@ export function DualVoyagesSection({ packages }: { packages: Package[] }) {
                 <div className="grid grid-cols-2 gap-3 text-xs text-text-muted">
                   <div className="rounded-xl bg-gray-50 p-3">
                     <span className="font-semibold text-ink">Check-in Terminal:</span>
-                    <p className="mt-0.5">Pengkalan Gawi Passenger Hub (Transfer Available)</p>
+                    <p className="mt-0.5">Gawi Passenger Hub (Transfer Available)</p>
                   </div>
                   <div className="rounded-xl bg-gray-50 p-3">
                     <span className="font-semibold text-ink">Waterway Coverage:</span>

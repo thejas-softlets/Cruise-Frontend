@@ -146,7 +146,7 @@ export function Step0PackageAndDate({
               Select Your Voyage &amp; Dates
             </h2>
             <p className="mt-2 text-sm text-text-muted">
-              Choose your expedition package duration and sailing date from Pengkalan Gawi Berth.
+              Choose your expedition package duration and sailing date from Gawi Jetty Berth.
               Staterooms across the unified Kenyir fleet are available.
             </p>
           </div>
@@ -158,7 +158,7 @@ export function Step0PackageAndDate({
                 1. Select Expedition Package
               </span>
               <span className="text-xs text-text-muted">
-                All departures sail from Pengkalan Gawi Terminal · Unified Lake Fleet
+                All departures sail from Gawi Jetty Terminal · Unified Lake Fleet
               </span>
             </div>
 
@@ -189,7 +189,7 @@ export function Step0PackageAndDate({
                     3D2N Kenyir Explorer
                   </h3>
                   <p className="mt-1 text-xs text-text-muted">
-                    Weekend Voyage · Departs 12:00 PM Friday from Pengkalan Gawi
+                    Weekend Voyage · Departs 12:00 PM Friday from Gawi Jetty
                   </p>
 
                   <p className="mt-4 text-xs leading-relaxed text-text-muted">
@@ -257,7 +257,7 @@ export function Step0PackageAndDate({
                     4D3N Kenyir Grand Voyage
                   </h3>
                   <p className="mt-1 text-xs text-text-muted">
-                    Midweek Expedition · Departs 12:00 PM Monday from Pengkalan Gawi
+                    Midweek Expedition · Departs 12:00 PM Monday from Gawi Jetty
                   </p>
 
                   <p className="mt-4 text-xs leading-relaxed text-text-muted">

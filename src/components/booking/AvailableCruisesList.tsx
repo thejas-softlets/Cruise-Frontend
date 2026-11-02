@@ -242,7 +242,7 @@ export function AvailableCruisesList({
 
                       <div>
                         <span className="text-[11px] uppercase tracking-wider text-white/60">
-                          Pengkalan Gawi &gt; Pengkalan Gawi
+                          Gawi Jetty &gt; Gawi Jetty
                         </span>
                         <div className="mt-1 font-display text-base font-medium text-white">
                           {dep.label}

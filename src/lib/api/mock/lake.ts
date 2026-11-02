@@ -13,7 +13,7 @@ export const MOCK_LAKE: LakeInfo = {
     nearestAirport:
       "Sultan Mahmud Airport (Kuala Terengganu, TGG) — about 1 hour from the jetty. Daily flights from Kuala Lumpur and Singapore. We can arrange a driver to meet you: just ask when you enquire.",
     jettyDetails:
-      "All cruises depart from Pengkalan Gawi Jetty, Tasik Kenyir. Free parking is available at the jetty. Be there by 9:45am on departure day — look for the Summer Cruise crew in teal shirts at the main gate.",
+      "All cruises depart from Gawi Jetty, Tasik Kenyir. Free parking is available at the jetty. Be there by 9:45am on departure day — look for the Summer Cruise crew in teal shirts at the main gate.",
   },
   heroGallery: [
     media("Aerial view of Kenyir Lake islands", "/images/lake/kenyir-aerial.webp"),
@@ -61,5 +61,5 @@ export const MOCK_FAQS: { id: string; question: string; answer: string }[] = [
   { id: "faq-onboard-3", question: "Can children come on board?", answer: "Absolutely — children of all ages are welcome. Family Rooms book out first every school holiday, so enquire early. Life jackets are mandatory for all water activities." },
   { id: "faq-onboard-4", question: "Will I get seasick?", answer: "Almost certainly not — Kenyir is a calm freshwater lake and we anchor in sheltered coves every night. If you're prone to motion sickness generally, bring your usual remedy just in case." },
   { id: "faq-checkin-1", question: "How does check-in work?", answer: "Once online check-in opens (30 days before departure), enter just your booking code and last name on the check-in page. Until then, nothing is needed — we'll WhatsApp or email you when it opens." },
-  { id: "faq-checkin-2", question: "What time do we board?", answer: "Be at Pengkalan Gawi Jetty by 9:45am on departure day. Look for the Summer Cruise crew in teal shirts at the main gate." },
+  { id: "faq-checkin-2", question: "What time do we board?", answer: "Be at Gawi Jetty by 9:45am on departure day. Look for the Summer Cruise crew in teal shirts at the main gate." },
 ];

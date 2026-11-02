@@ -145,7 +145,7 @@ export function ProformaInvoiceView({ data }: { data: ProformaInvoiceData }) {
             <div className="font-semibold text-ink mt-0.5">
               {data.rooms.length} Staterooms, {totalAdults} Guests
             </div>
-            <div className="text-text-muted">Pengkalan Gawi Berth</div>
+            <div className="text-text-muted">Gawi Jetty Berth</div>
           </div>
 
           <div>

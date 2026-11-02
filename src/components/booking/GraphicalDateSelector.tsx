@@ -100,7 +100,7 @@ export function GraphicalDateSelector({
           <p className="mt-1 text-xs text-text-muted">
             {isCharterMode
               ? "Exclusive vessel charters require 100% open cabin inventory (no individual guest bookings on board)."
-              : `All expeditions depart from Pengkalan Gawi Jetty · ${durationText} on ${vesselName}`}
+              : `All expeditions depart from Gawi Jetty · ${durationText} on ${vesselName}`}
           </p>
         </div>
 
@@ -293,7 +293,7 @@ export function GraphicalDateSelector({
                     isSelected ? "text-white/80" : "text-text-muted"
                   )}
                 >
-                  Departure: 12:00 PM · Pengkalan Gawi Jetty
+                  Departure: 12:00 PM · Gawi Jetty
                 </div>
               </div>
 

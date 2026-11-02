@@ -63,6 +63,8 @@ export interface Package {
   overview: string;
   highlights: string[];
   itinerary: ItineraryDay[];
+  seasonalItineraries?: Record<string, ItineraryDay[]>;
+  pdfUrl?: string;
   inclusions: string[];
   exclusions: string[];
   roomCategoryIds: string[];
@@ -196,6 +198,7 @@ export interface MapWaypoint {
   shortDesc: string;
   activities: string[];
   imageUrl?: string;
+  coordinatesText?: string;
 }
 
 export interface CabinDeckSlot {

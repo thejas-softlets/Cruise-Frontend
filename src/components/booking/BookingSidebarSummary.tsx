@@ -100,7 +100,7 @@ export function BookingSidebarSummary({
           {packageInfo.title}
         </h4>
         <div className="mt-1 text-xs text-text-muted">
-          {packageInfo.durationNights} Nights | Pengkalan Gawi Berth (Roundtrip)
+          {packageInfo.durationNights} Nights | Gawi Jetty Berth (Roundtrip)
         </div>
         <div className="mt-1 font-semibold text-xs text-ink">{dateLabel}</div>
         <div className="mt-0.5 text-xs text-text-muted">{vesselName}</div>

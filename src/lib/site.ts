@@ -12,7 +12,7 @@ export const SITE = {
   phoneHref: "tel:+60199129966",
   email: "enquiry@summercruise.com.my",
   address: "219-E, Hotel Ming Paragon, Jalan Sultan Zainal Abidin, 20000 Kuala Terengganu, Terengganu, Malaysia",
-  jettyAddress: "Pengkalan Gawi Jetty, Tasik Kenyir, 21700 Kuala Berang, Terengganu",
+  jettyAddress: "Gawi Jetty, Tasik Kenyir, 21700 Kuala Berang, Terengganu",
 } as const;
 
 /** §7.1: the two help channels are never hidden behind a hamburger menu. */
