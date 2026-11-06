@@ -1,3 +1,5 @@
+import { navoraFetch } from "./navora/client";
+
 /**
  * Both vessels sail every Monday and Friday at 12:00pm from Pengkalan Gawi
  * Jetty (confirmed on the Green Horizon Charter Package brochure and matched
@@ -131,3 +133,86 @@ export function getDepartureDates(options?: { includeFull?: boolean; limit?: num
 
   return dates;
 }
+
+export interface NavoraDepartureItem {
+  id: string;
+  tripId: string;
+  vesselId: string;
+  departureDate: string;
+  returnDate: string;
+  status: "available" | "closed" | "sold_out" | "cancelled";
+  totalCapacityRooms: number;
+  bookedCapacityRooms: number;
+  remainingCapacityRooms: number;
+  canCharter: boolean;
+  availabilityTone: AvailabilityStatus;
+}
+
+/**
+ * Fetches dynamic departure availability matrix from Navora SaaS.
+ * Falls back to deterministic mock calendar if offline or unconfigured.
+ */
+export async function getLiveDepartureDates(options?: {
+  includeFull?: boolean;
+  limit?: number;
+}): Promise<DepartureDate[]> {
+  const departures = await navoraFetch<NavoraDepartureItem[]>("/api/public/storefront/departures");
+  if (!departures || departures.length === 0) {
+    return getDepartureDates(options);
+  }
+
+  const dateMap = new Map<string, DepartureDate>();
+  for (const dep of departures) {
+    const d = new Date(dep.departureDate);
+    const iso = dep.departureDate.slice(0, 10);
+
+    const vesselKey = dep.vesselId.toLowerCase().includes("green") ? "green-horizon" : "summer-cruise";
+    const vesselAvailability: VesselAvailability = {
+      availableCabins: dep.remainingCapacityRooms,
+      totalCabins: dep.totalCapacityRooms || 12,
+      status: dep.availabilityTone || "green",
+      statusLabel:
+        dep.remainingCapacityRooms === 0
+          ? "Sold Out"
+          : dep.remainingCapacityRooms <= 2
+          ? "Last Cabins"
+          : dep.remainingCapacityRooms <= 5
+          ? "Filling Fast"
+          : "Available",
+      canCharter: dep.canCharter,
+    };
+
+    if (!dateMap.has(iso)) {
+      dateMap.set(iso, {
+        date: d,
+        iso,
+        label: d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric" }),
+        dayName: d.getDay() === 1 ? "Monday" : "Friday",
+        demand: dep.remainingCapacityRooms === 0 ? "full" : dep.remainingCapacityRooms <= 4 ? "selling-fast" : "open",
+        vessels: {
+          "summer-cruise": {
+            availableCabins: 12,
+            totalCabins: 12,
+            status: "green",
+            statusLabel: "Available",
+            canCharter: true,
+          },
+          "green-horizon": {
+            availableCabins: 12,
+            totalCabins: 12,
+            status: "green",
+            statusLabel: "Available",
+            canCharter: true,
+          },
+        },
+      });
+    }
+
+    const entry = dateMap.get(iso)!;
+    entry.vessels[vesselKey] = vesselAvailability;
+  }
+
+  const result = Array.from(dateMap.values());
+  return options?.limit ? result.slice(0, options.limit) : result;
+}
+

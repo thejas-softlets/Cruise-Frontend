@@ -90,6 +90,11 @@ NAVORA_API_KEY="nvr_live_sc_•••••••••••••••••�
 - **Consumer:** `src/lib/api/experiences.ts` -> `getAllExperiences()`, `getExperiencesByKind()`, `getExperienceBySlug()`, `getExperiencesBySlugs()`
 - **Mapping:** Maps dynamic Navora catalog activities (elephant village, Kelah sanctuary fish spa, Bewah prehistoric caves, Melunak rainforest hike) into `Experience` records with hero images, category tags, and package associations.
 
+### 3.8 Sailings & Departure Availability (`/api/public/storefront/departures`)
+- **Consumer:** `src/lib/departure-dates.ts` -> `getLiveDepartureDates()`
+- **Mapping:** Queries real-time departure availability from Navora's Operations Scheduling calendar. Maps available room capacities, full-vessel private charter qualification (`canCharter = true` when 0 rooms booked), and inventory status tones (`green` / `yellow` / `orange` / `red`).
+
+
 
 ---
 
