@@ -1,4 +1,5 @@
 import { SITE } from "@/lib/site";
+import { submitNavoraEnquiry } from "@/lib/navora/client";
 
 export interface EnquiryRecord extends Record<string, unknown> {
   ref: string;
@@ -61,6 +62,21 @@ export async function submitEnquiry(payload: EnquiryRecord["payload"]): Promise<
   } else {
     console.info("[enquiry] Full record (console transport):", JSON.stringify(record, null, 2));
   }
+
+  // Dispatch into Navora CRM (`/commercial/enquiries`)
+  void submitNavoraEnquiry({
+    name: payload.name,
+    phone: payload.phone,
+    email: payload.email,
+    preferredDate: payload.preferredDate,
+    pax: (payload.adults || 0) + (payload.children || 0),
+    packageSlug: payload.packageSlug,
+    vesselId: payload.vesselId,
+    notes: payload.message,
+    source: payload.source,
+  }).catch((err) => {
+    console.warn('[enquiry] Failed to sync enquiry to Navora:', err);
+  });
 
   return record;
 }

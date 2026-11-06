@@ -1,4 +1,6 @@
 import type { FaqCategory } from "@/types";
+import { getNavoraMarketingContent } from "@/lib/navora/client";
+import { mapNavoraFaqsToCategories } from "@/lib/navora/mappers";
 
 export const FAQ_CATEGORIES: FaqCategory[] = [
   {
@@ -160,5 +162,13 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
 ];
 
 export async function getFaqCategories(): Promise<FaqCategory[]> {
+  try {
+    const content = await getNavoraMarketingContent();
+    if (content?.faqs && content.faqs.length > 0) {
+      return mapNavoraFaqsToCategories(content.faqs);
+    }
+  } catch (err) {
+    console.warn("[FAQs] Failed to fetch dynamic FAQs from Navora, using fallback:", err);
+  }
   return FAQ_CATEGORIES;
 }
