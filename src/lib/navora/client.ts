@@ -75,6 +75,13 @@ export async function getNavoraVessels(): Promise<any[] | null> {
 }
 
 /**
+ * Fetch public packages catalog from Navora Storefront API.
+ */
+export async function getNavoraPackages(): Promise<any[] | null> {
+  return navoraFetch<any[]>('/packages');
+}
+
+/**
  * Fetch cabin rooms / categories from Navora Storefront API.
  */
 export async function getNavoraRooms(vesselId?: string): Promise<any[] | null> {

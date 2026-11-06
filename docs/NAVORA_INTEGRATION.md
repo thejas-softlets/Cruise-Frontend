@@ -70,7 +70,11 @@ NAVORA_API_KEY="nvr_live_sc_•••••••••••••••••�
 - **Consumer:** `src/lib/api/lake.ts` -> `getLakeInfo()`
 - **Mapping:** Maps `{ overview, bestTimeToVisit, gettingThereRoad, gettingThereAirport, gettingThereJetty }` to `LakeInfo`.
 
-### 3.4 Fleet Vessels & Stateroom Categories (`/api/public/v1/vessels` & `/api/public/v1/rooms`)
+### 3.4 Packages & Itineraries (`/api/public/v1/packages`)
+- **Consumer:** `src/lib/api/packages.ts` -> `getAllPackages()`, `getPackageBySlug()`, `getFilteredPackages()`
+- **Mapping:** Maps package title, duration nights/label, fromPriceMYR, brochure PDF URL, attraction highlights, inclusions, and exclusions into `Package`.
+
+### 3.5 Fleet Vessels & Stateroom Categories (`/api/public/v1/vessels` & `/api/public/v1/rooms`)
 - **Consumer:** `src/lib/api/vessels.ts` -> `getAllVessels()`, `getVesselById()`; `src/lib/api/rooms.ts` -> `getRoomsByVessel()`
 - **Mapping:** Maps vessel names, passenger capacities (34 PAX for Summer Cruise, 60 PAX for Green Horizon), deck numbers, and cabin categories with ensuite bathroom specs directly into `Vessel` and `RoomCategory`.
 
