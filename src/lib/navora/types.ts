@@ -72,8 +72,8 @@ export interface NavoraMarketingContent {
   faqs?: NavoraFaqItem[];
   reviews?: NavoraReviewItem[];
   destination?: NavoraDestinationInfo;
-  offers?: any[];
-  articles?: any[];
+  offers?: Record<string, unknown>[];
+  articles?: Record<string, unknown>[];
 }
 
 export interface NavoraExperienceItem {

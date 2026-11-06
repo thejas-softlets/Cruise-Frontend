@@ -9,15 +9,21 @@ export async function getAllPackages(): Promise<Package[]> {
     if (remote && Array.isArray(remote) && remote.length > 0) {
       return remote.map((p) => {
         const local = MOCK_PACKAGES.find((m) => m.slug === p.slug);
+        const fromPrice =
+          typeof p.fromPriceMYR === 'number'
+            ? p.fromPriceMYR
+            : typeof p.packageCost === 'number'
+            ? p.packageCost
+            : Number(p.packageCost) || local?.fromPriceMYR || 1000;
         return {
           slug: p.slug || local?.slug || 'package',
           title: p.title || p.categoryName || local?.title || 'Kenyir Lake Cruise',
           vesselId: p.vesselId || local?.vesselId || 'summer-cruise',
           durationNights: p.durationNights || local?.durationNights || 2,
           durationLabel: p.durationLabel || local?.durationLabel || '3 Days 2 Nights',
-          fromPriceMYR: p.fromPriceMYR || p.packageCost || local?.fromPriceMYR || 1000,
+          fromPriceMYR: fromPrice,
           customPriceLabel: p.customPriceLabel || local?.customPriceLabel,
-          heroImage: p.heroImage || local?.heroImage || { src: null, alt: p.title, width: 1920, height: 1080 },
+          heroImage: p.heroImage || local?.heroImage || { src: null, alt: p.title || 'Package', width: 1920, height: 1080 },
           overview: p.overview || p.shortDescription || local?.overview || '',
           highlights: p.highlights || local?.highlights || [],
           itinerary: p.itinerary || local?.itinerary || [],

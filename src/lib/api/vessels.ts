@@ -14,7 +14,7 @@ export async function getAllVessels(): Promise<Vessel[]> {
           id: v.id || local?.id || 'vessel',
           name: v.name || local?.name || 'Luxury Lake Cruise',
           tagline: v.tagline || local?.tagline || '',
-          heroImage: v.heroImage || local?.heroImage || { src: null, alt: v.name, width: 1920, height: 1080 },
+          heroImage: v.heroImage || local?.heroImage || { src: null, alt: v.name || 'Vessel', width: 1920, height: 1080 },
           gallery: v.gallery || local?.gallery || [],
           capacity: v.capacity || local?.capacity || 40,
           crewCount: v.crewCount || local?.crewCount || 10,

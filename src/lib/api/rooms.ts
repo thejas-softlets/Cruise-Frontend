@@ -9,6 +9,12 @@ export async function getRoomsByVessel(vesselId: string): Promise<RoomCategory[]
     if (remote && Array.isArray(remote) && remote.length > 0) {
       return remote.map((r) => {
         const local = MOCK_ROOMS.find((m) => m.id === r.id);
+        const price =
+          typeof r.indicativePriceMYR === 'number'
+            ? r.indicativePriceMYR
+            : typeof r.baseCostPricePerRoomNight === 'number'
+            ? r.baseCostPricePerRoomNight
+            : Number(r.baseCostPricePerRoomNight) || local?.indicativePriceMYR || 1000;
         return {
           id: r.id || local?.id || 'room',
           vesselId: r.vesselId || vesselId,
@@ -16,8 +22,8 @@ export async function getRoomsByVessel(vesselId: string): Promise<RoomCategory[]
           description: r.description || r.shortDescription || local?.description || '',
           amenities: r.amenities || local?.amenities || [],
           occupancy: r.occupancy || r.maxOccupancy || local?.occupancy || 2,
-          indicativePriceMYR: r.indicativePriceMYR || r.baseCostPricePerRoomNight || local?.indicativePriceMYR || 1000,
-          image: r.image || local?.image || { src: null, alt: r.name, width: 1448, height: 1086 },
+          indicativePriceMYR: price,
+          image: r.image || local?.image || { src: null, alt: r.name || 'Room', width: 1448, height: 1086 },
         };
       });
     }

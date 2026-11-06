@@ -55,7 +55,10 @@ export function mapNavoraReviews(reviews: NavoraReviewItem[]): Review[] {
 /**
  * Transforms Navora Lake Kenyir destination overview to `LakeInfo`.
  */
-export function mapNavoraDestination(dest: NavoraDestinationInfo, fallbackGallery: any[] = []): LakeInfo {
+export function mapNavoraDestination(
+  dest: NavoraDestinationInfo,
+  fallbackGallery: LakeInfo['heroGallery'] = [],
+): LakeInfo {
   return {
     overview: dest.overview,
     bestTimeToVisit: dest.bestTimeToVisit,
