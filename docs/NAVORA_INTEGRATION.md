@@ -94,6 +94,11 @@ NAVORA_API_KEY="nvr_live_sc_•••••••••••••••••�
 - **Consumer:** `src/lib/departure-dates.ts` -> `getLiveDepartureDates()`
 - **Mapping:** Queries real-time departure availability from Navora's Operations Scheduling calendar. Maps available room capacities, full-vessel private charter qualification (`canCharter = true` when 0 rooms booked), and inventory status tones (`green` / `yellow` / `orange` / `red`).
 
+### 3.9 Online Storefront Checkout & Reservations (`POST /api/public/storefront/bookings`)
+- **Consumer:** `src/lib/api/booking.ts` -> `submitStorefrontBooking()`
+- **Mapping:** Dispatches confirmed guest bookings and full vessel private charters directly into Navora SaaS (`/bookings`), capturing lead guest, passenger manifests, cabin selections, and SST calculation. Returns booking reference (`SC-YYYY-XXXX` or `CH-YYYY-XXXX`) and direct checkout link with automatic fallback when offline.
+
+
 
 
 ---
