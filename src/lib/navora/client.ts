@@ -68,6 +68,28 @@ export async function getNavoraMarketingContent(): Promise<NavoraMarketingConten
 }
 
 /**
+ * Fetch public fleet vessels from Navora Storefront API.
+ */
+export async function getNavoraVessels(): Promise<any[] | null> {
+  return navoraFetch<any[]>('/vessels');
+}
+
+/**
+ * Fetch cabin rooms / categories from Navora Storefront API.
+ */
+export async function getNavoraRooms(vesselId?: string): Promise<any[] | null> {
+  const query = vesselId ? `?vesselId=${encodeURIComponent(vesselId)}` : '';
+  return navoraFetch<any[]>(`/rooms${query}`);
+}
+
+/**
+ * Fetch interactive deck plan with floor spots from Navora Storefront API.
+ */
+export async function getNavoraDeckPlan(vesselId: string): Promise<any | null> {
+  return navoraFetch<any>(`/vessels/${encodeURIComponent(vesselId)}/deck-plan`);
+}
+
+/**
  * Submit guest enquiry directly into Navora CRM (`/commercial/enquiries`).
  */
 export async function submitNavoraEnquiry(payload: {

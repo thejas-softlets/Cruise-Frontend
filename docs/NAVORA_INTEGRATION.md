@@ -70,7 +70,15 @@ NAVORA_API_KEY="nvr_live_sc_•••••••••••••••••�
 - **Consumer:** `src/lib/api/lake.ts` -> `getLakeInfo()`
 - **Mapping:** Maps `{ overview, bestTimeToVisit, gettingThereRoad, gettingThereAirport, gettingThereJetty }` to `LakeInfo`.
 
-### 3.4 Direct Enquiry Dispatch (`POST /api/public/v1/enquiries`)
+### 3.4 Fleet Vessels & Stateroom Categories (`/api/public/v1/vessels` & `/api/public/v1/rooms`)
+- **Consumer:** `src/lib/api/vessels.ts` -> `getAllVessels()`, `getVesselById()`; `src/lib/api/rooms.ts` -> `getRoomsByVessel()`
+- **Mapping:** Maps vessel names, passenger capacities (34 PAX for Summer Cruise, 60 PAX for Green Horizon), deck numbers, and cabin categories with ensuite bathroom specs directly into `Vessel` and `RoomCategory`.
+
+### 3.5 Interactive Deck Plan Hotspots (`/api/public/v1/vessels/:id/deck-plan`)
+- **Consumer:** `<VesselCabinPicker>` via `getNavoraDeckPlan()`
+- **Mapping:** Returns floor plan blueprints and SVG rectangle hotspot coordinates `{ x, y, w, h }` for cabin selection.
+
+### 3.6 Direct Enquiry Dispatch (`POST /api/public/v1/enquiries`)
 - **Consumer:** `src/lib/api/enquiry.ts` -> `submitEnquiry()`
 - **Behavior:** In addition to sending email via Resend / console logger, submissions are automatically forwarded to Navora's CRM (`/commercial/enquiries`) with guest name, phone, email, preferred date, party size, package slug, and notes.
 
