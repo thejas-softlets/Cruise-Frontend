@@ -2,9 +2,10 @@
  * Mappers translating Navora API responses into MHG Cruise domain types.
  */
 
-import type { FaqCategory, LakeInfo, Review } from '@/types';
+import type { Experience, ExperienceKind, FaqCategory, LakeInfo, Review } from '@/types';
 import type {
   NavoraDestinationInfo,
+  NavoraExperienceItem,
   NavoraFaqItem,
   NavoraReviewItem,
 } from './types';
@@ -66,3 +67,21 @@ export function mapNavoraDestination(dest: NavoraDestinationInfo, fallbackGaller
     heroGallery: fallbackGallery,
   };
 }
+
+/**
+ * Transforms a Navora experience/catalog item into an `Experience`.
+ */
+export function mapNavoraExperienceToDomain(item: NavoraExperienceItem): Experience {
+  return {
+    slug: item.slug,
+    kind: (item.kind as ExperienceKind) || 'excursions',
+    title: item.title,
+    images: item.heroImageUrl
+      ? [{ src: item.heroImageUrl, alt: item.title, width: 1200, height: 800 }]
+      : [],
+    lines: item.lines || [],
+    tags: item.tags || (item.shortTag ? [item.shortTag] : []),
+    includedInPackageSlugs: item.includedInPackageSlugs || [],
+  };
+}
+

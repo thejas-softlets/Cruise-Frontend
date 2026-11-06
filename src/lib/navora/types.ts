@@ -75,3 +75,16 @@ export interface NavoraMarketingContent {
   offers?: any[];
   articles?: any[];
 }
+
+export interface NavoraExperienceItem {
+  id: string;
+  slug: string;
+  kind?: string;
+  title: string;
+  heroImageUrl?: string;
+  shortTag?: string;
+  tags?: string[];
+  lines?: string[];
+  includedInPackageSlugs?: string[];
+}
+

@@ -13,7 +13,7 @@ const API_BASE = process.env.NAVORA_API_URL || 'http://localhost:4000/api/public
 const API_KEY = process.env.NAVORA_API_KEY || '';
 const REQUEST_TIMEOUT_MS = 6000;
 
-async function navoraFetch<T>(endpoint: string, options: RequestInit = {}): Promise<T | null> {
+export async function navoraFetch<T>(endpoint: string, options: RequestInit = {}): Promise<T | null> {
   if (!API_KEY) {
     return null;
   }

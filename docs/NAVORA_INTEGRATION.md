@@ -86,6 +86,11 @@ NAVORA_API_KEY="nvr_live_sc_•••••••••••••••••�
 - **Consumer:** `src/lib/api/enquiry.ts` -> `submitEnquiry()`
 - **Behavior:** In addition to sending email via Resend / console logger, submissions are automatically forwarded to Navora's CRM (`/commercial/enquiries`) with guest name, phone, email, preferred date, party size, package slug, and notes.
 
+### 3.7 Experiences & Activity Catalog (`/api/public/storefront/experiences`)
+- **Consumer:** `src/lib/api/experiences.ts` -> `getAllExperiences()`, `getExperiencesByKind()`, `getExperienceBySlug()`, `getExperiencesBySlugs()`
+- **Mapping:** Maps dynamic Navora catalog activities (elephant village, Kelah sanctuary fish spa, Bewah prehistoric caves, Melunak rainforest hike) into `Experience` records with hero images, category tags, and package associations.
+
+
 ---
 
 ## 4. Verification & Quality Gates
